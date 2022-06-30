@@ -12,8 +12,7 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
-    "export": "next export",
-    "deploy": "npm run build && npm run export"
+    "export": "next export"
   },
   "dependencies": {
     "@headlessui/react": "1.6.4",
