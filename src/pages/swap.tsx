@@ -18,8 +18,8 @@ var web3: Web3;
 
 const enable = async () => {
     web3 = new Web3(Web3.givenProvider);
-    const accounts = await web3.eth.requestAccounts();
-    console.log(accounts);
+    //const accounts = await web3.eth.requestAccounts();
+    //console.log(accounts);
 }
 
 enable();
