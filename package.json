@@ -6,11 +6,13 @@
     "node": "16.14.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
- },
+    "clean": "rimraf \"{node_modules,.next,out.cache}\"",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "prepare": "husky install"
+  },
   "dependencies": {
     "@headlessui/react": "1.6.4",
     "@hookform/resolvers": "2.9.1",
