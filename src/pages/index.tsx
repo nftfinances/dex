@@ -37,34 +37,6 @@ const HomePage: NextPageWithLayout<
             <CoinSlider coins={coinSlideData} />
           </div>
           <div className="w-full sm:w-1/2 md:w-64 lg:w-72 2xl:w-80 3xl:w-[358px]">
-            <div className="flex h-full flex-col justify-center rounded-lg bg-white p-6 shadow-card dark:bg-light-dark xl:p-8">
-              <div className="relative mx-auto mb-6 h-20 w-20 shrink-0 overflow-hidden rounded-full border-4 border-white drop-shadow-main dark:border-gray-400 lg:h-24 lg:w-24">
-                <Image
-                  src={AuthorImage}
-                  alt="Author"
-                  className="rounded-full"
-                  placeholder="blur"
-                  layout="fill"
-                  objectFit="cover"
-                />
-              </div>
-              <h3 className="mb-2 text-center text-sm uppercase tracking-wider text-gray-500 dark:text-gray-400 3xl:mb-3">
-                My Balance
-              </h3>
-              <div className="mb-7 text-center font-medium tracking-tighter text-gray-900 dark:text-white xl:text-2xl 3xl:mb-8 3xl:text-[32px]">
-                $10,86,000
-              </div>
-
-              <button className="flex h-10 w-full items-center whitespace-nowrap rounded-lg border-2 border-dashed border-gray-500 bg-gray-100 px-6 text-sm uppercase tracking-wider text-gray-900 dark:border-gray-600 dark:bg-gray-800 dark:text-white lg:h-12 3xl:h-13">
-                <span className="mr-3.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gray-900 text-white lg:h-6 lg:w-6">
-                  <Plus className="lg:w-aut h-auto w-2.5" />
-                </span>
-                <span className="mr-3.5 flex-grow text-justify text-xs lg:text-sm">
-                  Top Up Balance
-                </span>
-                <ChevronForward />
-              </button>
-            </div>
           </div>
         </div>
 
