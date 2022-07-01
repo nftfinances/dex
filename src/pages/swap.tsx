@@ -18,8 +18,14 @@ var web3: Web3;
 
 const enable = async () => {
     web3 = new Web3(Web3.givenProvider);
+    //const web3 = new Web3.providers.WebsocketProvider("wss://mainnet.infura.io/ws/v3/317a3a523e064dafa40cb8e6a3e71190")
+    //const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/317a3a523e064dafa40cb8e6a3e71190"));
+    //const web3 = window.web3.currentProvider
+    
     //const accounts = await web3.eth.requestAccounts();
-    //console.log(accounts);
+    const accounts = await web3.eth.accounts[0];
+    //const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+    console.log(accounts);
 }
 
 enable();

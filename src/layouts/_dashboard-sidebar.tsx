@@ -9,17 +9,8 @@ import { useDrawer } from '@/components/drawer-views/context';
 import { HomeIcon } from '@/components/icons/home';
 import { FarmIcon } from '@/components/icons/farm';
 import { PoolIcon } from '@/components/icons/pool';
-import { ProfileIcon } from '@/components/icons/profile';
-import { DiskIcon } from '@/components/icons/disk';
 import { ExchangeIcon } from '@/components/icons/exchange';
-import { VoteIcon } from '@/components/icons/vote-icon';
 import { Close } from '@/components/icons/close';
-import { PlusCircle } from '@/components/icons/plus-circle';
-import { CompassIcon } from '@/components/icons/compass';
-import { InfoCircle } from '@/components/icons/info-circle';
-
-//images
-import AuthorImage from '@/assets/images/author.jpg';
 
 const menuItems = [
   {
@@ -41,45 +32,6 @@ const menuItems = [
     name: 'Liquidity',
     icon: <PoolIcon />,
     href: routes.liquidity,
-  },
-  {
-    name: 'Explore NFTs',
-    icon: <CompassIcon />,
-    href: routes.search,
-  },
-  {
-    name: 'Create NFT',
-    icon: <PlusCircle />,
-    href: routes.createNft,
-  },
-  {
-    name: 'NFT Details',
-    icon: <DiskIcon />,
-    href: routes.nftDetails,
-  },
-  {
-    name: 'Profile',
-    icon: <ProfileIcon />,
-    href: routes.profile,
-  },
-  {
-    name: 'Vote',
-    icon: <VoteIcon />,
-    href: '/vote',
-    dropdownItems: [
-      {
-        name: 'Explore',
-        href: routes.vote,
-      },
-      {
-        name: 'Vote with pools',
-        href: routes.proposals,
-      },
-      {
-        name: 'Create proposal',
-        href: routes.createProposal,
-      },
-    ],
   },
 ];
 
@@ -114,11 +66,6 @@ export default function Sidebar({ className }: SidebarProps) {
 
       <Scrollbar style={{ height: 'calc(100% - 96px)' }}>
         <div className="px-6 pb-5 2xl:px-8">
-          <AuthorCard
-            image={AuthorImage}
-            name="Cameron Williamson"
-            role="admin"
-          />
 
           <div className="mt-12">
             {menuItems.map((item, index) => (
