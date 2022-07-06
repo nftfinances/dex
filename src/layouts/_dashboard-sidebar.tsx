@@ -1,5 +1,4 @@
 import cn from 'classnames';
-import AuthorCard from '@/components/ui/author-card';
 import Logo from '@/components/ui/logo';
 import { MenuItem } from '@/components/ui/collapsible-menu';
 import Scrollbar from '@/components/ui/scrollbar';
@@ -7,7 +6,6 @@ import Button from '@/components/ui/button';
 import routes from '@/config/routes';
 import { useDrawer } from '@/components/drawer-views/context';
 import { HomeIcon } from '@/components/icons/home';
-import { FarmIcon } from '@/components/icons/farm';
 import { PoolIcon } from '@/components/icons/pool';
 import { ExchangeIcon } from '@/components/icons/exchange';
 import { Close } from '@/components/icons/close';
@@ -17,11 +15,6 @@ const menuItems = [
     name: 'Home',
     icon: <HomeIcon />,
     href: routes.home,
-  },
-  {
-    name: 'Farm',
-    icon: <FarmIcon />,
-    href: routes.farms,
   },
   {
     name: 'Swap',

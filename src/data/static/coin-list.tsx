@@ -34,12 +34,12 @@ export const coinList = [
   },
   {
     icon: <Cardano />,
-    code: 'ADA',
-    name: 'Cardano',
+    code: 'PB',
+    name: 'PB TOKEN',
   },
   {
     icon: <Doge />,
-    code: 'DOGE',
-    name: 'Doge Coin',
+    code: 'DF',
+    name: 'DF TOKEN',
   },
 ];
