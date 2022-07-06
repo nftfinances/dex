@@ -23,21 +23,21 @@ const enable = async () => {
     //const web3 = window.web3.currentProvider
     
     //const accounts = await web3.eth.requestAccounts();
-    const accounts = await web3.eth.accounts[0];
+    //const accounts = await web3.eth.accounts[0];
     //const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-    console.log(accounts);
+    //console.log(accounts);
 
-    const provider = await detectEthereumProvider({ mustBeMetaMask: true });
-    if (provider && window.ethereum?.isMetaMask) {
-      console.log('Welcome to MetaMask User🎉');
+    //const provider = await detectEthereumProvider({ mustBeMetaMask: true });
+    //if (provider && window.ethereum?.isMetaMask) {
+      //console.log('Welcome to MetaMask User🎉');
       
-      web3 = new Web3(Web3.givenProvider);
-      web3.eth.defaultChain = "mainnet";
+      //web3 = new Web3(Web3.givenProvider);
+      //web3.eth.defaultChain = "mainnet";
 
-      const accounts = await web3.eth.requestAccounts();
-    } else {
-      console.log('Please Install MetaMask🙇‍♂️')
-    }
+      //const accounts = await web3.eth.requestAccounts();
+    //} else {
+      //console.log('Please Install MetaMask🙇‍♂️')
+    //}
 }
 
 enable();
