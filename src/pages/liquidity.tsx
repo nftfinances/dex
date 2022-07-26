@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { NextSeo } from 'next-seo';
 import TradeLayout from '@/layouts/_trade-layout';
 import Button from '@/components/ui/button';
-import CoinInput from '@/components/ui/coin-input';
+import CoinInput from '@/components/ui/coin-input1';
 import TransactionInfo from '@/components/ui/transaction-info';
 import { Plus } from '@/components/icons/plus';
 import ActiveLink from '@/components/ui/links/active-link';
