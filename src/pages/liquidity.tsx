@@ -184,7 +184,7 @@ const LiquidityPage: NextPageWithLayout = () => {
               className="uppercase"
               onClick={() => approve(count)}
             >
-              Approve BTC
+              Approve 1
             </Button>
             <Button
               size="large"
@@ -193,7 +193,7 @@ const LiquidityPage: NextPageWithLayout = () => {
               className="uppercase"
               onClick={() => approve1(count1)}
             >
-              Approve ETH
+              Approve 2
             </Button>
             <Button
               size="large"
@@ -202,7 +202,7 @@ const LiquidityPage: NextPageWithLayout = () => {
               className="mt-6 uppercase xs:mt-8 xs:tracking-widest sendEthButton2"
               onClick={() => dec(count, count1)}
             >
-              SWAP
+              POOL
             </Button>
         </div>
       </TradeLayout>
