@@ -1,0 +1,42 @@
+{
+  "../components/drawer-views/container.tsx -> @/layouts/_dashboard-sidebar": {
+    "id": "../components/drawer-views/container.tsx -> @/layouts/_dashboard-sidebar",
+    "files": []
+  },
+  "../components/drawer-views/container.tsx -> @/layouts/_layout-menu": {
+    "id": "../components/drawer-views/container.tsx -> @/layouts/_layout-menu",
+    "files": [
+      "static/chunks/src_layouts__layout-menu_tsx.js"
+    ]
+  },
+  "../components/modal-views/container.tsx -> @/components/nft/select-wallet": {
+    "id": "../components/modal-views/container.tsx -> @/components/nft/select-wallet",
+    "files": [
+      "static/chunks/src_components_nft_select-wallet_tsx.js"
+    ]
+  },
+  "../components/modal-views/container.tsx -> @/components/nft/share-view": {
+    "id": "../components/modal-views/container.tsx -> @/components/nft/share-view",
+    "files": [
+      "static/chunks/src_components_nft_share-view_tsx.js"
+    ]
+  },
+  "../components/modal-views/container.tsx -> @/components/search/view": {
+    "id": "../components/modal-views/container.tsx -> @/components/search/view",
+    "files": [
+      "static/chunks/src_components_search_view_tsx.js"
+    ]
+  },
+  "../components/ui/coin-input.tsx -> @/components/ui/coin-select-view": {
+    "id": "../components/ui/coin-input.tsx -> @/components/ui/coin-select-view",
+    "files": [
+      "static/chunks/src_components_ui_coin-select-view_tsx.js"
+    ]
+  },
+  "../layouts/_trade-layout.tsx -> @/components/ui/list-box": {
+    "id": "../layouts/_trade-layout.tsx -> @/components/ui/list-box",
+    "files": [
+      "static/chunks/src_components_ui_list-box_tsx.js"
+    ]
+  }
+}

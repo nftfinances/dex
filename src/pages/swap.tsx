@@ -10,7 +10,6 @@ import { SwapIcon } from '@/components/icons/swap-icon';
 
 import ABI from "@/contracts/swap.json";
 import detectEthereumProvider from '@metamask/detect-provider';
-
 import Web3 from "web3";
 
 const abi = ABI;
@@ -51,13 +50,18 @@ async function dec(count, count1){
       console.log(greeting);
       console.log("tt");
       console.log(count.coin);
+      console.log(count.value);
+      console.log(count1.coin);
       console.log(count1.value);
 
-      
-      
+      const swap_method = "swap_contract.methods.swap" + "_" + count.coin.toLowerCase() + "_" +count1.coin.toLowerCase() + "(" + count.value + ").encodeABI()";
+      console.log(swap_method);
+
       const accounts = await web3.eth.requestAccounts();
 
-      var dataFie = swap_contract.methods.swap_usdc_df(1).encodeABI(); //user address to CONTRACT
+      //var dataFie = swap_contract.methods.swap_usdc_df(1).encodeABI(); //user address to CONTRACT
+      var dataFie = eval(swap_method); //user address to CONTRACT
+
       window.ethereum.request({
         method: 'eth_sendTransaction',
         params: [
