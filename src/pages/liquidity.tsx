@@ -10,8 +10,6 @@ import ActiveLink from '@/components/ui/links/active-link';
 
 import ABI from "@/contracts/pool.json";
 import tokenABI from "@/contracts/token.json";
-
-import detectEthereumProvider from '@metamask/detect-provider';
 import Web3 from "web3";
 
 const abi = ABI;
@@ -21,6 +19,10 @@ var web3: Web3;
 
 const enable = async () => {
     web3 = new Web3(Web3.givenProvider);
+    // web3 = new Web3.providers.WebsocketProvider("wss://mainnet.infura.io/ws/v3/317a3a523e064dafa40cb8e6a3e71190")
+    // web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/317a3a523e064dafa40cb8e6a3e71190"));
+    // web3 = window.web3.currentProvider
+    //web3.setProvider(new Web3.providers.HttpProvider("http://localhost:3000"));
 }
 
 enable();
@@ -50,6 +52,51 @@ async function dec(count, count1){
         })
         .then((txHash) => console.log(txHash))
         .catch((error) => console.error);
+}
+
+async function check_status(){
+  const accounts = await web3.eth.requestAccounts();
+
+  let LP_token = new web3.eth.Contract(tokenABI, "0x0042b1997C92A3eF2A0Cabbb52B4028Bb44c9c32");
+  var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
+  console.log("Number of Staking")
+  console.log(lp_num/Math.pow(10, 18));
+
+  let LP_token1 = new web3.eth.Contract(tokenABI, "0x6C71d03cDBdb37BbB471F0299e27Be3C0786F712");
+  var lp_num1 = await LP_token1.methods.balanceOf(accounts[0]).call();
+
+  let LP_token2 = new web3.eth.Contract(tokenABI, "0xfcc52458fD60F4ce9A00a53C8dBb7a7D5dBD5582");
+  var lp_num2 = await LP_token2.methods.balanceOf(accounts[0]).call();
+
+  let Pool_contract = new web3.eth.Contract(ABI, "0x1019f470d86b03ab8f814080816f83f1d545d87c");
+  
+  var apy_b = await Pool_contract.methods.check_apy_b(accounts[0]).call(); 
+  var apy_a = await Pool_contract.methods.check_apy_a(accounts[0]).call(); 
+  var apy_c = await Pool_contract.methods.check_apy_c(accounts[0]).call(); 
+
+  console.log("stake staus")
+  if (apy_a == 19163){
+      apy_a = "";
+  }
+
+  if (apy_a == 19163){
+    apy_b = "";
+  }
+
+  if (apy_a == 19163){
+    apy_c = "";
+  }
+
+  document.getElementById("stake_num").innerHTML = lp_num/Math.pow(10, 18);
+  document.getElementById("stake_status").innerHTML = (lp_num*apy_a*100025/100000).toString().slice(0,5);
+
+  document.getElementById("stake_num1").innerHTML = lp_num1/Math.pow(10, 18);
+  document.getElementById("stake_status1").innerHTML = (lp_num1*apy_b*100025/100000).toString().slice(0,5);
+
+
+  document.getElementById("stake_num2").innerHTML = lp_num2/Math.pow(10, 18);
+  document.getElementById("stake_status2").innerHTML = (lp_num2*apy_c*100025/100000).toString().slice(0,5);
+
 }
 
 async function approve(count){
@@ -176,6 +223,30 @@ const LiquidityPage: NextPageWithLayout = () => {
             value={'Share of Pool'}
           />
         </div>
+        <div className="flex flex-col gap-4 xs:gap-[18px]">
+            <table>
+              <thead>
+                  <tr　align="left">
+                      <th>BUSD-USDT</th>
+                      <th>BUSD-USDC</th>
+                      <th>USDT-USDT</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><span id="stake_num"></span>LP</td>
+                      <td><span id="stake_num1"></span>LP</td>
+                      <td><span id="stake_num2"></span>LP</td>
+                  </tr>
+                  <tr>
+                      <td><span id="stake_status"></span> DF </td>
+                      <td><span id="stake_status1"></span> DF</td>
+                      <td><span id="stake_status2"></span>DF</td>
+                  </tr>
+              </tbody>
+          </table>
+   
+        </div>
         <div className="mt-6 grid grid-cols-2 gap-2.5 xs:mt-8">
             <Button
               size="large"
@@ -194,6 +265,15 @@ const LiquidityPage: NextPageWithLayout = () => {
               onClick={() => approve1(count1)}
             >
               Approve 2
+            </Button>
+            <Button
+              size="large"
+              shape="rounded"
+              fullWidth={true}
+              className="mt-6 uppercase xs:mt-8 xs:tracking-widest sendEthButton2"
+              onClick={() => check_status()}
+            >
+              CHECK STATUS
             </Button>
             <Button
               size="large"
