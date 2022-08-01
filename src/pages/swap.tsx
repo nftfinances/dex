@@ -112,8 +112,8 @@ const SwapPage: NextPageWithLayout = () => {
   return (
     <>
       <NextSeo
-        title="Swap"
-        description="Criptic - React Next Web3 NFT Crypto Dashboard Template"
+        title="Swap ~ DREAM FINANCE"
+        description="DreamFinance is a DEX that will revolutionize the Casino industry. Users and platformers should play as equals and have fun."
       />
       <TradeLayout>
         <div className="mb-5 border-b border-dashed border-gray-200 pb-5 dark:border-gray-800 xs:mb-7 xs:pb-6">
