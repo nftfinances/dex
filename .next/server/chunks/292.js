@@ -431,7 +431,7 @@ function WalletConnect() {
                                             children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
                                                 className: "border-b border-dashed border-gray-200 p-3 dark:border-gray-700",
                                                 children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_components_ui_links_active_link__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .Z, {
-                                                    href: "/profile",
+                                                    href: "/liquidity",
                                                     className: "flex items-center gap-3 rounded-lg py-2.5 px-3 text-sm font-medium text-gray-900 transition hover:bg-gray-50 dark:text-white dark:hover:bg-gray-800",
                                                     children: [
                                                         /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("span", {
@@ -439,7 +439,7 @@ function WalletConnect() {
                                                         }),
                                                         /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("span", {
                                                             className: "grow uppercase",
-                                                            children: "View Your Profile"
+                                                            children: "View Your Pool"
                                                         }),
                                                         /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_icons_chevron_forward__WEBPACK_IMPORTED_MODULE_6__/* .ChevronForward */ .Q, {})
                                                     ]
@@ -472,7 +472,7 @@ function WalletConnect() {
                                                             className: "mt-3 font-medium uppercase tracking-wider text-gray-900 dark:text-white",
                                                             children: [
                                                                 balance,
-                                                                " ETH"
+                                                                " BNB"
                                                             ]
                                                         })
                                                     ]
@@ -502,10 +502,10 @@ function WalletConnect() {
                     })
                 }),
                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_ui_links_active_link__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .Z, {
-                    href: "/create-nft",
+                    href: "/swap",
                     children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_ui_button__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z, {
                         className: "shadow-main hover:shadow-large",
-                        children: "CREATE"
+                        children: "SWAP"
                     })
                 })
             ]

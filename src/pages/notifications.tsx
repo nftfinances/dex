@@ -8,57 +8,21 @@ import NotificationCard, {
 } from '@/components/ui/notification-card';
 
 //images
-import User1 from '@/assets/images/avatar/8.jpg';
-import User2 from '@/assets/images/avatar/9.jpg';
-import User3 from '@/assets/images/avatar/10.jpg';
-import User4 from '@/assets/images/avatar/11.jpg';
+import User1 from '@/assets/images/avatar/df_logo.png';
 import Image from '@/components/ui/image';
 import { url } from 'inspector';
 
 const notifications = [
   {
     id: 1,
-    type: 'followed',
+    type: 'Started',
     actor: {
-      name: 'dolcemariposa',
+      name: 'DREAM FINANCE ADMIN',
       avatar: User1,
     },
     time: 'Just Now',
     url: '#',
-    notifier: 'you',
-  },
-  {
-    id: 2,
-    type: 'liked',
-    actor: {
-      name: 'pimptronot',
-      avatar: User2,
-    },
-    time: '10 minutes ago',
-    url: '#',
-    notifier: 'Cryppo #1491',
-  },
-  {
-    id: 3,
-    type: 'purchased',
-    actor: {
-      name: 'centralgold',
-      avatar: User3,
-    },
-    time: '20 minutes ago',
-    url: '#',
-    notifier: 'Pepe mfer #16241',
-  },
-  {
-    id: 4,
-    type: 'followed',
-    actor: {
-      name: 'theline',
-      avatar: User4,
-    },
-    time: '30 minutes ago',
-    url: '#',
-    notifier: 'you',
+    notifier: 'with you',
   },
 ];
 
