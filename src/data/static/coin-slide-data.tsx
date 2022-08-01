@@ -7,8 +7,8 @@ import BinanceImage from '@/assets/images/coin/binance.svg';
 export const coinSlideData = [
   {
     id: '0',
-    name: 'Bitcoin',
-    symbol: 'BTC',
+    name: 'DF TOKEN',
+    symbol: 'DF',
     balance: '0.2231345',
     usdBalance: '11,032.24',
     logo: BitcoinImage,
@@ -29,8 +29,8 @@ export const coinSlideData = [
   },
   {
     id: '2',
-    name: 'Cardano',
-    symbol: 'ADA',
+    name: 'PB TOKEN',
+    symbol: 'PB',
     balance: '1.2370',
     usdBalance: '532.94',
     logo: CardanoImage,

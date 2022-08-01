@@ -27,8 +27,8 @@ export const TopTokensData = [
   },
   {
     icon: <Bnb />,
-    code: 'BNB',
-    name: 'Binance Coin',
+    code: 'BUSD',
+    name: 'Binance USD',
     volume: '396.4M',
   },
   {
@@ -53,33 +53,18 @@ export const TopTokensData = [
 
 export const TopPoolsData = [
   {
-    from: 'BTC',
-    to: 'USDC',
-    volume: '434.2M',
-  },
-  {
-    from: 'USDT',
-    to: 'DOGE',
-    volume: '356.4M',
-  },
-  {
-    from: 'ADA',
-    to: 'BNB',
-    volume: '295.6M',
-  },
-  {
     from: 'USDT',
     to: 'USDC',
     volume: '402.5M',
   },
   {
-    from: 'ETH',
-    to: 'DOGE',
-    volume: '590.2M',
+    from: 'USDC',
+    to: 'BNB',
+    volume: '356.4M',
   },
   {
-    from: 'BTC',
-    to: 'ADA',
-    volume: '104.6M',
+    from: 'USDT',
+    to: 'BNB',
+    volume: '295.6M',
   },
 ];

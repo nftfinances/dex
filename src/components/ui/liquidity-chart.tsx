@@ -26,7 +26,7 @@ const numberAbbr = (number: any) => {
 };
 
 export default function LiquidityChart() {
-  let [date, setDate] = useState(1624147200);
+  let [date, setDate] = useState(1659349928);
   let [liquidity, setLiquidity] = useState('547792029');
   const formattedDate = format(new Date(date * 1000), 'MMMM d, yyyy');
   const dailyLiquidity = numberAbbr(liquidity);

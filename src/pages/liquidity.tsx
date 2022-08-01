@@ -31,7 +31,18 @@ async function dec(count, count1){
       let pool_contract = new web3.eth.Contract(ABI, "0x1019F470D86B03aB8f814080816F83f1D545D87c");
 
       const greeting = await pool_contract.methods.check_apy_a("0x34De3E504892841e0247931582028bEbbF27220d").call();
-      const pool_method = "pool_contract.methods.pool" + "_" + count.coin.toLowerCase() + "_" +count1.coin.toLowerCase() + "(" + count.value + ").encodeABI()";
+      var pool_method = "pool_contract.methods.pool" + "_" + count.coin.toLowerCase() + "_" +count1.coin.toLowerCase() + "(" + count.value + ").encodeABI()";
+      if (count.coin == "USDT" && count1.coin == "BUSD") {
+        pool_method = "pool_contract.methods.pool" + "_" + count1.coin.toLowerCase() + "_" +count.coin.toLowerCase() + "(" + count.value + ").encodeABI()";
+      };
+      if (count.coin == "USDT" && count1.coin == "USDC") {
+        pool_method = "pool_contract.methods.pool" + "_" + count1.coin.toLowerCase() + "_" +count.coin.toLowerCase() + "(" + count.value + ").encodeABI()";
+      }
+      if (count.coin == "BUSD" && count1.coin == "USDC") {
+        pool_method = "pool_contract.methods.pool" + "_" + count1.coin.toLowerCase() + "_" +count.coin.toLowerCase() + "(" + count.value + ").encodeABI()";
+      }
+
+
       console.log(pool_method);
 
       const accounts = await web3.eth.requestAccounts();
@@ -52,6 +63,8 @@ async function dec(count, count1){
         })
         .then((txHash) => console.log(txHash))
         .catch((error) => console.error);
+
+        
 }
 
 async function check_status(){
@@ -137,6 +150,7 @@ async function approve(count){
     })
     .then((txHash) => console.log(txHash))
     .catch((error) => console.error);
+
 }
 
 async function approve1(count1){
@@ -215,13 +229,6 @@ const LiquidityPage: NextPageWithLayout = () => {
               getCoinValue={(data) => setCount1(data)}
             />
           </div>
-        </div>
-        <div className="flex flex-col gap-4 xs:gap-[18px]">
-          <TransactionInfo label={'13.77 eth per btc'} value={'0%'} />
-          <TransactionInfo
-            label={'0.072631 Btc per ETH'}
-            value={'Share of Pool'}
-          />
         </div>
         <div className="flex flex-col gap-4 xs:gap-[18px]">
             <table>
