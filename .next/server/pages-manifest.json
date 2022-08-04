@@ -1,6 +1,20 @@
 {
-  "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
+  "/404": "pages/404.html",
   "/_document": "pages/_document.js",
-  "/liquidity": "pages/liquidity.js"
+  "/farms-2": "pages/farms-2.html",
+  "/create-nft": "pages/create-nft.html",
+  "/farms": "pages/farms.html",
+  "/liquidity": "pages/liquidity.html",
+  "/notifications": "pages/notifications.html",
+  "/proposals/create": "pages/proposals/create.html",
+  "/swap": "pages/swap.html",
+  "/vote": "pages/vote.html",
+  "/liquidity-position": "pages/liquidity-position.html",
+  "/_app": "pages/_app.js",
+  "/proposals": "pages/proposals.html",
+  "/": "pages/index.js",
+  "/nft-details": "pages/nft-details.js",
+  "/search": "pages/search.js",
+  "/profile": "pages/profile.js"
 }

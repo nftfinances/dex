@@ -70,22 +70,22 @@ async function dec(count, count1){
 async function check_status(){
   const accounts = await web3.eth.requestAccounts();
 
-  let LP_token = new web3.eth.Contract(tokenABI, "0x0042b1997C92A3eF2A0Cabbb52B4028Bb44c9c32");
+  let LP_token = new web3.eth.Contract(tokenABI, "0x0042b1997C92A3eF2A0Cabbb52B4028Bb44c9c32"); //BUSD-USDT
   var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
   console.log("Number of Staking")
   console.log(lp_num/Math.pow(10, 18));
 
-  let LP_token1 = new web3.eth.Contract(tokenABI, "0x6C71d03cDBdb37BbB471F0299e27Be3C0786F712");
+  let LP_token1 = new web3.eth.Contract(tokenABI, "0x6C71d03cDBdb37BbB471F0299e27Be3C0786F712"); //BUSD-USDC
   var lp_num1 = await LP_token1.methods.balanceOf(accounts[0]).call();
 
-  let LP_token2 = new web3.eth.Contract(tokenABI, "0xfcc52458fD60F4ce9A00a53C8dBb7a7D5dBD5582");
+  let LP_token2 = new web3.eth.Contract(tokenABI, "0xfcc52458fD60F4ce9A00a53C8dBb7a7D5dBD5582"); //USDC-USDT
   var lp_num2 = await LP_token2.methods.balanceOf(accounts[0]).call();
 
   let Pool_contract = new web3.eth.Contract(ABI, "0x1019f470d86b03ab8f814080816f83f1d545d87c");
   
-  var apy_b = await Pool_contract.methods.check_apy_b(accounts[0]).call(); 
-  var apy_a = await Pool_contract.methods.check_apy_a(accounts[0]).call(); 
-  var apy_c = await Pool_contract.methods.check_apy_c(accounts[0]).call(); 
+  var apy_b = await Pool_contract.methods.check_apy_b(accounts[0]).call(); //USDC-USDT
+  var apy_a = await Pool_contract.methods.check_apy_a(accounts[0]).call(); //BUSD-USDC
+  var apy_c = await Pool_contract.methods.check_apy_c(accounts[0]).call(); //BUSD-USDT
 
   console.log("stake staus")
   if (apy_a == 19163){
@@ -101,18 +101,18 @@ async function check_status(){
   }
 
   document.getElementById("stake_num").innerHTML = lp_num/Math.pow(10, 18);
-  document.getElementById("stake_status").innerHTML = (lp_num*apy_a*100025/100000).toString().slice(0,5);
+  document.getElementById("stake_status").innerHTML = (lp_num*apy_c*100025/100000).toString().slice(0,5);
 
   document.getElementById("stake_num1").innerHTML = lp_num1/Math.pow(10, 18);
-  document.getElementById("stake_status1").innerHTML = (lp_num1*apy_b*100025/100000).toString().slice(0,5);
+  document.getElementById("stake_status1").innerHTML = (lp_num1*apy_a*100025/100000).toString().slice(0,5);
 
 
   document.getElementById("stake_num2").innerHTML = lp_num2/Math.pow(10, 18);
-  document.getElementById("stake_status2").innerHTML = (lp_num2*apy_c*100025/100000).toString().slice(0,5);
+  document.getElementById("stake_status2").innerHTML = (lp_num2*apy_b*100025/100000).toString().slice(0,5);
 
 }
 
-async function approve(count){
+async function approve(count, count1){
   console.log(count);
   if (count.coin == "USDT"){
     var token_add = "0x55d398326f99059ff775485246999027b3197955";
@@ -151,39 +151,34 @@ async function approve(count){
     .then((txHash) => console.log(txHash))
     .catch((error) => console.error);
 
-}
-
-async function approve1(count1){
   console.log(count1);
   if (count1.coin == "USDT"){
-    var token_add = "0x55d398326f99059ff775485246999027b3197955";
+    var token_add1 = "0x55d398326f99059ff775485246999027b3197955";
   } else if( count1.coin == "USDC") {
-    var token_add = "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d";
+    var token_add1 = "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d";
   } else if( count1.coin == "BUSD") {
-    var token_add = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
+    var token_add1 = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
   } else if( count1.coin == "PB") {
-    var token_add = "0x3a76C55C6BEF5Cb38A405c767C1d33F91aF20Ed1";
+    var token_add1 = "0x3a76C55C6BEF5Cb38A405c767C1d33F91aF20Ed1";
   }  else if( count1.coin == "DF") {
-    var token_add = "0x774f896898C91Cf0afc69AEA135435fD7aec31a6";
+    var token_add1 = "0x774f896898C91Cf0afc69AEA135435fD7aec31a6";
   } else {
     console.log("NOT REGISTERED ADD")
   }
   console.log(token_add);
 
-  let token_contract = new web3.eth.Contract(tokenABI, token_add);
-
-  const accounts = await web3.eth.requestAccounts();
+  let token_contract1 = new web3.eth.Contract(tokenABI, token_add1);
   var heko = BigInt(10000*Math.pow(10, 18));
 
   // pool contract address
-  var dataFie = token_contract.methods.approve("0x1019f470d86b03ab8f814080816f83f1d545d87c", heko).encodeABI(); 
+  var dataFie = token_contract1.methods.approve("0x1019f470d86b03ab8f814080816f83f1d545d87c", heko).encodeABI(); 
 
   window.ethereum.request({
     method: 'eth_sendTransaction',
     params: [
         {
             from: accounts[0],
-            to: token_add,  //BUSD Contract Address
+            to: token_add1,  //BUSD Contract Address
             data: dataFie,
             gas: '1d184',
         },
@@ -191,6 +186,88 @@ async function approve1(count1){
     })
     .then((txHash) => console.log(txHash))
     .catch((error) => console.error);
+
+    if (count.coin == "USDT" && count1.coin == "BUSD") {
+      var lp_ad = "0x0042b1997C92A3eF2A0Cabbb52B4028Bb44c9c32";
+    }
+    if (count.coin == "BUSD" && count1.coin == "USDT") {
+      var lp_ad = "0x0042b1997C92A3eF2A0Cabbb52B4028Bb44c9c32";
+    }
+    if (count.coin == "USDT" && count1.coin == "USDC") {
+      var lp_ad = "0xfcc52458fD60F4ce9A00a53C8dBb7a7D5dBD5582";
+    }
+    if (count.coin == "USDC" && count1.coin == "USDT") {
+      var lp_ad = "0xfcc52458fD60F4ce9A00a53C8dBb7a7D5dBD5582";
+    }
+    if (count.coin == "BUSD" && count1.coin == "USDC") {
+      var lp_ad = "0x6C71d03cDBdb37BbB471F0299e27Be3C0786F712";
+    }
+    if (count.coin == "USDC" && count1.coin == "BUSD") {
+      var lp_ad = "0x6C71d03cDBdb37BbB471F0299e27Be3C0786F712";
+    }
+    console.log("LP ADD")
+    console.log(lp_ad);
+
+    let token_contract2 = new web3.eth.Contract(tokenABI, lp_ad);
+    var heko = BigInt(10000*Math.pow(10, 18));
+  
+    // pool contract address
+    var dataFie = token_contract2.methods.approve("0x1019f470d86b03ab8f814080816f83f1d545d87c", heko).encodeABI(); 
+  
+    window.ethereum.request({
+      method: 'eth_sendTransaction',
+      params: [
+          {
+              from: accounts[0],
+              to: lp_ad,  //BUSD Contract Address
+              data: dataFie,
+              gas: '1d184',
+          },
+      ],
+      })
+      .then((txHash) => console.log(txHash))
+      .catch((error) => console.error);
+
+
+
+}
+
+async function unpool(count,count1){
+  let pool_contract = new web3.eth.Contract(ABI, "0x1019F470D86B03aB8f814080816F83f1D545D87c");
+
+      var pool_method = "pool_contract.methods.unpool" + "_" + count.coin.toLowerCase() + "_" +count1.coin.toLowerCase() + "(" + count.value + ").encodeABI()";
+      if (count.coin == "USDT" && count1.coin == "BUSD") {
+        pool_method = "pool_contract.methods.unpool" + "_" + count1.coin.toLowerCase() + "_" +count.coin.toLowerCase() + "(" + count.value + ").encodeABI()";
+      };
+      if (count.coin == "USDT" && count1.coin == "USDC") {
+        pool_method = "pool_contract.methods.unpool" + "_" + count1.coin.toLowerCase() + "_" +count.coin.toLowerCase() + "(" + count.value + ").encodeABI()";
+      }
+      if (count.coin == "BUSD" && count1.coin == "USDC") {
+        pool_method = "pool_contract.methods.unpool" + "_" + count1.coin.toLowerCase() + "_" +count.coin.toLowerCase() + "(" + count.value + ").encodeABI()";
+      }
+
+
+      console.log(pool_method);
+
+      const accounts = await web3.eth.requestAccounts();
+
+      //var dataFie = swap_contract.methods.swap_usdc_df(1).encodeABI(); //user address to CONTRACT
+      var dataFie = eval(pool_method); //user address to CONTRACT
+
+      window.ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [
+            {
+                from: accounts[0],
+                to: "0x1019F470D86B03aB8f814080816F83f1D545D87c",  //BUSD Contract Address
+                data: dataFie,
+                gas: '1d184',
+            },
+        ],
+        })
+        .then((txHash) => console.log(txHash))
+        .catch((error) => console.error);
+
 }
 
 const LiquidityPage: NextPageWithLayout = () => {
@@ -234,9 +311,9 @@ const LiquidityPage: NextPageWithLayout = () => {
             <table>
               <thead>
                   <tr　align="left">
-                      <th>BUSD-USDT</th>
                       <th>BUSD-USDC</th>
-                      <th>USDT-USDT</th>
+                      <th>BUSD-USDC</th>
+                      <th>USDC-USDT</th>
                   </tr>
               </thead>
               <tbody>
@@ -259,25 +336,16 @@ const LiquidityPage: NextPageWithLayout = () => {
               size="large"
               shape="rounded"
               fullWidth={true}
-              className="uppercase"
-              onClick={() => approve(count)}
+              className="mt-6 uppercase xs:mt-8 xs:tracking-widest"
+              onClick={() => approve(count, count1)}
             >
-              Approve 1
+              Approve
             </Button>
             <Button
               size="large"
               shape="rounded"
               fullWidth={true}
-              className="uppercase"
-              onClick={() => approve1(count1)}
-            >
-              Approve 2
-            </Button>
-            <Button
-              size="large"
-              shape="rounded"
-              fullWidth={true}
-              className="mt-6 uppercase xs:mt-8 xs:tracking-widest sendEthButton2"
+              className="mt-6 uppercase xs:mt-8 xs:tracking-widest"
               onClick={() => check_status()}
             >
               CHECK STATUS
@@ -286,10 +354,19 @@ const LiquidityPage: NextPageWithLayout = () => {
               size="large"
               shape="rounded"
               fullWidth={true}
-              className="mt-6 uppercase xs:mt-8 xs:tracking-widest sendEthButton2"
+              className="mt-6 uppercase xs:mt-8 xs:tracking-widest"
               onClick={() => dec(count, count1)}
             >
               POOL
+            </Button>
+            <Button
+              size="large"
+              shape="rounded"
+              fullWidth={true}
+              className="mt-6 uppercase xs:mt-8 xs:tracking-widest"
+              onClick={() => unpool(count,count1)}
+            >
+              UNPOOL
             </Button>
         </div>
       </TradeLayout>
