@@ -7,6 +7,7 @@ import routes from '@/config/routes';
 import { useDrawer } from '@/components/drawer-views/context';
 import { HomeIcon } from '@/components/icons/home';
 import { PoolIcon } from '@/components/icons/pool';
+import { FarmIcon } from '@/components/icons/farm';
 import { ExchangeIcon } from '@/components/icons/exchange';
 import { Close } from '@/components/icons/close';
 
@@ -25,6 +26,11 @@ const menuItems = [
     name: 'Liquidity',
     icon: <PoolIcon />,
     href: routes.liquidity,
+  },
+  {
+    name: 'PEGA',
+    icon: <FarmIcon />,
+    href: "https://dream-finances.herokuapp.com/home/pega",
   },
 ];
 

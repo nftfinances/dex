@@ -25,6 +25,10 @@ const tradeMenu = [
     name: 'Liquidity',
     value: routes.liquidity,
   },
+  {
+    name: 'PEGA',
+    value: "https://dream-finances.herokuapp.com/home/pega",
+  },
 ];
 
 function ActiveNavLink({ href, title, isActive, className }: any) {
