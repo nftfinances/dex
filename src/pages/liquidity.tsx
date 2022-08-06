@@ -284,7 +284,7 @@ const LiquidityPage: NextPageWithLayout = () => {
         <div className="mb-5 border-b border-dashed border-gray-200 pb-5 dark:border-gray-800 xs:mb-7 xs:pb-6">
           <div className="relative flex flex-col gap-3">
             <CoinInput
-              label={'From'}
+              label={'A'}
               exchangeRate={0.0}
               defaultCoinIndex={0}
               getCoinValue={(data) =>  setCount(data) }
@@ -300,7 +300,7 @@ const LiquidityPage: NextPageWithLayout = () => {
               </Button>
             </div>
             <CoinInput
-              label={'To'}
+              label={'B'}
               exchangeRate={0.0}
               defaultCoinIndex={1}
               getCoinValue={(data) => setCount1(data)}
