@@ -12,6 +12,7 @@ import ABI from "@/contracts/swap.json";
 import tokenABI from "@/contracts/token.json";
 import detectEthereumProvider from '@metamask/detect-provider';
 import Web3 from "web3";
+import { chain } from 'lodash';
 
 const abi = ABI;
 var web3: Web3;
@@ -38,6 +39,17 @@ const enable = async () => {
     //} else {
       //console.log('Please Install MetaMask🙇‍♂️')
     //}
+
+    const provider = await detectEthereumProvider({ mustBeMetaMask: true });
+
+    const chainId = await provider.request({
+          method: 'eth_chainId'
+        })
+    console.log(chainId);
+    if( chainId != "0x38"){
+      alert('PLEASE CHANGE NETWORK');
+    }
+  
 }
 
 enable();
@@ -117,9 +129,21 @@ async function dec_approve(count, count1){
 
 };
 
+async function dec2(count){
+  return count.value*0.1;
+};
+
+
 const SwapPage: NextPageWithLayout = () => {
   const [count, setCount] = useState();
   const [count1, setCount1] = useState();
+  const [count2, setCount2] = useState();
+
+  const [emailTxt, SetEmailTxt] = useState("");
+  const onChangeEmail = (e) => {
+    const targetValue = e.target.value;    
+    SetEmailTxt(targetValue);
+  }
 
   let [toggleCoin, setToggleCoin] = useState(false);
   return (
@@ -138,9 +162,9 @@ const SwapPage: NextPageWithLayout = () => {
           >
             <CoinInput
               label={'From'}
-              exchangeRate={0.0}
+              exchangeRate={emailTxt}
               defaultCoinIndex={0}
-              getCoinValue={(data) =>  setCount(data) }
+              getCoinValue={(data) => setCount(data)}
             />
             <div className="absolute top-1/2 left-1/2 z-[1] -mt-4 -ml-4 rounded-full bg-white shadow-large dark:bg-gray-600">
               <Button
@@ -155,7 +179,7 @@ const SwapPage: NextPageWithLayout = () => {
             </div>
             <CoinInput
               label={'To'}
-              exchangeRate={0.0}
+              exchangeRate={0}
               defaultCoinIndex={1}
               getCoinValue={(data) => setCount1(data)}
             />

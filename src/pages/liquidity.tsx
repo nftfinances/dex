@@ -10,7 +10,9 @@ import ActiveLink from '@/components/ui/links/active-link';
 
 import ABI from "@/contracts/pool.json";
 import tokenABI from "@/contracts/token.json";
+
 import Web3 from "web3";
+import detectEthereumProvider from '@metamask/detect-provider';
 
 const abi = ABI;
 const tokenabi = tokenABI;
@@ -23,6 +25,15 @@ const enable = async () => {
     // web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/317a3a523e064dafa40cb8e6a3e71190"));
     // web3 = window.web3.currentProvider
     //web3.setProvider(new Web3.providers.HttpProvider("http://localhost:3000"));
+
+    const provider = await detectEthereumProvider({ mustBeMetaMask: true });
+    const chainId = await provider.request({
+          method: 'eth_chainId'
+        })
+    console.log(chainId);
+    if( chainId != "0x38"){
+      alert('PLEASE CHANGE NETWORK');
+    }
 }
 
 enable();

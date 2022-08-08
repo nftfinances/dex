@@ -13,8 +13,28 @@ import { Plus } from '@/components/icons/plus';
 import TransactionTable from '@/components/transaction/transaction-table';
 import TopCurrencyTable from '@/components/top-currency/currency-table';
 import { coinSlideData } from '@/data/static/coin-slide-data';
-//images
-import AuthorImage from '@/assets/images/author.jpg';
+
+import Web3 from "web3";
+import detectEthereumProvider from '@metamask/detect-provider';
+
+const enable = async () => {
+  web3 = new Web3(Web3.givenProvider);
+  // web3 = new Web3.providers.WebsocketProvider("wss://mainnet.infura.io/ws/v3/317a3a523e064dafa40cb8e6a3e71190")
+  // web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/317a3a523e064dafa40cb8e6a3e71190"));
+  // web3 = window.web3.currentProvider
+  //web3.setProvider(new Web3.providers.HttpProvider("http://localhost:3000"));
+
+  const provider = await detectEthereumProvider({ mustBeMetaMask: true });
+  const chainId = await provider.request({
+        method: 'eth_chainId'
+      })
+  console.log(chainId);
+  if( chainId != "0x38"){
+    alert('PLEASE CHANGE NETWORK');
+  }
+}
+
+enable();
 
 export const getStaticProps: GetStaticProps = async () => {
   return {
