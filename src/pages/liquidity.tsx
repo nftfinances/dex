@@ -26,14 +26,6 @@ const enable = async () => {
     // web3 = window.web3.currentProvider
     //web3.setProvider(new Web3.providers.HttpProvider("http://localhost:3000"));
 
-    const provider = await detectEthereumProvider({ mustBeMetaMask: true });
-    const chainId = await provider.request({
-          method: 'eth_chainId'
-        })
-    console.log(chainId);
-    if( chainId != "0x38"){
-      alert('PLEASE CHANGE NETWORK');
-    }
 }
 
 enable();

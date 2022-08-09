@@ -40,15 +40,7 @@ const enable = async () => {
       //console.log('Please Install MetaMask🙇‍♂️')
     //}
 
-    const provider = await detectEthereumProvider({ mustBeMetaMask: true });
-
-    const chainId = await provider.request({
-          method: 'eth_chainId'
-        })
-    console.log(chainId);
-    if( chainId != "0x38"){
-      alert('PLEASE CHANGE NETWORK');
-    }
+    //const provider = await detectEthereumProvider({ mustBeMetaMask: true });
   
 }
 
@@ -60,14 +52,23 @@ async function dec(count, count1){
 
       let swap_contract = new web3.eth.Contract(ABI, "0xf4f2ac934c247b29d3b798da6bbc0074d23b81f0");
 
+      console.log(count.coin);
+      console.log(count1.coin);
       //var heko = BigInt(count.value*Math.pow(10, 18)).toString();
-      const swap_method = "swap_contract.methods.swap" + "_" + count.coin.toLowerCase() + "_" +count1.coin.toLowerCase() + "(" + count.value + ").encodeABI()";
+      if (count.coin == "USDT"){
+       var dataFie = swap_contract.methods.swap_usdt_df(count.value).encodeABI(); //user address to CONTRACT
+       console.log("usdt -> df ")
+    } else {
+      var dataFie = swap_contract.methods.swap_df_usdt(count.value).encodeABI(); //user address to CONTRACT
+      console.log("df -> usdt ")
+    }
       //const swap_method = "swap_contract.methods.swap" + "_" + count.coin.toLowerCase() + "_" +count1.coin.toLowerCase() + "(" + count.value + ").encodeABI()";
-      console.log(swap_method);
+      //const swap_method = "swap_contract.methods.swap" + "_" + count.coin.toLowerCase() + "_" +count1.coin.toLowerCase() + "(" + count.value + ").encodeABI()";
+      //console.log(swap_method);
 
       //var dataFie = swap_contract.methods.swap_usdt_busd(heko).encodeABI(); //user address to CONTRACT
-      var dataFie = eval(swap_method); //user address to CONTRACT
-
+      //var dataFie = eval(swap_method); //user address to CONTRACT
+  
       window.ethereum.request({
         method: 'eth_sendTransaction',
         params: [
@@ -129,14 +130,9 @@ async function dec_approve(count, count1){
 
 };
 
-async function dec2(count){
-  return count.value*0.1;
-};
-
-
 const SwapPage: NextPageWithLayout = () => {
-  const [count, setCount] = useState();
-  const [count1, setCount1] = useState();
+  const [count, setCount] = useState(0);
+  const [count1, setCount1] = useState(0);
   const [count2, setCount2] = useState();
 
   const [emailTxt, SetEmailTxt] = useState("");
@@ -144,6 +140,8 @@ const SwapPage: NextPageWithLayout = () => {
     const targetValue = e.target.value;    
     SetEmailTxt(targetValue);
   }
+
+  const increment = () => setCount(count*0.1);
 
   let [toggleCoin, setToggleCoin] = useState(false);
   return (
@@ -162,8 +160,18 @@ const SwapPage: NextPageWithLayout = () => {
           >
             <CoinInput
               label={'From'}
-              exchangeRate={emailTxt}
-              defaultCoinIndex={0}
+              exchangeRate={(() => {
+                                if ( count.coin == "USDT") {
+                                  return count.value*1 
+                                } else if (count.coin == "BUSD"){
+                                  return count.value*1 
+                                } else if (count.coin == "USDC"){
+                                  return count.value*1
+                                } else {
+                                  return Math.round(count.value*0.1*10)/10
+                                }
+                            })()}
+              defaultCoinIndex={1}
               getCoinValue={(data) => setCount(data)}
             />
             <div className="absolute top-1/2 left-1/2 z-[1] -mt-4 -ml-4 rounded-full bg-white shadow-large dark:bg-gray-600">
@@ -172,16 +180,27 @@ const SwapPage: NextPageWithLayout = () => {
                 color="gray"
                 shape="circle"
                 variant="transparent"
-                onClick={() => setToggleCoin(!toggleCoin)}
+                //onClick={() => setToggleCoin(!toggleCoin)}
               >
                 <SwapIcon className="h-auto w-3" />
               </Button>
             </div>
             <CoinInput
               label={'To'}
-              exchangeRate={0}
-              defaultCoinIndex={1}
+              exchangeRate={(() => {
+                                if ( count.coin == "USDT") {
+                                  return count.value*1 
+                                } else if (count.coin == "BUSD"){
+                                  return count.value*1 
+                                } else if (count.coin == "USDC"){
+                                  return count.value*1
+                                } else {
+                                  return Math.round(count.value*0.1*10)/10
+                                }
+                            })()}
+              defaultCoinIndex={0}
               getCoinValue={(data) => setCount1(data)}
+              value={count.coin == "USDT" ? count.value*10 :  Math.round(count.value*0.1*10)/10 }
             />
           </div>
         </div>

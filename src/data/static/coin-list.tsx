@@ -13,21 +13,6 @@ export const coinList = [
     name: 'Tether USD',
   },
   {
-    icon: <Bnb />,
-    code: 'BUSD',
-    name: 'Binance USD',
-  },
-  {
-    icon: <Usdc />,
-    code: 'USDC',
-    name: 'USD Coin',
-  },
-  {
-    icon: <Cardano />,
-    code: 'PB',
-    name: 'PB TOKEN',
-  },
-  {
     icon: <Doge />,
     code: 'DF',
     name: 'DF TOKEN',
