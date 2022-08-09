@@ -19,12 +19,6 @@ export default function SettingsButton() {
   return (
     <>
       <div className="fixed top-1/2 z-40 -translate-y-1/2 ltr:right-0 rtl:left-0">
-        <div
-          className="text-vertical mb-2 flex w-12 cursor-pointer items-center justify-center bg-white/80 py-3 text-sm font-medium uppercase text-gray-600 shadow-large backdrop-blur ltr:rounded-l-lg rtl:rounded-r-lg dark:bg-brand/80 dark:text-gray-200"
-          onClick={openPageDrawer}
-        >
-          Pages
-        </div>
         <button
           className="flex h-12 w-12 items-center justify-center bg-white/80 text-gray-600 shadow-large backdrop-blur ltr:rounded-l-lg rtl:rounded-r-lg dark:bg-brand/80 dark:text-gray-200"
           onClick={opeSettings}
