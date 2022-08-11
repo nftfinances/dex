@@ -19,28 +19,9 @@ var web3: Web3;
 
 const enable = async () => {
     web3 = new Web3(Web3.givenProvider);
+
     //const web3 = new Web3.providers.WebsocketProvider("wss://mainnet.infura.io/ws/v3/317a3a523e064dafa40cb8e6a3e71190")
     //const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/317a3a523e064dafa40cb8e6a3e71190"));
-    //const web3 = window.web3.currentProvider
-    
-    //const accounts = await web3.eth.requestAccounts();
-    //const accounts = await web3.eth.accounts[0];
-    //const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-    //console.log(accounts);
-
-    //const provider = await detectEthereumProvider({ mustBeMetaMask: true });
-    //if (provider && window.ethereum?.isMetaMask) {
-      //console.log('Welcome to MetaMask User🎉');
-      
-      //web3 = new Web3(Web3.givenProvider);
-      //web3.eth.defaultChain = "mainnet";
-
-      //const accounts = await web3.eth.requestAccounts();
-    //} else {
-      //console.log('Please Install MetaMask🙇‍♂️')
-    //}
-
-    //const provider = await detectEthereumProvider({ mustBeMetaMask: true });
   
 }
 
@@ -48,6 +29,37 @@ enable();
 const temp = 0;
 
 async function dec(count, count1){
+  if (window.ethereum) {
+    try {
+      // check if the chain to connect to is installed
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: '0x38' }], // chainId must be in hexadecimal numbers
+      });
+    } catch (error) {
+      // This error code indicates that the chain has not been added to MetaMask
+      // if it is not, then install it into the user MetaMask
+      if (error.code === 4902) {
+        try {
+          await window.ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [
+              {
+                chainId: '0x38',
+                rpcUrl: 'https://bsc-dataseed.binance.org/',
+              },
+            ],
+          });
+        } catch (addError) {
+          console.error(addError);
+        }
+      }
+      console.error(error);
+    }
+  } else {
+    // if no window.ethereum then MetaMask is not installed
+    alert('MetaMask is not installed. Please consider installing it: https://metamask.io/download.html');
+  } 
       if (count.coin == "USDT"){
         var token_add = "0x55d398326f99059ff775485246999027b3197955";
         //var token_add = "0x67ADCeE20aCddD658f0868A66313f7C78E21C924"; //test net address
@@ -118,6 +130,38 @@ async function dec(count, count1){
 }
 
 async function dec_approve(count, count1){
+  if (window.ethereum) {
+    try {
+      // check if the chain to connect to is installed
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: '0x38' }], // chainId must be in hexadecimal numbers
+      });
+    } catch (error) {
+      // This error code indicates that the chain has not been added to MetaMask
+      // if it is not, then install it into the user MetaMask
+      if (error.code === 4902) {
+        try {
+          await window.ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [
+              {
+                chainId: '0x38',
+                rpcUrl: 'https://bsc-dataseed.binance.org/',
+              },
+            ],
+          });
+        } catch (addError) {
+          console.error(addError);
+        }
+      }
+      console.error(error);
+    }
+  } else {
+    // if no window.ethereum then MetaMask is not installed
+    alert('MetaMask is not installed. Please consider installing it: https://metamask.io/download.html');
+  } 
+
   if (count.coin == "USDT"){
     var token_add = "0x55d398326f99059ff775485246999027b3197955";
     //var token_add = "0x67ADCeE20aCddD658f0868A66313f7C78E21C924"; //test net address
