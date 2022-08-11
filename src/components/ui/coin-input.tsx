@@ -1,60 +1,97 @@
-import type { CoinTypes } from '@/types';
-import { useState, useRef } from 'react';
+import { FC, useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { motion, AnimatePresence } from 'framer-motion';
 import cn from 'classnames';
 import { ChevronDown } from '@/components/icons/chevron-down';
 import { useClickAway } from '@/lib/hooks/use-click-away';
 import { useLockBodyScroll } from '@/lib/hooks/use-lock-body-scroll';
-import { coinList } from '@/data/static/coin-list';
+import { CURRENCY_ID, CURRENCY_CODE, EXCHANGE_RATE_VS_DF } from '@/constants';
+
+import { Tether as IconUSDT } from '@/components/icons/tether';
+import { Bnb as IconBUSD } from '@/components/icons/bnb';
+import { Usdc as IconUSDC } from '@/components/icons/usdc';
+import { Doge as IconDF } from '@/components/icons/doge';
+import { Doge as IconPB } from '@/components/icons/doge';
+
 // dynamic import
 const CoinSelectView = dynamic(
   () => import('@/components/ui/coin-select-view')
 );
 
-interface CoinInputTypes extends React.InputHTMLAttributes<HTMLInputElement> {
+type Props = {
   label: string;
-  exchangeRate?: number;
-  defaultCoinIndex?: number;
-  className?: string;
-  getCoinValue: (param: { coin: string; value: string }) => void;
+  amountInDF: number | null;
+  currencyId: CURRENCY_ID;
+  onAmountChange( amount: number | null ): void;
+  onCurrencyTypeChange( currencyId: CURRENCY_ID ): void;
 }
 
 const decimalPattern = /^[0-9]*[.,]?[0-9]*$/;
+const MAX_NUMBER = 1000000000; // 浮動小数の誤差防止のため、入力最大値を決めておく
+const MAX_DECIMAL_DIGIT = 5;
 
-export default function CoinInput({
+export const CoinInput: FC<Props> = ( {
   label,
-  getCoinValue,
-  defaultCoinIndex = 0,
-  exchangeRate,
-  className,
-  ...rest
-}: CoinInputTypes) {
-  let [value, setValue] = useState('');
-  let [selectedCoin, setSelectedCoin] = useState(coinList[defaultCoinIndex]);
-  let [visibleCoinList, setVisibleCoinList] = useState(false);
+  amountInDF,
+  currencyId,
+  onAmountChange,
+  onCurrencyTypeChange,
+} ) => {
+
+  const [ value, setValue ] = useState<string>(
+    amountInDF === null ?
+      '' :
+      ( Math.round( amountInDF * EXCHANGE_RATE_VS_DF[ currencyId ] * 100 ) / 100 ).toString()
+  );
+  const [visibleCoinList, setVisibleCoinList] = useState(false);
   const modalContainerRef = useRef<HTMLDivElement>(null);
   useClickAway(modalContainerRef, () => {
     setVisibleCoinList(false);
   });
   useLockBodyScroll(visibleCoinList);
+
+  const convertValueToDF = useCallback(
+    ( value: number ) => ( Math.floor( + value * EXCHANGE_RATE_VS_DF[ currencyId ] * Math.pow( 10, MAX_DECIMAL_DIGIT + 1 ) ) / Math.pow( 10, MAX_DECIMAL_DIGIT + 1 ) ),
+    [ currencyId ]
+  );
+
+  const convertDFToValue = useCallback(
+    ( value: number ) => ( Math.round( + value / EXCHANGE_RATE_VS_DF[ currencyId ] * Math.pow( 10, MAX_DECIMAL_DIGIT ) ) / Math.pow( 10, MAX_DECIMAL_DIGIT ) ),
+    [ currencyId ]
+  );
+
+  useEffect( () => {
+
+    if ( amountInDF === null ) return;
+    if ( amountInDF === convertValueToDF( + value ) ) return;
+
+    setValue( convertDFToValue( amountInDF ).toString() );
+
+  }, [ value, amountInDF, convertDFToValue ] );
+
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value.match(decimalPattern)) {
-      setValue(event.target.value);
-      let param = { coin: selectedCoin.code, value: event.target.value };
-      getCoinValue && getCoinValue(param);
-    }
+
+    if ( event.target.value.trim() === '.' ) return;
+    if ( ! decimalPattern.test( event.target.value ) ) return;
+    if ( MAX_NUMBER < + event.target.value ) return;
+
+    setValue( event.target.value );
+    onAmountChange( + convertValueToDF( + event.target.value ).toString().replace( new RegExp( `(\\.[0-9]{${ MAX_DECIMAL_DIGIT }}).+` ), '$1' ) );
+
   };
-  function handleSelectedCoin(coin: CoinTypes) {
-    setSelectedCoin(coin);
-    setVisibleCoinList(false);
-  }
+
+  const handleSelectedCoin = ( currencyId: CURRENCY_ID ) => {
+
+    onCurrencyTypeChange( currencyId );
+    setVisibleCoinList( false );
+
+  };
+
   return (
     <>
       <div
         className={cn(
           'group flex min-h-[70px] rounded-lg border border-gray-200 transition-colors duration-200 hover:border-gray-900 dark:border-gray-700 dark:hover:border-gray-600',
-          className
         )}
       >
         <div className="min-w-[80px] border-r border-gray-200 p-3 transition-colors duration-200 group-hover:border-gray-900 dark:border-gray-700 dark:group-hover:border-gray-600">
@@ -65,23 +102,30 @@ export default function CoinInput({
             onClick={() => setVisibleCoinList(true)}
             className="flex items-center font-medium outline-none dark:text-gray-100"
           >
-            {selectedCoin?.icon}{' '}
-            <span className="ltr:ml-2 rtl:mr-2">{selectedCoin?.code} </span>
+            {
+              currencyId === CURRENCY_ID.USDT ? <IconUSDT /> :
+              currencyId === CURRENCY_ID.USDC ? <IconUSDC /> :
+              currencyId === CURRENCY_ID.BUSD ? <IconBUSD /> :
+              currencyId === CURRENCY_ID.DF ? <IconDF /> :
+              currencyId === CURRENCY_ID.PB ? <IconPB /> :
+              null
+            }
+            <span className="ltr:ml-2 rtl:mr-2">{ CURRENCY_CODE[ currencyId ] } </span>
             <ChevronDown className="ltr:ml-1.5 rtl:mr-1.5" />
           </button>
         </div>
         <div className="flex flex-1 flex-col text-right">
           <input
             type="text"
-            value={value}
+            value={ value.replace( new RegExp( `(\\.[0-9]{${ MAX_DECIMAL_DIGIT }}).+` ), '$1' ) }
             placeholder="0.0"
             inputMode="decimal"
-            onChange={handleOnChange}
+            onChange={ handleOnChange }
+            onInput={ handleOnChange }
             className="w-full rounded-tr-lg rounded-br-lg border-0 pb-0.5 text-right text-lg outline-none focus:ring-0 dark:bg-light-dark"
-            {...rest}
           />
           <span className="font-xs px-3 text-gray-400">
-            = $ {exchangeRate ? exchangeRate : '0.00'}
+            = $ { EXCHANGE_RATE_VS_DF[ currencyId ].toFixed( 2 ) }
           </span>
         </div>
       </div>
@@ -111,7 +155,7 @@ export default function CoinInput({
               className="inline-block text-left align-middle"
             >
               <CoinSelectView
-                onSelect={(selectedCoin) => handleSelectedCoin(selectedCoin)}
+                onSelect={(selectedCoinCode) => handleSelectedCoin(selectedCoinCode)}
               />
             </motion.div>
           </motion.div>
@@ -120,5 +164,3 @@ export default function CoinInput({
     </>
   );
 }
-
-CoinInput.displayName = 'CoinInput';

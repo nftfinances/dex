@@ -1,10 +1,10 @@
 import type { NextPageWithLayout } from '@/types';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import cn from 'classnames';
 import { NextSeo } from 'next-seo';
 import TradeLayout from '@/layouts/_trade-layout';
 import Button from '@/components/ui/button';
-import CoinInput from '@/components/ui/coin-input';
+import { CoinInput } from '@/components/ui/coin-input';
 import TransactionInfo from '@/components/ui/transaction-info';
 import { SwapIcon } from '@/components/icons/swap-icon';
 
@@ -13,6 +13,7 @@ import tokenABI from "@/contracts/token.json";
 import detectEthereumProvider from '@metamask/detect-provider';
 import Web3 from "web3";
 import { chain } from 'lodash';
+import { CURRENCY_ID } from '@/constants';
 
 const abi = ABI;
 var web3: Web3;
@@ -130,10 +131,20 @@ async function dec_approve(count, count1){
 
 };
 
+type SelectedCurrencyIds = {
+  from: CURRENCY_ID;
+  to: CURRENCY_ID;
+};
+
 const SwapPage: NextPageWithLayout = () => {
   const [count, setCount] = useState(0);
   const [count1, setCount1] = useState(0);
-  const [count2, setCount2] = useState();
+
+  const [ amountInDF, setAmountInDF ] = useState<number | null>( null );
+  const [ selectedCurrencyIds, setSelectedCurrencyIds ] = useState<SelectedCurrencyIds>( {
+    from: CURRENCY_ID.DF,
+    to: CURRENCY_ID.USDT,
+  } );
 
   const [emailTxt, SetEmailTxt] = useState("");
   const onChangeEmail = (e) => {
@@ -143,7 +154,33 @@ const SwapPage: NextPageWithLayout = () => {
 
   const increment = () => setCount(count*0.1);
 
-  let [toggleCoin, setToggleCoin] = useState(false);
+  const setSelectedCurrencyIdFrom = ( currencyIdFrom: CURRENCY_ID ) => {
+
+    setSelectedCurrencyIds( {
+      from: currencyIdFrom,
+      to: selectedCurrencyIds.to,
+    } );
+
+  };
+
+  const setSelectedCurrencyIdTo = ( currencyIdTo: CURRENCY_ID ) => {
+
+    setSelectedCurrencyIds( {
+      from: selectedCurrencyIds.from,
+      to: currencyIdTo,
+    } );
+
+  };
+
+  const onToggleButtonClick = () => {
+
+    setSelectedCurrencyIds( {
+      from: selectedCurrencyIds.to,
+      to: selectedCurrencyIds.from,
+    } );
+
+  }
+
   return (
     <>
       <NextSeo
@@ -152,27 +189,13 @@ const SwapPage: NextPageWithLayout = () => {
       />
       <TradeLayout>
         <div className="mb-5 border-b border-dashed border-gray-200 pb-5 dark:border-gray-800 xs:mb-7 xs:pb-6">
-          <div
-            className={cn(
-              'relative flex gap-3',
-              toggleCoin ? 'flex-col-reverse' : 'flex-col'
-            )}
-          >
+          <div className="relative flex gap-3 flex-col">
             <CoinInput
               label={'From'}
-              exchangeRate={(() => {
-                                if ( count.coin == "USDT") {
-                                  return count.value*1 
-                                } else if (count.coin == "BUSD"){
-                                  return count.value*1 
-                                } else if (count.coin == "USDC"){
-                                  return count.value*1
-                                } else {
-                                  return Math.round(count.value*0.1*10)/10
-                                }
-                            })()}
-              defaultCoinIndex={1}
-              getCoinValue={(data) => setCount(data)}
+              amountInDF={ amountInDF }
+              currencyId={ selectedCurrencyIds.from }
+              onAmountChange={ setAmountInDF }
+              onCurrencyTypeChange={ setSelectedCurrencyIdFrom }
             />
             <div className="absolute top-1/2 left-1/2 z-[1] -mt-4 -ml-4 rounded-full bg-white shadow-large dark:bg-gray-600">
               <Button
@@ -180,27 +203,17 @@ const SwapPage: NextPageWithLayout = () => {
                 color="gray"
                 shape="circle"
                 variant="transparent"
-                //onClick={() => setToggleCoin(!toggleCoin)}
+                onClick={ onToggleButtonClick }
               >
                 <SwapIcon className="h-auto w-3" />
               </Button>
             </div>
             <CoinInput
               label={'To'}
-              exchangeRate={(() => {
-                                if ( count.coin == "USDT") {
-                                  return count.value*1 
-                                } else if (count.coin == "BUSD"){
-                                  return count.value*1 
-                                } else if (count.coin == "USDC"){
-                                  return count.value*1
-                                } else {
-                                  return Math.round(count.value*0.1*10)/10
-                                }
-                            })()}
-              defaultCoinIndex={0}
-              getCoinValue={(data) => setCount1(data)}
-              value={count.coin == "USDT" ? count.value*10 :  Math.round(count.value*0.1*10)/10 }
+              amountInDF={ amountInDF }
+              currencyId={ selectedCurrencyIds.to }
+              onAmountChange={ () => {} }
+              onCurrencyTypeChange={ setSelectedCurrencyIdTo }
             />
           </div>
         </div>
@@ -217,7 +230,7 @@ const SwapPage: NextPageWithLayout = () => {
           shape="rounded"
           fullWidth={true}
           className="mt-6 uppercase xs:mt-8 xs:tracking-widest sendEthButton2"
-          onClick={() => dec_approve(count, count1)}
+          onClick={() => dec_approve({ coin: selectedCurrencyIds.from }, count1)}
         >
           APPROVE
         </Button>
@@ -226,7 +239,7 @@ const SwapPage: NextPageWithLayout = () => {
           shape="rounded"
           fullWidth={true}
           className="mt-6 uppercase xs:mt-8 xs:tracking-widest sendEthButton2"
-          onClick={() => dec(count, count1)}
+          onClick={() => dec({ coin: selectedCurrencyIds.from }, count1)}
         >
           SWAP
         </Button>
