@@ -48,20 +48,53 @@ enable();
 const temp = 0;
 
 async function dec(count, count1){
+      if (count.coin == "USDT"){
+        var token_add = "0x55d398326f99059ff775485246999027b3197955";
+        //var token_add = "0x67ADCeE20aCddD658f0868A66313f7C78E21C924"; //test net address
+        console.log("USDT");
+      } else if( count.coin == "USDC") {
+        var token_add = "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d";
+        console.log("USDC");
+      } else if( count.coin == "BUSD") {
+        var token_add = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
+        console.log("BUSD");
+      } else if( count.coin == "PB") {
+        var token_add = "0x3a76C55C6BEF5Cb38A405c767C1d33F91aF20Ed1";
+        console.log("PB");
+      }  else if( count.coin == "DF") {
+        var token_add = "0x774f896898C91Cf0afc69AEA135435fD7aec31a6";
+        //var token_add =　"0xE48c9a452Aa932CB38831f8fB91fe62a20523A18";  //test net address
+        console.log("DF");
+      } else {
+        console.log("NOT REGISTERED ADD")
+      }
+
       const accounts = await web3.eth.requestAccounts();
 
-      let swap_contract = new web3.eth.Contract(ABI, "0xf4f2ac934c247b29d3b798da6bbc0074d23b81f0");
+      let token_contract = new web3.eth.Contract(tokenABI, token_add);
+      var allowance = await token_contract.methods.allowance(accounts[0],"0x3ff0e4bfbfe599f83321c728de213087ab49f605").call();
+      console.log("allowance");
+      console.log(allowance);
+      
+      if (allowance == 0) {
+        alert("YOU NEED TO APPROVE")
+        return 0;
+      }
+
+
+      let swap_contract = new web3.eth.Contract(ABI, "0x3ff0e4bfbfe599f83321c728de213087ab49f605");
 
       console.log(count.coin);
       console.log(count1.coin);
-      //var heko = BigInt(count.value*Math.pow(10, 18)).toString();
+      var heko = BigInt(count.value*Math.pow(10, 18)).toString();
       if (count.coin == "USDT"){
-       var dataFie = swap_contract.methods.swap_usdt_df(count.value).encodeABI(); //user address to CONTRACT
+       var dataFie = swap_contract.methods.swap_usdt_df(heko).encodeABI(); //user address to CONTRACT
        console.log("usdt -> df ")
-    } else {
-      var dataFie = swap_contract.methods.swap_df_usdt(count.value).encodeABI(); //user address to CONTRACT
-      console.log("df -> usdt ")
-    }
+      } else {
+        var dataFie = swap_contract.methods.swap_df_usdt(heko).encodeABI(); //user address to CONTRACT
+        console.log("df -> usdt ")
+      }
+      
       //const swap_method = "swap_contract.methods.swap" + "_" + count.coin.toLowerCase() + "_" +count1.coin.toLowerCase() + "(" + count.value + ").encodeABI()";
       //const swap_method = "swap_contract.methods.swap" + "_" + count.coin.toLowerCase() + "_" +count1.coin.toLowerCase() + "(" + count.value + ").encodeABI()";
       //console.log(swap_method);
@@ -74,7 +107,7 @@ async function dec(count, count1){
         params: [
             {
                 from: accounts[0],
-                to: "0xf4f2ac934c247b29d3b798da6bbc0074d23b81f0",  //BUSD Contract Address
+                to: "0x3ff0e4bfbfe599f83321c728de213087ab49f605",  //BUSD Contract Address
                 data: dataFie,
                 gas: '1d184',
             },
@@ -100,6 +133,7 @@ async function dec_approve(count, count1){
     console.log("PB");
   }  else if( count.coin == "DF") {
     var token_add = "0x774f896898C91Cf0afc69AEA135435fD7aec31a6";
+    //var token_add =　"0xE48c9a452Aa932CB38831f8fB91fe62a20523A18";  //test net address
     console.log("DF");
   } else {
     console.log("NOT REGISTERED ADD")
@@ -109,10 +143,13 @@ async function dec_approve(count, count1){
   let token_contract = new web3.eth.Contract(tokenABI, token_add);
 
   const accounts = await web3.eth.requestAccounts();
+
+
+
   var heko = BigInt(100000*Math.pow(10, 18));
 
   // pool contract address
-  var dataFie = token_contract.methods.approve("0xf4f2ac934c247b29d3b798da6bbc0074d23b81f0", heko).encodeABI(); 
+  var dataFie = token_contract.methods.approve("0x3ff0e4bfbfe599f83321c728de213087ab49f605", heko).encodeABI(); 
 
   window.ethereum.request({
     method: 'eth_sendTransaction',
