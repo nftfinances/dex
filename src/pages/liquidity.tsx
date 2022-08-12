@@ -314,7 +314,7 @@ const LiquidityPage: NextPageWithLayout = () => {
             <table>
               <thead>
                   <tr　align="left">
-                      <th>BUSD-USDC</th>
+                      <th>BUSD-USDT</th>
                       <th>BUSD-USDC</th>
                       <th>USDC-USDT</th>
                   </tr>
