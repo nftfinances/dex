@@ -1,20 +1,40 @@
-import { Bitcoin } from '@/components/icons/bitcoin';
-import { Ethereum } from '@/components/icons/ethereum';
 import { Tether } from '@/components/icons/tether';
 import { Bnb } from '@/components/icons/bnb';
 import { Usdc } from '@/components/icons/usdc';
-import { Cardano } from '@/components/icons/cardano';
 import { Doge } from '@/components/icons/doge';
+import { Doge as PB } from '@/components/icons/doge'; // TODO PB アイコン不明につき、仮で設置
+import { CURRENCY_ID } from '@/constants';
 
-export const coinList = [
+export type CoinType = {
+  id: CURRENCY_ID;
+  icon: JSX.Element;
+  name: string;
+};
+
+export const coinList: CoinType[] = [
   {
+    id: CURRENCY_ID.USDT,
     icon: <Tether />,
-    code: 'USDT',
     name: 'Tether USD',
   },
   {
+    id: CURRENCY_ID.USDC,
+    icon: <Usdc />,
+    name: 'USD Coin',
+  },
+  {
+    id: CURRENCY_ID.BUSD,
+    icon: <Bnb />,
+    name: 'Binance USD',
+  },
+  {
+    id: CURRENCY_ID.DF,
     icon: <Doge />,
-    code: 'DF',
     name: 'DF TOKEN',
+  },
+  {
+    id: CURRENCY_ID.PB,
+    icon: <PB />,
+    name: 'PB TOKEN',
   },
 ];

@@ -1,11 +1,10 @@
-import type { CoinTypes } from '@/types';
 import { useState } from 'react';
-import { coinList } from '@/data/static/coin-list';
+import { CoinType, coinList } from '@/data/static/coin-list';
 import { SearchIcon } from '@/components/icons/search';
 import { useModal } from '@/components/modal-views/context';
-
+import { CURRENCY_ID } from '@/constants';
 interface CoinSelectViewTypes {
-  onSelect: (selectedCoin: CoinTypes) => void;
+  onSelect: (currencyCode: CURRENCY_ID) => void;
 }
 
 export default function CoinSelectView({ onSelect }: CoinSelectViewTypes) {
@@ -21,16 +20,16 @@ export default function CoinSelectView({ onSelect }: CoinSelectViewTypes) {
       );
     });
   }
-  function handleSelectedCoin(item: CoinTypes) {
-    onSelect(item);
+  function handleSelectedCoin(item: CoinType) {
+    onSelect(item.id);
     closeModal();
   }
   function handleSelectedCoinOnKeyDown(
     event: React.KeyboardEvent<HTMLLIElement>,
-    item: CoinTypes
+    item: CoinType
   ) {
     if (event.code === 'Enter') {
-      onSelect(item);
+      onSelect(item.id);
       closeModal();
     }
   }
@@ -53,7 +52,7 @@ export default function CoinSelectView({ onSelect }: CoinSelectViewTypes) {
         {coinListData.length > 0 ? (
           coinListData.map((item, index) => (
             <li
-              key={item.code}
+              key={item.id}
               role="listitem"
               tabIndex={index}
               onClick={() => handleSelectedCoin(item)}
