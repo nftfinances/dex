@@ -11,7 +11,7 @@ import { Tether as IconUSDT } from '@/components/icons/tether';
 import { Bnb as IconBUSD } from '@/components/icons/bnb';
 import { Usdc as IconUSDC } from '@/components/icons/usdc';
 import { Doge as IconDF } from '@/components/icons/doge';
-import { Doge as IconPB } from '@/components/icons/doge';
+import { Cardano as IconPB } from '@/components/icons/cardano';
 
 // dynamic import
 const CoinSelectView = dynamic(
