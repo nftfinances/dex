@@ -387,8 +387,8 @@ const FarmsPage: NextPageWithLayout = () => {
   return (
     <>
       <NextSeo
-        title="Farms"
-        description="Criptic - React Next Web3 NFT Crypto Dashboard Template"
+        title="Farms DREAM FINANCE"
+        description="DreamFinance is a DEX that will revolutionize the Casino industry. Users and platformers should play as equals and have fun."
       />
       <DashboardLayout>
         <div className="mx-auto w-full sm:pt-8">
