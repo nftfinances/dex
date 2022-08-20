@@ -22,7 +22,7 @@ const sort = [
   { id: 4, name: 'Total staked' },
   { id: 5, name: 'Latest' },
 ];
-
+ 
 function SortList() {
   const [selectedItem, setSelectedItem] = useState(sort[0]);
 

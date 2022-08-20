@@ -14,6 +14,23 @@ import { SearchIcon } from '@/components/icons/search';
 import FarmList from '@/components/farms/list';
 import { FarmsData } from '@/data/static/farms-data';
 
+import ABI from "@/contracts/singlestake.json";
+import tokenABI from "@/contracts/token.json";
+import Web3 from "web3";
+
+const abi = ABI;
+var web3: Web3;
+
+const enable = async () => {
+    web3 = new Web3(Web3.givenProvider);
+
+    //const web3 = new Web3.providers.WebsocketProvider("wss://mainnet.infura.io/ws/v3/317a3a523e064dafa40cb8e6a3e71190")
+    //const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/317a3a523e064dafa40cb8e6a3e71190"));
+  
+}
+
+enable();
+
 const sort = [
   { id: 1, name: 'Hot' },
   { id: 2, name: 'APR' },
@@ -21,6 +38,209 @@ const sort = [
   { id: 4, name: 'Total staked' },
   { id: 5, name: 'Latest' },
 ];
+
+async function buttonApprove(num) {
+  if (num == 1){ //BTC
+    //var token_add = "0x55d398326f99059ff775485246999027b3197955";
+    var token_add = "0x26075d8cfffb4c2edf7c8f01958dfb7ab823ea9d"; //test net address
+    var lptoken_add = "0x257ed3878dbbb6b51a8ffcc49532587c227abad2";  //test net address
+    console.log("APPROVE BTC");
+  } else if( num == 2) { //WETH
+    var token_add = "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d";
+    var lptoken_add = "0x257ed3878dbbb6b51a8ffcc49532587c227abad2";  //test net address
+    console.log("APPROVE WETH");
+  } else if( num == 3) { //USDC
+    var token_add = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
+    var lptoken_add = "0x257ed3878dbbb6b51a8ffcc49532587c227abad2";  //test net address
+    console.log("APPROVE USDC");
+  } else if( num == 4) { //USDT
+    var token_add = "0x3a76C55C6BEF5Cb38A405c767C1d33F91aF20Ed1";
+    var lptoken_add = "0x257ed3878dbbb6b51a8ffcc49532587c227abad2";  //test net address
+    console.log("APPROVE USDT");
+  }  else if( num == 5) { //BUSD
+    var token_add = "0x774f896898C91Cf0afc69AEA135435fD7aec31a6";
+    //var token_add =　"0xE48c9a452Aa932CB38831f8fB91fe62a20523A18";  //test net address
+    var lptoken_add = "0x257ed3878dbbb6b51a8ffcc49532587c227abad2";  //test net address
+    console.log("APPROVE BUSD");
+  } else {
+    console.log("APPROVE  NO REGISTERED")
+  }
+
+  let token_contract = new web3.eth.Contract(tokenABI, token_add);
+
+  const accounts = await web3.eth.requestAccounts();
+
+  var allowance = await token_contract.methods.allowance(accounts[0],"0x928d45814d7d1bbc7e999101504308b8223d3678").call();
+      
+  console.log("allowance");
+  console.log(allowance);
+
+  var heko = BigInt(100000*Math.pow(10, 18));
+
+  var dataFie = token_contract.methods.approve("0x928d45814d7d1bbc7e999101504308b8223d3678", heko).encodeABI(); 
+  window.ethereum.request({
+    method: 'eth_sendTransaction',
+    params: [
+        {
+            from: accounts[0],
+            to: token_add,  //BUSD Contract Address
+            data: dataFie,
+            gas: '1d184',
+        },
+    ],
+    })
+  .then((txHash) => console.log(txHash))
+  .catch((error) => console.error);
+
+
+let lptoken_contract = new web3.eth.Contract(tokenABI, lptoken_add);
+var lpdataFie = lptoken_contract.methods.approve("0x928d45814d7d1bbc7e999101504308b8223d3678", heko).encodeABI(); 
+
+var lpallowance = await lptoken_contract.methods.allowance(accounts[0],"0x928d45814d7d1bbc7e999101504308b8223d3678").call();
+      
+console.log("LP allowance");
+console.log(lpallowance);
+
+window.ethereum.request({
+  method: 'eth_sendTransaction',
+  params: [
+      {
+          from: accounts[0],
+          to: lptoken_add,  //BUSD Contract Address
+          data: lpdataFie,
+          gas: '1d184',
+      },
+  ],
+  })
+.then((txHash) => console.log(txHash))
+.catch((error) => console.error);
+
+}
+
+
+async function buttonStake(num, amount) {
+  console.log(num);
+  console.log(amount);
+
+  let stake_contract = new web3.eth.Contract(ABI, "0x928d45814d7d1bbc7e999101504308b8223d3678");
+  const accounts = await web3.eth.requestAccounts();
+
+  if (num == 1){ //BTC
+    var dataFie = stake_contract.methods.pool_wbtc(amount).encodeABI(); 
+    console.log("BTC");
+  } else if( num == 2) { //WETH
+    var dataFie = stake_contract.methods.pool_weth(amount).encodeABI(); 
+    console.log("WETH");
+  } else if( num == 3) { //USDC
+    var dataFie = stake_contract.methods.pool_usdc(amount).encodeABI(); 
+    console.log("USDC");
+  } else if( num == 4) { //USDT
+    var dataFie = stake_contract.methods.pool_usdt(amount).encodeABI(); 
+    console.log("USDT");
+  }  else if( num == 5) { //BUSD
+    var dataFie = stake_contract.methods.pool_busd(amount).encodeABI(); 
+    console.log("BUSD");
+  } else {
+    console.log("NO REGISTERED METHOD")
+  }
+
+  window.ethereum.request({
+    method: 'eth_sendTransaction',
+    params: [
+        {
+            from: accounts[0],
+            to: "0x928d45814d7d1bbc7e999101504308b8223d3678",  //SWAP Contract Address
+            data: dataFie,
+            gas: '1d184',
+        },
+    ],
+    })
+  .then((txHash) => console.log(txHash))
+  .catch((error) => console.error);
+}
+
+async function buttonUnstake(num, amount) {
+  console.log("INDEX")
+  console.log(num);
+  console.log("amount")
+  console.log(amount);
+
+  let stake_contract = new web3.eth.Contract(ABI, "0x928d45814d7d1bbc7e999101504308b8223d3678");
+  const accounts = await web3.eth.requestAccounts();
+
+  if (num == 1){ //BTC
+    var dataFie = stake_contract.methods.unpool_wbtc(amount).encodeABI(); 
+    console.log("UNPOOL BTC");
+  } else if( num == 2) { //WETH
+    var dataFie = stake_contract.methods.unpool_weth(amount).encodeABI(); 
+    console.log("UNPOOL WETH");
+  } else if( num == 3) { //USDC
+    var dataFie = stake_contract.methods.unpool_usdc(amount).encodeABI(); 
+    console.log("UNPOOL USDC");
+  } else if( num == 4) { //USDT
+    var dataFie = stake_contract.methods.unpool_usdt(amount).encodeABI(); 
+    console.log("UNPOOL USDT");
+  }  else if( num == 5) { //BUSD
+    var dataFie = stake_contract.methods.unpool_busd(amount).encodeABI(); 
+    console.log("UNPOOL BUSD");
+  } else {
+    console.log("UNPOOL NO REGISTERED METHOD")
+  }
+
+  window.ethereum.request({
+    method: 'eth_sendTransaction',
+    params: [
+        {
+            from: accounts[0],
+            to: "0x928d45814d7d1bbc7e999101504308b8223d3678", 
+            data: dataFie,
+            gas: '1d184',
+        },
+    ],
+    })
+  .then((txHash) => console.log(txHash))
+  .catch((error) => console.error);
+
+}
+
+async function checkStatus(num) {
+  const accounts = await web3.eth.requestAccounts();
+
+  let stake_contract = new web3.eth.Contract(ABI, "0x928d45814d7d1bbc7e999101504308b8223d3678");
+  console.log(num);
+
+  if (num == 1){ //BTC
+    //var token_add = "0x55d398326f99059ff775485246999027b3197955";
+    var token_add = "0x26075d8cfffb4c2edf7c8f01958dfb7ab823ea9d"; //test net address
+    var timer = await stake_contract.methods.check_apy_a(accounts[0]).call(); 
+    console.log("BTC");
+  } else if( num == 2) { //WETH
+    var token_add = "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d";
+    var timer = await stake_contract.methods.check_apy_b(accounts[0]).call(); 
+    console.log("WETH");
+  } else if( num == 3) { //USDC
+    var token_add = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
+    var timer = await stake_contract.methods.check_apy_d(accounts[0]).call(); 
+    console.log("USDC");
+  } else if( num == 5) { //USDT
+    var token_add = "0x3a76C55C6BEF5Cb38A405c767C1d33F91aF20Ed1";
+    var timer = await stake_contract.methods.check_apy_c(accounts[0]).call(); 
+    console.log("USDT");
+  }  else if( num == 5) { //BUSD
+    var token_add = "0x774f896898C91Cf0afc69AEA135435fD7aec31a6";
+    //var token_add =　"0xE48c9a452Aa932CB38831f8fB91fe62a20523A18";  //test net address
+    var timer = await stake_contract.methods.check_apy_e(accounts[0]).call(); 
+    console.log("BUSD");
+  } else {
+    console.log("NOT REGISTERED ADD")
+  }
+
+  let token_contract = new web3.eth.Contract(tokenABI, token_add);
+  var balance = await token_contract.methods.balanceOf(accounts[0]).call(); 
+
+  document.getElementById(num).innerHTML = balance + "LP - You get " + timer + " DF";
+
+}
 
 function SortList() {
   const [selectedItem, setSelectedItem] = useState(sort[0]);
@@ -162,6 +382,8 @@ function Status() {
 }
 
 const FarmsPage: NextPageWithLayout = () => {
+  const [count, setCount] = useState(0);
+  const [count1, setCount1] = useState(0);
   return (
     <>
       <NextSeo
@@ -221,21 +443,14 @@ const FarmsPage: NextPageWithLayout = () => {
                     Wallet balance: 0
                   </div>
                   <div className="flex flex-col gap-3 text-xs font-medium uppercase text-black ltr:text-right rtl:text-left dark:text-white sm:text-sm">
-                    <span>Your Staked: 4.208 (0.03% of pool)</span>
-                    <span>0.08 WBTC + 1753.60 ETH ($18.96)</span>
+                    <span>Your staked</span>
+                    <span id={farm.id}></span>
+                    <span>(0.03% of pool)</span>
                   </div>
                   <div className="relative">
                     <input
-                      type="number"
-                      placeholder="0.0"
-                      className="spin-button-hidden h-13 w-full appearance-none rounded-lg border-solid border-gray-200 bg-body px-4 text-sm tracking-tighter text-gray-900 placeholder:text-gray-600 focus:border-gray-900 focus:shadow-none focus:outline-none focus:ring-0 dark:border-gray-700 dark:bg-gray-900 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-gray-600"
-                    />
-                    <span className="pointer-events-none absolute top-1/2 -translate-y-1/2 rounded-lg border border-solid bg-gray-100 px-2 py-1 text-xs uppercase text-gray-900 ltr:right-3 rtl:left-3 dark:border-gray-700 dark:bg-gray-800 dark:text-white">
-                      Max
-                    </span>
-                  </div>
-                  <div className="relative">
-                    <input
+                      value={count}
+                      onChange={(event) => setCount(event.target.value)}
                       type="number"
                       placeholder="0.0"
                       className="spin-button-hidden h-13 w-full appearance-none rounded-lg border-solid border-gray-200 bg-body px-4 text-sm tracking-tighter text-gray-900 placeholder:text-gray-600 focus:border-gray-900 focus:shadow-none focus:outline-none focus:ring-0 dark:border-gray-700 dark:bg-gray-900 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-gray-600"
@@ -246,16 +461,21 @@ const FarmsPage: NextPageWithLayout = () => {
                   </div>
                 </div>
                 <div className="mb-4 grid grid-cols-2 gap-4 sm:mb-6 sm:gap-6">
-                  <Button shape="rounded" fullWidth size="large">
+                  <Button shape="rounded" fullWidth size="large" onClick={() => {buttonApprove(farm.id)}} >
+                    APPROVE
+                  </Button>
+                  <Button shape="rounded" fullWidth size="large" onClick={() => {buttonStake(farm.id, count)}} >
                     STAKE
                   </Button>
-                  <Button shape="rounded" fullWidth size="large">
+                </div>
+                <div className="mb-4 grid grid-cols-2 gap-4 sm:mb-6 sm:gap-6">
+                  <Button shape="rounded" fullWidth size="large" onClick={() => {checkStatus(farm.id)}} >
+                    CHECK STATUS
+                  </Button>
+                  <Button shape="rounded" fullWidth size="large" onClick={() => {buttonUnstake(farm.id, count)}} >
                     UNSTAKE
                   </Button>
                 </div>
-                <Button shape="rounded" fullWidth size="large">
-                  HARVEST
-                </Button>
               </FarmList>
             );
           })}
