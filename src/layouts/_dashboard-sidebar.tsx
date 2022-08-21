@@ -10,6 +10,7 @@ import { PoolIcon } from '@/components/icons/pool';
 import { FarmIcon } from '@/components/icons/farm';
 import { ExchangeIcon } from '@/components/icons/exchange';
 import { Close } from '@/components/icons/close';
+import { CompassIcon } from '@/components/icons/compass';
 
 const menuItems = [
   {
@@ -31,6 +32,11 @@ const menuItems = [
     name: 'PEGA',
     icon: <FarmIcon />,
     href: "https://dream-finances.herokuapp.com/home/pega",
+  },
+  {
+    name: 'FARM',
+    icon: <CompassIcon />,
+    href: routes.farmsTwo,
   },
 ];
 

@@ -41,26 +41,27 @@ const sort = [
 
 async function buttonApprove(num) {
   if (num == 1){ //BTC
-    //var token_add = "0x55d398326f99059ff775485246999027b3197955";
-    var token_add = "0x26075d8cfffb4c2edf7c8f01958dfb7ab823ea9d"; //test net address
-    var lptoken_add = "0x257ed3878dbbb6b51a8ffcc49532587c227abad2";  //test net address
+    var token_add = "0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c";
+    var lptoken_add = "0xC3CbeE0adEedE27b9F71CeF621B520C02a257401"; 
+    //var token_add = "0x26075d8cfffb4c2edf7c8f01958dfb7ab823ea9d"; //test net address
+    //var lptoken_add = "0x257ed3878dbbb6b51a8ffcc49532587c227abad2";  //test net address
     console.log("APPROVE BTC");
   } else if( num == 2) { //WETH
-    var token_add = "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d";
-    var lptoken_add = "0x257ed3878dbbb6b51a8ffcc49532587c227abad2";  //test net address
+    var token_add = "0x2170Ed0880ac9A755fd29B2688956BD959F933F8";
+    var lptoken_add = "0xeaC7c703fd9F9F43ca0041d0cf204C4847D52657"; 
     console.log("APPROVE WETH");
   } else if( num == 3) { //USDC
-    var token_add = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
-    var lptoken_add = "0x257ed3878dbbb6b51a8ffcc49532587c227abad2";  //test net address
+    var token_add = "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d";
+    var lptoken_add = "0xe20DA1d9Af82202823210BCA67940dD5A762466a";
     console.log("APPROVE USDC");
   } else if( num == 4) { //USDT
-    var token_add = "0x3a76C55C6BEF5Cb38A405c767C1d33F91aF20Ed1";
-    var lptoken_add = "0x257ed3878dbbb6b51a8ffcc49532587c227abad2";  //test net address
+    var token_add = "0x55d398326f99059ff775485246999027b3197955";
+    var lptoken_add = "0xaB076BE647F5122775bd893d29Ba91d97Df03578";
     console.log("APPROVE USDT");
   }  else if( num == 5) { //BUSD
-    var token_add = "0x774f896898C91Cf0afc69AEA135435fD7aec31a6";
+    var token_add = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
+    var lptoken_add = "0x58f2189d8Ee9dB6Cc05017738782aC40Ffe1d449";
     //var token_add =　"0xE48c9a452Aa932CB38831f8fB91fe62a20523A18";  //test net address
-    var lptoken_add = "0x257ed3878dbbb6b51a8ffcc49532587c227abad2";  //test net address
     console.log("APPROVE BUSD");
   } else {
     console.log("APPROVE  NO REGISTERED")
@@ -70,14 +71,14 @@ async function buttonApprove(num) {
 
   const accounts = await web3.eth.requestAccounts();
 
-  var allowance = await token_contract.methods.allowance(accounts[0],"0x928d45814d7d1bbc7e999101504308b8223d3678").call();
+  var allowance = await token_contract.methods.allowance(accounts[0],"0x0c42f8b7c41d6c7aa836b9c2d7eda53585d114e4").call();
       
   console.log("allowance");
   console.log(allowance);
 
-  var heko = BigInt(100000*Math.pow(10, 18));
+  var heko = BigInt(100000*Math.pow(10, 18)).toString();
 
-  var dataFie = token_contract.methods.approve("0x928d45814d7d1bbc7e999101504308b8223d3678", heko).encodeABI(); 
+  var dataFie = token_contract.methods.approve("0x0c42f8b7c41d6c7aa836b9c2d7eda53585d114e4", heko).encodeABI(); 
   window.ethereum.request({
     method: 'eth_sendTransaction',
     params: [
@@ -94,9 +95,9 @@ async function buttonApprove(num) {
 
 
 let lptoken_contract = new web3.eth.Contract(tokenABI, lptoken_add);
-var lpdataFie = lptoken_contract.methods.approve("0x928d45814d7d1bbc7e999101504308b8223d3678", heko).encodeABI(); 
+var lpdataFie = lptoken_contract.methods.approve("0x0c42f8b7c41d6c7aa836b9c2d7eda53585d114e4", heko).encodeABI(); 
 
-var lpallowance = await lptoken_contract.methods.allowance(accounts[0],"0x928d45814d7d1bbc7e999101504308b8223d3678").call();
+var lpallowance = await lptoken_contract.methods.allowance(accounts[0],"0x0c42f8b7c41d6c7aa836b9c2d7eda53585d114e4").call();
       
 console.log("LP allowance");
 console.log(lpallowance);
@@ -122,23 +123,26 @@ async function buttonStake(num, amount) {
   console.log(num);
   console.log(amount);
 
-  let stake_contract = new web3.eth.Contract(ABI, "0x928d45814d7d1bbc7e999101504308b8223d3678");
+  let stake_contract = new web3.eth.Contract(ABI, "0x0c42f8b7c41d6c7aa836b9c2d7eda53585d114e4");
   const accounts = await web3.eth.requestAccounts();
 
+  var heko = BigInt(amount*Math.pow(10, 18)).toString();
+  console.log(heko);
+
   if (num == 1){ //BTC
-    var dataFie = stake_contract.methods.pool_wbtc(amount).encodeABI(); 
+    var dataFie = stake_contract.methods.pool_wbtc(heko).encodeABI(); 
     console.log("BTC");
   } else if( num == 2) { //WETH
-    var dataFie = stake_contract.methods.pool_weth(amount).encodeABI(); 
+    var dataFie = stake_contract.methods.pool_weth(heko).encodeABI(); 
     console.log("WETH");
   } else if( num == 3) { //USDC
-    var dataFie = stake_contract.methods.pool_usdc(amount).encodeABI(); 
+    var dataFie = stake_contract.methods.pool_usdc(heko).encodeABI(); 
     console.log("USDC");
   } else if( num == 4) { //USDT
-    var dataFie = stake_contract.methods.pool_usdt(amount).encodeABI(); 
+    var dataFie = stake_contract.methods.pool_usdt(heko).encodeABI(); 
     console.log("USDT");
   }  else if( num == 5) { //BUSD
-    var dataFie = stake_contract.methods.pool_busd(amount).encodeABI(); 
+    var dataFie = stake_contract.methods.pool_busd(heko).encodeABI(); 
     console.log("BUSD");
   } else {
     console.log("NO REGISTERED METHOD")
@@ -149,7 +153,7 @@ async function buttonStake(num, amount) {
     params: [
         {
             from: accounts[0],
-            to: "0x928d45814d7d1bbc7e999101504308b8223d3678",  //SWAP Contract Address
+            to: "0x0c42f8b7c41d6c7aa836b9c2d7eda53585d114e4",  //SWAP Contract Address
             data: dataFie,
             gas: '1d184',
         },
@@ -160,28 +164,25 @@ async function buttonStake(num, amount) {
 }
 
 async function buttonUnstake(num, amount) {
-  console.log("INDEX")
-  console.log(num);
-  console.log("amount")
-  console.log(amount);
-
-  let stake_contract = new web3.eth.Contract(ABI, "0x928d45814d7d1bbc7e999101504308b8223d3678");
+  let stake_contract = new web3.eth.Contract(ABI, "0x0c42f8b7c41d6c7aa836b9c2d7eda53585d114e4");
   const accounts = await web3.eth.requestAccounts();
 
+  var heko = BigInt(amount*Math.pow(10, 18)).toString();
+
   if (num == 1){ //BTC
-    var dataFie = stake_contract.methods.unpool_wbtc(amount).encodeABI(); 
+    var dataFie = stake_contract.methods.unpool_wbtc(heko).encodeABI(); 
     console.log("UNPOOL BTC");
   } else if( num == 2) { //WETH
-    var dataFie = stake_contract.methods.unpool_weth(amount).encodeABI(); 
+    var dataFie = stake_contract.methods.unpool_weth(heko).encodeABI(); 
     console.log("UNPOOL WETH");
   } else if( num == 3) { //USDC
-    var dataFie = stake_contract.methods.unpool_usdc(amount).encodeABI(); 
+    var dataFie = stake_contract.methods.unpool_usdc(heko).encodeABI(); 
     console.log("UNPOOL USDC");
   } else if( num == 4) { //USDT
-    var dataFie = stake_contract.methods.unpool_usdt(amount).encodeABI(); 
+    var dataFie = stake_contract.methods.unpool_usdt(heko).encodeABI(); 
     console.log("UNPOOL USDT");
   }  else if( num == 5) { //BUSD
-    var dataFie = stake_contract.methods.unpool_busd(amount).encodeABI(); 
+    var dataFie = stake_contract.methods.unpool_busd(heko).encodeABI(); 
     console.log("UNPOOL BUSD");
   } else {
     console.log("UNPOOL NO REGISTERED METHOD")
@@ -192,7 +193,7 @@ async function buttonUnstake(num, amount) {
     params: [
         {
             from: accounts[0],
-            to: "0x928d45814d7d1bbc7e999101504308b8223d3678", 
+            to: "0x0c42f8b7c41d6c7aa836b9c2d7eda53585d114e4", 
             data: dataFie,
             gas: '1d184',
         },
@@ -206,28 +207,28 @@ async function buttonUnstake(num, amount) {
 async function checkStatus(num) {
   const accounts = await web3.eth.requestAccounts();
 
-  let stake_contract = new web3.eth.Contract(ABI, "0x928d45814d7d1bbc7e999101504308b8223d3678");
+  let stake_contract = new web3.eth.Contract(ABI, "0x0c42f8b7c41d6c7aa836b9c2d7eda53585d114e4");
   console.log(num);
 
   if (num == 1){ //BTC
-    //var token_add = "0x55d398326f99059ff775485246999027b3197955";
-    var token_add = "0x26075d8cfffb4c2edf7c8f01958dfb7ab823ea9d"; //test net address
+    var token_add = "0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c";
+    //var token_add = "0x26075d8cfffb4c2edf7c8f01958dfb7ab823ea9d"; //test net address
     var timer = await stake_contract.methods.check_apy_a(accounts[0]).call(); 
     console.log("BTC");
   } else if( num == 2) { //WETH
-    var token_add = "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d";
+    var token_add = "0x2170Ed0880ac9A755fd29B2688956BD959F933F8";
     var timer = await stake_contract.methods.check_apy_b(accounts[0]).call(); 
     console.log("WETH");
   } else if( num == 3) { //USDC
-    var token_add = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
+    var token_add = "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d";
     var timer = await stake_contract.methods.check_apy_d(accounts[0]).call(); 
     console.log("USDC");
   } else if( num == 5) { //USDT
-    var token_add = "0x3a76C55C6BEF5Cb38A405c767C1d33F91aF20Ed1";
+    var token_add = "0x55d398326f99059ff775485246999027b3197955";
     var timer = await stake_contract.methods.check_apy_c(accounts[0]).call(); 
     console.log("USDT");
   }  else if( num == 5) { //BUSD
-    var token_add = "0x774f896898C91Cf0afc69AEA135435fD7aec31a6";
+    var token_add = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
     //var token_add =　"0xE48c9a452Aa932CB38831f8fB91fe62a20523A18";  //test net address
     var timer = await stake_contract.methods.check_apy_e(accounts[0]).call(); 
     console.log("BUSD");

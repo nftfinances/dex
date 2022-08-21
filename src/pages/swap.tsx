@@ -30,6 +30,9 @@ enable();
 const temp = 0;
 
 async function dec(count, count1){
+  console.log("amount");
+  console.log(count.value);
+  console.log(count1.value);
   if (window.ethereum) {
     try {
       // check if the chain to connect to is installed
@@ -107,15 +110,19 @@ async function dec(count, count1){
 
       if (count.coin == 1){ //USDT
         if(count1.coin == 4){
+          var heko = BigInt(count.value*Math.pow(10, 17)).toString();
           var dataFie = swap_contract.methods.swap_usdt_df(heko).encodeABI(); //user address to CONTRACT
           console.log("usdt -> df ")
         } else if(count1.coin == 2 ){
+          var heko = BigInt(count.value*Math.pow(10, 17)).toString();
           var dataFie = swap_contract.methods.swap_usdt_usdc(heko).encodeABI(); //user address to CONTRACT
           console.log("usdt -> usdc ")
         } else if(count1.coin == 3 ){
+          var heko = BigInt(count.value*Math.pow(10, 17)).toString();
           var dataFie = swap_contract.methods.swap_usdt_busd(heko).encodeABI(); //user address to CONTRACT
           console.log("usdt -> BUSD ")
         } else if(count1.coin == 5 ){
+          var heko = BigInt(count.value*Math.pow(10, 17)).toString();
           var dataFie = swap_contract.methods.swap_usdt_pb(heko).encodeABI(); //user address to CONTRACT
           console.log("usdt -> PB ")
         } else {
@@ -139,15 +146,19 @@ async function dec(count, count1){
         }
       } else if (count.coin == 3) { //BUSD
         if(count1.coin == 1 ){
+          var heko = BigInt(count.value*Math.pow(10, 17)).toString();
           var dataFie = swap_contract.methods.swap_busd_usdt(heko).encodeABI(); //user address to CONTRACT
           console.log("BUSD -> USDT ")
         } else if(count1.coin == 2 ){ //USDC
+          var heko = BigInt(count.value*Math.pow(10, 17)).toString();
           var dataFie = swap_contract.methods.swap_busd_usdc(heko).encodeABI(); //user address to CONTRACT
           console.log("busd -> usdc ")
         } else if(count1.coin == 4 ){
+          var heko = BigInt(count.value*Math.pow(10, 17)).toString();
           var dataFie = swap_contract.methods.swap_busd_df(heko).encodeABI(); //user address to CONTRACT
           console.log("BUSD ->DF ")
         } else if(count1.coin == 5 ){
+          var heko = BigInt(count.value*Math.pow(10, 17)).toString();
           var dataFie = swap_contract.methods.swap_busd_pb(heko).encodeABI(); //user address to CONTRACT
           console.log("busd -> PB ")
         } else {
@@ -155,12 +166,15 @@ async function dec(count, count1){
         }
       } else if (count.coin == 2) {  //USDC
         if(count1.coin == 1){
+          var heko = BigInt(count.value*Math.pow(10, 17)).toString();
           var dataFie = swap_contract.methods.swap_usdc_usdt(heko).encodeABI(); //user address to CONTRACT
           console.log("USDC -> USDT ")
         } else if(count1.coin == 3 ){
+          var heko = BigInt(count.value*Math.pow(10, 17)).toString();
           var dataFie = swap_contract.methods.swap_usdc_busd(heko).encodeABI(); //user address to CONTRACT
           console.log("usdc -> busd ")
         } else if(count1.coin == 4 ){
+          var heko = BigInt(count.value*Math.pow(10, 17)).toString();
           var dataFie = swap_contract.methods.swap_usdc_df(heko).encodeABI(); //user address to CONTRACT
           console.log("USDC ->DF ")
         } else if(count1.coin == 5 ){
