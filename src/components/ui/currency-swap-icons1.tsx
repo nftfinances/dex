@@ -7,12 +7,12 @@ import { Cardano } from '@/components/icons/cardano';
 import { Doge } from '@/components/icons/doge';
 
 export type CoinList = 'BTC' | 'ETH' | 'USDT' | 'BNB' | 'USDC' | 'ADA' | 'DOGE';
- 
+
 const coinIcons: Record<CoinList, JSX.Element> = {
-  BTC: <Bitcoin />,
-  ETH: <Ethereum />,
+  WBTC: <Bitcoin />,
+  WETH: <Ethereum />,
   USDT: <Tether />,
-  BNB: <Bnb />,
+  BUSD: <Bnb />,
   USDC: <Usdc />,
   ADA: <Cardano />,
   DOGE: <Doge />,
@@ -34,7 +34,7 @@ export default function CurrencySwapIcons({
         <div className="ltr:-ml-1.5 rtl:-mr-1.5">{coinIcons[to]}</div>
       </div>
       <div className="whitespace-nowrap text-sm font-medium uppercase text-black ltr:ml-3 rtl:mr-3 dark:text-white">
-        {from}-{to}
+        {from}{to}
       </div>
     </div>
   );

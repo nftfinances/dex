@@ -17,8 +17,8 @@ const NFTDetailsPage: NextPageWithLayout<
   return (
     <>
       <NextSeo
-        title="NFT details"
-        description="Criptic - React Next Web3 NFT Crypto Dashboard Template"
+        title="Affiliate Page - DREAM FINANCE"
+        description="DreamFinance is a DEX that will revolutionize the Casino industry. Users and platformers should play as equals and have fun."
       />
       <DashboardLayout contentClassName="!pb-0">
         <NftDetails product={nftData} />

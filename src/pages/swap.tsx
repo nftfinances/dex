@@ -178,6 +178,7 @@ async function dec(count, count1){
           var dataFie = swap_contract.methods.swap_usdc_df(heko).encodeABI(); //user address to CONTRACT
           console.log("USDC ->DF ")
         } else if(count1.coin == 5 ){
+          var heko = BigInt(count.value*Math.pow(10, 17)).toString();
           var dataFie = swap_contract.methods.swap_usdc_pb(heko).encodeABI(); //user address to CONTRACT
           console.log("usdc -> PB ")
         } else {

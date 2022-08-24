@@ -41,7 +41,7 @@ function NftFooter({
           <div className="flex gap-4 pb-3.5 md:pb-4 xl:gap-5">
             <div className="block w-1/2 shrink-0 md:w-2/5">
               <h3 className="mb-1 truncate text-13px font-medium uppercase tracking-wider text-gray-900 dark:text-white sm:mb-1.5 sm:text-sm">
-                Current bid <span className="md:hidden">by</span>{' '}
+                You can Get <span className="md:hidden">by</span>{' '}
                 <AnchorLink
                   href={currentBid?.authorSlug ?? '#'}
                   className="normal-case text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white md:hidden"
@@ -50,7 +50,7 @@ function NftFooter({
                 </AnchorLink>
               </h3>
               <div className="text-lg font-medium -tracking-wider md:text-xl xl:text-2xl">
-                {currentBid?.amount} ETH
+                {currentBid?.amount} DF
               </div>
               <AnchorLink
                 href={currentBid?.authorSlug ?? '#'}
@@ -64,16 +64,18 @@ function NftFooter({
             </div>
             <div className="block w-1/2 shrink-0 md:w-3/5">
               <h3 className="mb-1 truncate text-13px font-medium uppercase tracking-wider text-gray-900 dark:text-white sm:mb-1.5 sm:text-sm">
-                Auction ends in
+                Current Total
               </h3>
-              <AuctionCountdown date={auctionTime} />
+              <div className="text-lg font-medium -tracking-wider md:text-xl xl:text-2xl">
+                {currentBid?.amount} USD
+              </div>
             </div>
           </div>
         )}
 
         <div className="grid grid-cols-2 gap-3">
           <Button shape="rounded">
-            {isAuction ? 'PLACE A BID' : `BUY FOR ${price} ETH`}
+            {isAuction ? 'CLAIM DF' : `BUY FOR ${price} DF`}
           </Button>
           <Button
             shape="rounded"
@@ -154,13 +156,13 @@ export default function NftDetails({ product }: { product: NftDetailsProps }) {
                 href={minted_slug}
                 className="mt-1.5 inline-flex items-center text-sm -tracking-wider text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white xl:mt-2.5"
               >
-                Minted on {minted_date}
+                Started on {minted_date}
                 <ArrowLinkIcon className="h-3 w-3 ltr:ml-2 rtl:mr-2" />
               </AnchorLink>
               <div className="mt-4 flex flex-wrap gap-6 pt-0.5 lg:-mx-6 lg:mt-6 lg:gap-0">
                 <div className="shrink-0 border-dashed border-gray-200 dark:border-gray-700 lg:px-6 lg:ltr:border-r lg:rtl:border-l">
                   <h3 className="text-heading-style mb-2 uppercase text-gray-900 dark:text-white">
-                    Created By
+                    POOL Affiliate Link
                   </h3>
                   <AnchorLink href={creator?.slug} className="inline-flex">
                     <ListCard
@@ -171,11 +173,11 @@ export default function NftDetails({ product }: { product: NftDetailsProps }) {
                 </div>
                 <div className="shrink-0 lg:px-6">
                   <h3 className="text-heading-style mb-2.5 uppercase text-gray-900 dark:text-white">
-                    Collection
+                    SINGLE Affiliate Link
                   </h3>
                   <AnchorLink href="#" className="inline-flex">
                     <ListCard
-                      item={collection}
+                      item={creator}
                       className="rounded-full p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                     />
                   </AnchorLink>
@@ -190,7 +192,7 @@ export default function NftDetails({ product }: { product: NftDetailsProps }) {
                     path: 'details',
                   },
                   {
-                    title: 'Bids',
+                    title: 'Friends',
                     path: 'bids',
                   },
                   {
@@ -269,14 +271,14 @@ export default function NftDetails({ product }: { product: NftDetailsProps }) {
           <NftFooter
             className="hidden md:block"
             currentBid={nftData?.bids[nftData?.bids?.length - 1]}
-            auctionTime={Date.now() + 4000000 * 10}
+            auctionTime={'Fr Dec 17, 2021'}
             isAuction={isAuction}
             price={price}
           />
         </div>
         <NftFooter
           currentBid={nftData?.bids[nftData?.bids?.length - 1]}
-          auctionTime={Date.now() + 4000000 * 10}
+          auctionTime={'Fr Dec 17, 2021'}
           isAuction={isAuction}
           price={price}
         />

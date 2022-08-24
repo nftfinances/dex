@@ -12,19 +12,18 @@ import Avatar7 from '@/assets/images/avatar/7.png';
 
 export const nftData = {
   isAuction: true,
-  name: 'Flow Punk Gallery #303',
+  name: 'DREAM AFFLIATE PROGRAM',
   image: SingleNft,
-  minted_date: 'Jan 26, 2022',
-  minted_slug: 'https://etherscan.io/',
+  minted_date: 'Aug 26, 2022',
+  minted_slug: 'https://https://bscscan.com/',
   price: 0.2,
   description:
-    'Fisherian Runaways, Child of #48 Bat Veil & #42 Screw Nose. This mushroom is the result of the cross-breeding of two original one of a kind generative mushrooms donated back to the Fisherian Runaways project their generous owner.',
+    'A generous affiliate bonus, incentive type and semi-permanent reward. Incentive rate up to 20%. It is attractive that it is easy to get high rewards.',
   creator: { id: 1, logo: Avatar1, name: '@Cameronwilliamson', slug: '#' },
   collection: { id: 1, logo: Avatar3, name: 'Criptic', slug: '#' },
   owner: { id: 1, logo: Avatar4, name: '@williamson', slug: '#' },
   block_chains: [
-    { id: 1, logo: Bitcoin, name: 'Ethereum', slug: '#' },
-    { id: 2, logo: Ethereum, name: 'Bitcoin', slug: '#' },
+    { id: 1, logo: Ethereum, name: 'BSC', slug: '#' },
   ],
   bids: [
     {

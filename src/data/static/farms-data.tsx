@@ -1,8 +1,8 @@
 export const FarmsData = [
   {
     id: 1,
-    from: 'W',
-    to: 'BTC',
+    from: 'WBTC',
+    to: '',
     earned: '0',
     apr: '2.50%',
     liquidity: '$232,941,720',
@@ -10,8 +10,8 @@ export const FarmsData = [
   },
   {
     id: 2,
-    from: 'w',
-    to: 'ETH',
+    from: 'WETH',
+    to: '',
     earned: '0',
     apr: '3.5%',
     liquidity: '$132,941,720',
@@ -37,7 +37,7 @@ export const FarmsData = [
   },
   {
     id: 5,
-    from: 'BNB',
+    from: 'BUSD',
     to: '',
     earned: '0',
     apr: '9.50%',
