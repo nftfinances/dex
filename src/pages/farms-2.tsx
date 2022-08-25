@@ -437,7 +437,7 @@ const FarmsPage: NextPageWithLayout = () => {
   const [count, setCount] = useState(0);
 
   const [ statusFilter, setStatusFilter ] = useState< STATUS_TYPE >( 'LIVE' );
-  const [ nameFilter, setNameFilter ] = useState<string>( 'WB' );
+  const [ nameFilter, setNameFilter ] = useState<string>( '' );
   const[ sortId, setSortId ] = useState<SORT_ID>( 'HOT' );
 
   const filteredFarmsData = useMemo( () => {
