@@ -5,12 +5,12 @@ import { CoinList } from '@/components/ui/currency-swap-icons1';
 import TransactionInfo from '@/components/ui/transaction-info';
 
 interface FarmListTypes {
-  from: string;
-  to: string;
-  earned: string;
-  apr: string;
-  liquidity: string;
-  multiplier: string;
+  from: CoinList;
+  to: CoinList;
+  earned: number;
+  apr: number;
+  liquidity: number;
+  multiplier: number;
 }
 
 export default function FarmList({
@@ -23,8 +23,8 @@ export default function FarmList({
   children,
 }: React.PropsWithChildren<FarmListTypes>) {
   let [isExpand, setIsExpand] = useState(false);
-  const setFrom = from as CoinList;
-  const setTo = to as CoinList;
+  const setFrom = from;
+  const setTo = to;
   return (
     <div className="relative mb-3 overflow-hidden rounded-lg bg-white shadow-card transition-all last:mb-0 hover:shadow-large dark:bg-light-dark">
       <div
@@ -44,16 +44,16 @@ export default function FarmList({
           <span className="mb-1 block font-medium text-gray-600 dark:text-gray-400 sm:hidden">
             APR
           </span>
-          {apr}
+          {apr}%
           <span className="hidden font-normal text-gray-600 dark:text-gray-400 sm:block">
             Annualized
           </span>
         </div>
         <div className="hidden px-4 text-xs font-medium uppercase tracking-wider text-black dark:text-white sm:px-8 sm:text-sm lg:block">
-          {liquidity}
+          ${ new Intl.NumberFormat( 'en' ).format( liquidity ) }
         </div>
         <div className="hidden px-4 text-xs font-medium uppercase tracking-wider text-black dark:text-white sm:px-8 sm:text-sm lg:block">
-          {multiplier}
+          {multiplier}x
         </div>
       </div>
       <AnimatePresence initial={false}>

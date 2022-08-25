@@ -6,7 +6,7 @@ import { Usdc } from '@/components/icons/usdc';
 import { Cardano } from '@/components/icons/cardano';
 import { Doge } from '@/components/icons/doge';
 
-export type CoinList = 'BTC' | 'ETH' | 'USDT' | 'BNB' | 'USDC' | 'ADA' | 'DOGE';
+export type CoinList = 'WBTC' | 'WETH' | 'USDT' | 'BUSD' | 'USDC' | 'ADA' | 'DOGE';
 
 const coinIcons: Record<CoinList, JSX.Element> = {
   WBTC: <Bitcoin />,

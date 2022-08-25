@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEventHandler, FC, useMemo, useState } from 'react';
 import type { NextPageWithLayout } from '@/types';
 import { NextSeo } from 'next-seo';
 import { motion } from 'framer-motion';
@@ -31,12 +31,19 @@ const enable = async () => {
 
 enable();
 
-const sort = [
-  { id: 1, name: 'Hot' },
-  { id: 2, name: 'APR' },
-  { id: 3, name: 'Earned' },
-  { id: 4, name: 'Total staked' },
-  { id: 5, name: 'Latest' },
+type SORT_ID = 'HOT' | 'APR' | 'LATEST';
+
+type SORT_OPTION = {
+  id: SORT_ID;
+  name: string;
+};
+
+const SORT_OPTIONS: SORT_OPTION[] = [
+  { id: 'HOT', name: 'Hot' },
+  { id: 'APR', name: 'APR' },
+  // { id: 3, name: 'Earned' },
+  // { id: 4, name: 'Total staked' },
+  { id: 'LATEST', name: 'Latest' },
 ];
 
 async function buttonApprove(num) {
@@ -243,14 +250,30 @@ async function checkStatus(num) {
 
 }
 
-function SortList() {
-  const [selectedItem, setSelectedItem] = useState(sort[0]);
+type SortListProps = {
+  currentSortId: SORT_ID;
+  onChange( id: SORT_ID ): void;
+}
+
+const SortList: FC<SortListProps> = ( {
+  currentSortId,
+  onChange,
+} ) => {
+
+  const selectedOption = useMemo( () => {
+
+    return SORT_OPTIONS.find( ( option ) => option.id === currentSortId );
+
+  }, [ currentSortId ] );
 
   return (
     <div className="relative w-full md:w-auto">
-      <Listbox value={selectedItem} onChange={setSelectedItem}>
+      <Listbox
+        value={ currentSortId }
+        onChange={ onChange }
+      >
         <Listbox.Button className="flex h-11 w-full items-center justify-between rounded-lg bg-gray-100 px-4 text-sm text-gray-900 dark:bg-light-dark dark:text-white md:w-36 lg:w-40 xl:w-56">
-          {selectedItem.name}
+          { selectedOption?.name }
           <ChevronDown />
         </Listbox.Button>
         <Transition
@@ -262,19 +285,20 @@ function SortList() {
           leaveTo="opacity-0 "
         >
           <Listbox.Options className="absolute left-0 z-10 mt-2 w-full origin-top-right rounded-lg bg-white p-3 shadow-large dark:bg-light-dark">
-            {sort.map((item) => (
-              <Listbox.Option key={item.id} value={item}>
-                {({ selected }) => (
-                  <div
-                    className={`block cursor-pointer rounded-lg px-3 py-2 text-sm font-medium text-gray-900 transition dark:text-white  ${
-                      selected
-                        ? 'my-1 bg-gray-100 dark:bg-dark'
-                        : 'hover:bg-gray-50 dark:hover:bg-gray-700'
-                    }`}
-                  >
-                    {item.name}
-                  </div>
-                )}
+            { SORT_OPTIONS.map( ( sortOption ) => (
+              <Listbox.Option
+                key={ sortOption.id }
+                value={ sortOption.id }
+              >
+                <div
+                  className={`block cursor-pointer rounded-lg px-3 py-2 text-sm font-medium text-gray-900 transition dark:text-white  ${
+                    currentSortId === sortOption.id
+                      ? 'my-1 bg-gray-100 dark:bg-dark'
+                      : 'hover:bg-gray-50 dark:hover:bg-gray-700'
+                  }`}
+                >
+                  { sortOption.name }
+                </div>
               </Listbox.Option>
             ))}
           </Listbox.Options>
@@ -284,7 +308,22 @@ function SortList() {
   );
 }
 
-function Search() {
+type SearchProps = {
+  value: string;
+  onChange( value: string ): void;
+};
+
+const Search: FC<SearchProps> = ( {
+  value,
+  onChange,
+} ) => {
+
+  const handleOnChange: ChangeEventHandler<HTMLInputElement> = ( event ) => {
+
+    onChange( event.target.value );
+
+  }
+
   return (
     <form
       className="relative flex w-full rounded-full md:w-auto lg:w-64 xl:w-80"
@@ -296,6 +335,9 @@ function Search() {
           className="h-11 w-full appearance-none rounded-lg border-2 border-gray-200 bg-transparent py-1 text-sm tracking-tighter text-gray-900 outline-none transition-all placeholder:text-gray-600 focus:border-gray-900 ltr:pr-5 ltr:pl-10 rtl:pr-10 dark:border-gray-600 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-gray-500"
           placeholder="Search farms"
           autoComplete="off"
+          value={ value }
+          onChange={ handleOnChange }
+          onInput={ handleOnChange }
         />
         <span className="pointer-events-none absolute flex h-full w-8 cursor-pointer items-center justify-center text-gray-600 hover:text-gray-900 ltr:left-0 ltr:pl-2 rtl:right-0 rtl:pr-2 dark:text-gray-500 sm:ltr:pl-3 sm:rtl:pr-3">
           <SearchIcon className="h-4 w-4" />
@@ -335,8 +377,17 @@ function StackedSwitch() {
   );
 }
 
-function Status() {
-  let [status, setStatus] = useState('live');
+type STATUS_TYPE = 'LIVE' | 'FINISHED';
+
+type StatusProps = {
+  status: STATUS_TYPE;
+  setStatus( status: STATUS_TYPE ): void;
+};
+
+const Status: FC<StatusProps> = ( {
+  status,
+  setStatus,
+} ) => {
 
   return (
     <RadioGroup
@@ -344,7 +395,7 @@ function Status() {
       onChange={setStatus}
       className="flex items-center sm:gap-3"
     >
-      <RadioGroup.Option value="live">
+      <RadioGroup.Option value="LIVE">
         {({ checked }) => (
           <span
             className={`relative flex h-11 w-20 cursor-pointer items-center justify-center rounded-lg text-center text-xs font-medium tracking-wider sm:w-24 sm:text-sm ${
@@ -361,7 +412,7 @@ function Status() {
           </span>
         )}
       </RadioGroup.Option>
-      <RadioGroup.Option value="finished">
+      <RadioGroup.Option value="FINISHED">
         {({ checked }) => (
           <span
             className={`relative flex h-11 w-20 cursor-pointer items-center justify-center rounded-lg text-center text-xs font-medium tracking-wider sm:w-24 sm:text-sm ${
@@ -384,7 +435,31 @@ function Status() {
 
 const FarmsPage: NextPageWithLayout = () => {
   const [count, setCount] = useState(0);
-  const [count1, setCount1] = useState(0);
+
+  const [ statusFilter, setStatusFilter ] = useState< STATUS_TYPE >( 'LIVE' );
+  const [ nameFilter, setNameFilter ] = useState<string>( 'WB' );
+  const[ sortId, setSortId ] = useState<SORT_ID>( 'HOT' );
+
+  const filteredFarmsData = useMemo( () => {
+
+    const filteredFarmsData = FarmsData
+      .filter( ( item ) => item.live_status === statusFilter )
+      .filter( ( item ) => nameFilter.trim() === '' ? true : new RegExp( nameFilter, 'i' ).test( item.from ) );
+    filteredFarmsData.sort( ( a, b ) => {
+
+      return (
+        sortId === 'HOT' ? b.liquidity - a.liquidity :
+        sortId === 'APR' ? b.apr - a.apr :
+        sortId === 'LATEST' ? b.multiplier - a.multiplier :
+        - 1
+      );
+
+    } );
+
+    return filteredFarmsData;
+
+  }, [ statusFilter, nameFilter, sortId ] );
+
   return (
     <>
       <NextSeo
@@ -395,7 +470,10 @@ const FarmsPage: NextPageWithLayout = () => {
         <div className="mx-auto w-full sm:pt-8">
           <div className="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-center md:gap-6">
             <div className="flex items-center justify-between gap-4">
-              <Status />
+              <Status
+                status={ statusFilter }
+                setStatus={ setStatusFilter }
+              />
               <div className="md:hidden">
                 <StackedSwitch />
               </div>
@@ -405,8 +483,14 @@ const FarmsPage: NextPageWithLayout = () => {
               <div className="hidden shrink-0 md:block">
                 <StackedSwitch />
               </div>
-              <Search />
-              <SortList />
+              <Search
+                value={ nameFilter }
+                onChange={ setNameFilter }
+              />
+              <SortList
+                currentSortId={ sortId }
+                onChange={ setSortId }
+              />
             </div>
           </div>
 
@@ -428,7 +512,7 @@ const FarmsPage: NextPageWithLayout = () => {
             </span>
           </div>
 
-          {FarmsData.map((farm) => {
+          {filteredFarmsData.map((farm) => {
             return (
               <FarmList
                 key={farm.id}
@@ -445,7 +529,7 @@ const FarmsPage: NextPageWithLayout = () => {
                   </div>
                   <div className="flex flex-col gap-3 text-xs font-medium uppercase text-black ltr:text-right rtl:text-left dark:text-white sm:text-sm">
                     <span>Your staked</span>
-                    <span id={farm.id}></span>
+                    <span id={ `${ farm.id }` }></span>
                     <span>(0.03% of pool)</span>
                   </div>
                   <div className="relative">
