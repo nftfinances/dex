@@ -7,6 +7,7 @@ export const FarmsData = [
     apr: '2.50%',
     liquidity: '$232,941,720',
     multiplier: '40x',
+    live_status:'live',
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ export const FarmsData = [
     apr: '3.5%',
     liquidity: '$132,941,720',
     multiplier: '10x',
+    live_status:'live',
   },
   {
     id: 3,
@@ -25,6 +27,7 @@ export const FarmsData = [
     apr: '9.0%',
     liquidity: '$332,941,720',
     multiplier: '22x',
+    live_status:'live',
   },
   {
     id: 4,
@@ -34,6 +37,7 @@ export const FarmsData = [
     apr: '8.0%',
     liquidity: '$232,941,720',
     multiplier: '20x',
+    live_status:'live',
   },
   {
     id: 5,
@@ -43,5 +47,6 @@ export const FarmsData = [
     apr: '9.50%',
     liquidity: '$132,941,720',
     multiplier: '34x',
+    live_status:'finished',
   },
 ];
