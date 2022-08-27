@@ -78,14 +78,14 @@ async function buttonApprove(num) {
 
   const accounts = await web3.eth.requestAccounts();
 
-  var allowance = await token_contract.methods.allowance(accounts[0],"0x0c42f8b7c41d6c7aa836b9c2d7eda53585d114e4").call();
+  var allowance = await token_contract.methods.allowance(accounts[0],"0x43551564c76642D509f3d70BfDF3A8D0a83e7570").call();
       
   console.log("allowance");
   console.log(allowance);
 
   var heko = BigInt(100000*Math.pow(10, 18)).toString();
 
-  var dataFie = token_contract.methods.approve("0x0c42f8b7c41d6c7aa836b9c2d7eda53585d114e4", heko).encodeABI(); 
+  var dataFie = token_contract.methods.approve("0x43551564c76642D509f3d70BfDF3A8D0a83e7570", heko).encodeABI(); 
   window.ethereum.request({
     method: 'eth_sendTransaction',
     params: [
@@ -102,9 +102,9 @@ async function buttonApprove(num) {
 
 
 let lptoken_contract = new web3.eth.Contract(tokenABI, lptoken_add);
-var lpdataFie = lptoken_contract.methods.approve("0x0c42f8b7c41d6c7aa836b9c2d7eda53585d114e4", heko).encodeABI(); 
+var lpdataFie = lptoken_contract.methods.approve("0x43551564c76642D509f3d70BfDF3A8D0a83e7570", heko).encodeABI(); 
 
-var lpallowance = await lptoken_contract.methods.allowance(accounts[0],"0x0c42f8b7c41d6c7aa836b9c2d7eda53585d114e4").call();
+var lpallowance = await lptoken_contract.methods.allowance(accounts[0],"0x43551564c76642D509f3d70BfDF3A8D0a83e7570").call();
       
 console.log("LP allowance");
 console.log(lpallowance);
@@ -130,7 +130,7 @@ async function buttonStake(num, amount) {
   console.log(num);
   console.log(amount);
 
-  let stake_contract = new web3.eth.Contract(ABI, "0x0c42f8b7c41d6c7aa836b9c2d7eda53585d114e4");
+  let stake_contract = new web3.eth.Contract(ABI, "0x43551564c76642D509f3d70BfDF3A8D0a83e7570");
   const accounts = await web3.eth.requestAccounts();
 
   var heko = BigInt(amount*Math.pow(10, 18)).toString();
@@ -160,7 +160,7 @@ async function buttonStake(num, amount) {
     params: [
         {
             from: accounts[0],
-            to: "0x0c42f8b7c41d6c7aa836b9c2d7eda53585d114e4",  //SWAP Contract Address
+            to: "0x43551564c76642D509f3d70BfDF3A8D0a83e7570",  //SWAP Contract Address
             data: dataFie,
             gas: '1d184',
         },
@@ -171,7 +171,7 @@ async function buttonStake(num, amount) {
 }
 
 async function buttonUnstake(num, amount) {
-  let stake_contract = new web3.eth.Contract(ABI, "0x0c42f8b7c41d6c7aa836b9c2d7eda53585d114e4");
+  let stake_contract = new web3.eth.Contract(ABI, "0x43551564c76642D509f3d70BfDF3A8D0a83e7570");
   const accounts = await web3.eth.requestAccounts();
 
   var heko = BigInt(amount*Math.pow(10, 18)).toString();
@@ -200,7 +200,7 @@ async function buttonUnstake(num, amount) {
     params: [
         {
             from: accounts[0],
-            to: "0x0c42f8b7c41d6c7aa836b9c2d7eda53585d114e4", 
+            to: "0x43551564c76642D509f3d70BfDF3A8D0a83e7570", 
             data: dataFie,
             gas: '1d184',
         },
@@ -214,7 +214,7 @@ async function buttonUnstake(num, amount) {
 async function checkStatus(num) {
   const accounts = await web3.eth.requestAccounts();
 
-  let stake_contract = new web3.eth.Contract(ABI, "0x0c42f8b7c41d6c7aa836b9c2d7eda53585d114e4");
+  let stake_contract = new web3.eth.Contract(ABI, "0x43551564c76642D509f3d70BfDF3A8D0a83e7570");
   console.log(num);
 
   if (num == 1){ //BTC
