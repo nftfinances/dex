@@ -230,7 +230,7 @@ async function checkStatus(num) {
     var token_add = "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d";
     var timer = await stake_contract.methods.check_apy_d(accounts[0]).call(); 
     console.log("USDC");
-  } else if( num == 5) { //USDT
+  } else if( num == 4) { //USDT
     var token_add = "0x55d398326f99059ff775485246999027b3197955";
     var timer = await stake_contract.methods.check_apy_c(accounts[0]).call(); 
     console.log("USDT");
@@ -245,7 +245,10 @@ async function checkStatus(num) {
 
   let token_contract = new web3.eth.Contract(tokenABI, token_add);
   var balance = await token_contract.methods.balanceOf(accounts[0]).call(); 
-
+  if (timer > 27692966){
+    timer = 0;
+  }
+  console.log(timer);
   document.getElementById(num).innerHTML = balance + "LP - You get " + timer + " DF";
 
 }
@@ -474,9 +477,6 @@ const FarmsPage: NextPageWithLayout = () => {
                 status={ statusFilter }
                 setStatus={ setStatusFilter }
               />
-              <div className="md:hidden">
-                <StackedSwitch />
-              </div>
             </div>
 
             <div className="flex items-center gap-4 lg:gap-8">
