@@ -13,6 +13,7 @@ import tokenABI from "@/contracts/token.json";
 
 import Web3 from "web3";
 import detectEthereumProvider from '@metamask/detect-provider';
+import { useAffiliateId } from '@/hooks/use-affiliate-id';
 
 const abi = ABI;
 const tokenabi = tokenABI;
@@ -30,7 +31,10 @@ const enable = async () => {
 
 enable();
 
-async function dec(count, count1){
+async function dec(count, count1, affiliateId: string ){
+
+  console.log( { affiliateId } );
+
       let pool_contract = new web3.eth.Contract(ABI, "0x1019F470D86B03aB8f814080816F83f1D545D87c");
 
       const greeting = await pool_contract.methods.check_apy_a("0x34De3E504892841e0247931582028bEbbF27220d").call();
@@ -115,7 +119,10 @@ async function check_status(){
 
 }
 
-async function approve(count, count1){
+async function approve(count, count1, affiliateId: string ){
+
+  console.log( { affiliateId } );
+
   console.log(count);
   if (count.coin == "USDT"){
     var token_add = "0x55d398326f99059ff775485246999027b3197955";
@@ -235,7 +242,10 @@ async function approve(count, count1){
 
 }
 
-async function unpool(count,count1){
+async function unpool(count,count1, affiliateId: string ){
+
+  console.log( { affiliateId } );
+
   let pool_contract = new web3.eth.Contract(ABI, "0x1019F470D86B03aB8f814080816F83f1D545D87c");
 
       var pool_method = "pool_contract.methods.unpool" + "_" + count.coin.toLowerCase() + "_" +count1.coin.toLowerCase() + "(" + count.value + ").encodeABI()";
@@ -276,6 +286,8 @@ async function unpool(count,count1){
 const LiquidityPage: NextPageWithLayout = () => {
   const [count, setCount] = useState();
   const [count1, setCount1] = useState();
+
+  const affiliateId = useAffiliateId();
 
   return (
     <>
@@ -340,7 +352,7 @@ const LiquidityPage: NextPageWithLayout = () => {
               shape="rounded"
               fullWidth={true}
               className="mt-6 uppercase xs:mt-8 xs:tracking-widest"
-              onClick={() => approve(count, count1)}
+              onClick={() => approve(count, count1, affiliateId)}
             >
               Approve
             </Button>
@@ -358,7 +370,7 @@ const LiquidityPage: NextPageWithLayout = () => {
               shape="rounded"
               fullWidth={true}
               className="mt-6 uppercase xs:mt-8 xs:tracking-widest"
-              onClick={() => dec(count, count1)}
+              onClick={() => dec(count, count1, affiliateId)}
             >
               POOL
             </Button>
@@ -367,7 +379,7 @@ const LiquidityPage: NextPageWithLayout = () => {
               shape="rounded"
               fullWidth={true}
               className="mt-6 uppercase xs:mt-8 xs:tracking-widest"
-              onClick={() => unpool(count,count1)}
+              onClick={() => unpool(count,count1, affiliateId)}
             >
               UNPOOL
             </Button>
