@@ -32,39 +32,61 @@ const enable = async () => {
 enable();
 
 async function dec(count, count1, affiliateId: string ){
-
-  console.log( { affiliateId } );
-
-      let pool_contract = new web3.eth.Contract(ABI, "0x1019F470D86B03aB8f814080816F83f1D545D87c");
-
-      const greeting = await pool_contract.methods.check_apy_a("0x34De3E504892841e0247931582028bEbbF27220d").call();
-      var pool_method = "pool_contract.methods.pool" + "_" + count.coin.toLowerCase() + "_" +count1.coin.toLowerCase() + "(" + count.value + ").encodeABI()";
-      if (count.coin == "USDT" && count1.coin == "BUSD") {
-        pool_method = "pool_contract.methods.pool" + "_" + count1.coin.toLowerCase() + "_" +count.coin.toLowerCase() + "(" + count.value + ").encodeABI()";
-      };
-      if (count.coin == "USDT" && count1.coin == "USDC") {
-        pool_method = "pool_contract.methods.pool" + "_" + count1.coin.toLowerCase() + "_" +count.coin.toLowerCase() + "(" + count.value + ").encodeABI()";
-      }
-      if (count.coin == "BUSD" && count1.coin == "USDC") {
-        pool_method = "pool_contract.methods.pool" + "_" + count1.coin.toLowerCase() + "_" +count.coin.toLowerCase() + "(" + count.value + ").encodeABI()";
-      }
-
-
-      console.log(pool_method);
-
+      console.log("YOUR AFFILIATE ID")
+      console.log(affiliateId);
       const accounts = await web3.eth.requestAccounts();
 
+      let pool_contract = new web3.eth.Contract(ABI, "0x9b0521750dbdfb1b5ea2e0819cdc173537497a48");
+
+      if(affiliateId){//do affiliate
+        //var pool_method = "pool_contract.methods.pool" + "_" + count.coin.toLowerCase() + "_" +count1.coin.toLowerCase() + "(" + accounts[0] + "," + count.value + "," + affiliateId  +").encodeABI()";
+        if (count.coin == "USDT" && count1.coin == "BUSD") {//do affi
+          //pool_method = "pool_contract.methods.pool" + "_" + count1.coin.toLowerCase() + "_" +count.coin.toLowerCase() + "(" + accounts[0] + "," + count.value + "," +  affiliateId  +").encodeABI()";
+          var dataFie = pool_contract.methods.pool_busd_usdt(accounts[0], count.value, affiliateId).encodeABI();
+          console.log("BUSD-USDT");
+        };
+        if (count.coin == "USDT" && count1.coin == "USDC") {//do affi
+          //pool_method = "pool_contract.methods.pool" + "_" + count1.coin.toLowerCase() + "_" +count.coin.toLowerCase() + "(" + count.value + "," +  affiliateId   +").encodeABI()";
+          var dataFie = pool_contract.methods.pool_usdc_usdt(accounts[0], count.value, affiliateId).encodeABI();
+          console.log("USDC-USDT");
+        }
+        if (count.coin == "BUSD" && count1.coin == "USDC") { //do affi
+          //pool_method = "pool_contract.methods.pool" + "_" + count1.coin.toLowerCase() + "_" +count.coin.toLowerCase() + "(" + count.value + "," +  affiliateId   +").encodeABI()";
+          var dataFie = pool_contract.methods.pool_usdc_busd(accounts[0], count.value, affiliateId).encodeABI();
+          console.log("USDC-BUSD");
+        }
+      } else { //non affiliate
+        console.log("non affliate");
+        //var pool_method = "pool_contract.methods.pool" + "_" + count.coin.toLowerCase() + "_" +count1.coin.toLowerCase() + "(" + count.value + ", 0).encodeABI()";
+        if (count.coin == "USDT" && count1.coin == "BUSD") {
+          //pool_method = "pool_contract.methods.pool" + "_" + count1.coin.toLowerCase() + "_" +count.coin.toLowerCase() + "(" + count.value + ", 0).encodeABI()";
+          var dataFie = pool_contract.methods.pool_busd_usdt(accounts[0], count.value, 0).encodeABI();
+          console.log("BUSD-USDT");
+        };
+        if (count.coin == "USDT" && count1.coin == "USDC") {
+          //pool_method = "pool_contract.methods.pool" + "_" + count1.coin.toLowerCase() + "_" +count.coin.toLowerCase() + "(" + count.value + ", 0).encodeABI()";
+          var dataFie = pool_contract.methods.pool_usdc_usdt(accounts[0], count.value, 0).encodeABI();
+          console.log("USDC-USDT");
+        }
+        if (count.coin == "BUSD" && count1.coin == "USDC") {
+          //pool_method = "pool_contract.methods.pool" + "_" + count1.coin.toLowerCase() + "_" +count.coin.toLowerCase() + "(" + count.value + ", 0).encodeABI()";
+          var dataFie = pool_contract.methods.pool_usdc_busd(accounts[0], count.value, 0).encodeABI();
+          console.log("USDC-BUSD");
+        }
+      }
+
+      console.log("HELLO")
       //var dataFie = swap_contract.methods.swap_usdc_df(1).encodeABI(); //user address to CONTRACT
-      var dataFie = eval(pool_method); //user address to CONTRACT
+      //var dataFie = eval(pool_method); //user address to CONTRACT
 
       window.ethereum.request({
         method: 'eth_sendTransaction',
         params: [
             {
                 from: accounts[0],
-                to: "0x1019F470D86B03aB8f814080816F83f1D545D87c",  //BUSD Contract Address
+                to: "0x9b0521750dbdfb1b5ea2e0819cdc173537497a48",  //BUSD Contract Address
                 data: dataFie,
-                gas: '1d184',
+                gas: 'e0684',
             },
         ],
         })
@@ -88,7 +110,7 @@ async function check_status(){
   let LP_token2 = new web3.eth.Contract(tokenABI, "0xfcc52458fD60F4ce9A00a53C8dBb7a7D5dBD5582"); //USDC-USDT
   var lp_num2 = await LP_token2.methods.balanceOf(accounts[0]).call();
 
-  let Pool_contract = new web3.eth.Contract(ABI, "0x1019f470d86b03ab8f814080816f83f1d545d87c");
+  let Pool_contract = new web3.eth.Contract(ABI, "0x9b0521750dbdfb1b5ea2e0819cdc173537497a48");
   
   var apy_b = await Pool_contract.methods.check_apy_b(accounts[0]).call(); //USDC-USDT
   var apy_a = await Pool_contract.methods.check_apy_a(accounts[0]).call(); //BUSD-USDC
@@ -126,6 +148,7 @@ async function approve(count, count1, affiliateId: string ){
   console.log(count);
   if (count.coin == "USDT"){
     var token_add = "0x55d398326f99059ff775485246999027b3197955";
+    var token_add = "0x67ADCeE20aCddD658f0868A66313f7C78E21C924"; //TEST NET
   } else if( count.coin == "USDC") {
     var token_add = "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d";
   } else if( count.coin == "BUSD") {
@@ -145,8 +168,10 @@ async function approve(count, count1, affiliateId: string ){
   var heko = BigInt(10000*Math.pow(10, 18));
 
   // pool contract address
-  var dataFie = token_contract.methods.approve("0x1019f470d86b03ab8f814080816f83f1d545d87c", heko).encodeABI(); 
-
+  var dataFie = token_contract.methods.approve("0x9b0521750dbdfb1b5ea2e0819cdc173537497a48", heko).encodeABI(); 
+  var allowance = await token_contract.methods.allowance(accounts[0],"0x9b0521750dbdfb1b5ea2e0819cdc173537497a48").call();
+  console.log(allowance);
+  
   window.ethereum.request({
     method: 'eth_sendTransaction',
     params: [
@@ -168,6 +193,7 @@ async function approve(count, count1, affiliateId: string ){
     var token_add1 = "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d";
   } else if( count1.coin == "BUSD") {
     var token_add1 = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
+    var token_add1 = "0x1bC98a3c8c6A18af8c3339d45E6a8Be88133bc0b"; //TEST NET
   } else if( count1.coin == "PB") {
     var token_add1 = "0x3a76C55C6BEF5Cb38A405c767C1d33F91aF20Ed1";
   }  else if( count1.coin == "DF") {
@@ -175,13 +201,15 @@ async function approve(count, count1, affiliateId: string ){
   } else {
     console.log("NOT REGISTERED ADD")
   }
-  console.log(token_add);
+  console.log(token_add1);
 
   let token_contract1 = new web3.eth.Contract(tokenABI, token_add1);
-  var heko = BigInt(10000*Math.pow(10, 18));
+  var allowance1 = await token_contract1.methods.allowance(accounts[0],"0x9b0521750dbdfb1b5ea2e0819cdc173537497a48").call();
+  console.log(allowance1);
 
+  var heko = BigInt(10000*Math.pow(10, 18));
   // pool contract address
-  var dataFie = token_contract1.methods.approve("0x1019f470d86b03ab8f814080816f83f1d545d87c", heko).encodeABI(); 
+  var dataFie1 = token_contract1.methods.approve("0x9b0521750dbdfb1b5ea2e0819cdc173537497a48", heko).encodeABI(); 
 
   window.ethereum.request({
     method: 'eth_sendTransaction',
@@ -189,7 +217,7 @@ async function approve(count, count1, affiliateId: string ){
         {
             from: accounts[0],
             to: token_add1,  //BUSD Contract Address
-            data: dataFie,
+            data: dataFie1,
             gas: '1d184',
         },
     ],
@@ -199,6 +227,7 @@ async function approve(count, count1, affiliateId: string ){
 
     if (count.coin == "USDT" && count1.coin == "BUSD") {
       var lp_ad = "0x0042b1997C92A3eF2A0Cabbb52B4028Bb44c9c32";
+      var lp_ad = "0x0fd011cf20bF5AA72fab527BD4209f4877B5B892"; //testnet
     }
     if (count.coin == "BUSD" && count1.coin == "USDT") {
       var lp_ad = "0x0042b1997C92A3eF2A0Cabbb52B4028Bb44c9c32";
@@ -219,10 +248,13 @@ async function approve(count, count1, affiliateId: string ){
     console.log(lp_ad);
 
     let token_contract2 = new web3.eth.Contract(tokenABI, lp_ad);
+    var allowance2 = await token_contract2.methods.allowance(accounts[0],"0x9b0521750dbdfb1b5ea2e0819cdc173537497a48").call();
+    console.log(allowance2);
+
     var heko = BigInt(10000*Math.pow(10, 18));
   
     // pool contract address
-    var dataFie = token_contract2.methods.approve("0x1019f470d86b03ab8f814080816f83f1d545d87c", heko).encodeABI(); 
+    var dataFie2 = token_contract2.methods.approve("0x9b0521750dbdfb1b5ea2e0819cdc173537497a48", heko).encodeABI(); 
   
     window.ethereum.request({
       method: 'eth_sendTransaction',
@@ -230,7 +262,7 @@ async function approve(count, count1, affiliateId: string ){
           {
               from: accounts[0],
               to: lp_ad,  //BUSD Contract Address
-              data: dataFie,
+              data: dataFie2,
               gas: '1d184',
           },
       ],
@@ -242,39 +274,100 @@ async function approve(count, count1, affiliateId: string ){
 
 }
 
-async function unpool(count,count1, affiliateId: string ){
-
-  console.log( { affiliateId } );
-
-  let pool_contract = new web3.eth.Contract(ABI, "0x1019F470D86B03aB8f814080816F83f1D545D87c");
-
-      var pool_method = "pool_contract.methods.unpool" + "_" + count.coin.toLowerCase() + "_" +count1.coin.toLowerCase() + "(" + count.value + ").encodeABI()";
-      if (count.coin == "USDT" && count1.coin == "BUSD") {
-        pool_method = "pool_contract.methods.unpool" + "_" + count1.coin.toLowerCase() + "_" +count.coin.toLowerCase() + "(" + count.value + ").encodeABI()";
-      };
-      if (count.coin == "USDT" && count1.coin == "USDC") {
-        pool_method = "pool_contract.methods.unpool" + "_" + count1.coin.toLowerCase() + "_" +count.coin.toLowerCase() + "(" + count.value + ").encodeABI()";
-      }
-      if (count.coin == "BUSD" && count1.coin == "USDC") {
-        pool_method = "pool_contract.methods.unpool" + "_" + count1.coin.toLowerCase() + "_" +count.coin.toLowerCase() + "(" + count.value + ").encodeABI()";
-      }
-
-
-      console.log(pool_method);
+async function unpool(count, count1, affiliateId: string ){
 
       const accounts = await web3.eth.requestAccounts();
 
+      let pool_contract = new web3.eth.Contract(ABI, "0x9b0521750dbdfb1b5ea2e0819cdc173537497a48");
+      console.log(count.value);    
+    
+      let Pool_contract = new web3.eth.Contract(ABI, "0x9b0521750dbdfb1b5ea2e0819cdc173537497a48");
+            
+      document.getElementById("stake_status1").innerHTML = (lp_num1*apy_a*100025/100000).toString().slice(0,5);    
+    
+      document.getElementById("stake_status2").innerHTML = (lp_num2*apy_b*100025/100000).toString().slice(0,5);
+      if(affiliateId){//do affiliate
+        if (count.coin == "USDT" && count1.coin == "BUSD") {//do affi
+          var apy_c = await pool_contract.methods.check_apy_c(accounts[0]).call(); //BUSD-USDT
+          console.log(apy_c);
+          if(apy_c == 27713197){
+            alert("YOU NEED TO POOL")
+            return 0;
+          };
+          let LP_token = new web3.eth.Contract(tokenABI, "0x0042b1997C92A3eF2A0Cabbb52B4028Bb44c9c32"); //BUSD-USDT
+          var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
+          //var lp_num = 10
+          var claimed_df = lp_num*apy_c*0.00000173*10;
+          console.log(claimed_df);
+          var heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
+          var dataFie = pool_contract.methods.unpool_busd_usdt(accounts[0], count.value, heko, affiliateId).encodeABI();
+        };
+        if (count.coin == "USDT" && count1.coin == "USDC") {//do affi
+          let LP_token2 = new web3.eth.Contract(tokenABI, "0xfcc52458fD60F4ce9A00a53C8dBb7a7D5dBD5582"); //USDC-USDT
+          var lp_num2 = await LP_token2.methods.balanceOf(accounts[0]).call();
+          var apy_b = await pool_contract.methods.check_apy_b(accounts[0]).call(); //USDC-USDT
+          console.log(apy_b);
+          if(apy_b == 27713197){
+            alert("YOU NEED TO POOL")
+            return 0;
+          };
+          var claimed_df = lp_num*apy_b*0.00000173*10;
+          var heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
+          var dataFie = pool_contract.methods.unpool_usdc_usdt(accounts[0], count.value, heko, affiliateId).encodeABI();
+        }
+        if (count.coin == "BUSD" && count1.coin == "USDC") { //do affi
+          let LP_token1 = new web3.eth.Contract(tokenABI, "0x6C71d03cDBdb37BbB471F0299e27Be3C0786F712"); //BUSD-USDC
+          var lp_num1 = await LP_token1.methods.balanceOf(accounts[0]).call();
+          var apy_a = await pool_contract.methods.check_apy_a(accounts[0]).call(); //BUSD-USDC
+          if(apy_a == 27713197){
+            alert("YOU NEED TO POOL")
+            return 0;
+          };
+          var claimed_df = lp_num*apy_a*0.00000173*10;
+          var heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
+          var dataFie = pool_contract.methods.unpool_usdc_busd(accounts[0], count.value, heko, affiliateId).encodeABI();
+        }
+      } else { //non affiliate
+        console.log("NON AFFILITE")
+        if (count.coin == "USDT" && count1.coin == "BUSD") {
+          var apy_c = await pool_contract.methods.check_apy_c(accounts[0]).call(); //BUSD-USDT
+          let LP_token = new web3.eth.Contract(tokenABI, "0x0042b1997C92A3eF2A0Cabbb52B4028Bb44c9c32"); //BUSD-USDT
+          var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
+          var claimed_df = lp_num*apy_c*0.00000173*10;
+          var heko = BigInt(Math.pow(10, 18)*claimed_df).toString();;
+          var dataFie = pool_contract.methods.unpool_busd_usdt(accounts[0], count.value, heko, 0).encodeABI();
+          console.log("BUSD - USDT");
+        };
+        if (count.coin == "USDT" && count1.coin == "USDC") {
+          let LP_token2 = new web3.eth.Contract(tokenABI, "0xfcc52458fD60F4ce9A00a53C8dBb7a7D5dBD5582"); //USDC-USDT
+          var lp_num2 = await LP_token2.methods.balanceOf(accounts[0]).call();
+          var apy_b = await pool_contract.methods.check_apy_b(accounts[0]).call(); //USDC-USDT
+          var claimed_df = lp_num2*apy_b*0.00000173*10;
+          var heko = BigInt(Math.pow(10, 18)*claimed_df).toString();;
+          var dataFie = pool_contract.methods.unpool_usdc_usdt(accounts[0], count.value, heko, 0).encodeABI();
+          console.log("USDC - USDT");
+        }
+        if (count.coin == "BUSD" && count1.coin == "USDC") {
+          let LP_token1 = new web3.eth.Contract(tokenABI, "0x6C71d03cDBdb37BbB471F0299e27Be3C0786F712"); //BUSD-USDC
+          var lp_num1 = await LP_token1.methods.balanceOf(accounts[0]).call();
+          var apy_a = await pool_contract.methods.check_apy_a(accounts[0]).call(); //BUSD-USDC
+          var claimed_df = lp_num1*apy_a*0.00000173*10;
+          var heko = BigInt(Math.pow(10, 18)*claimed_df).toString();;
+          var dataFie = pool_contract.methods.unpool_usdc_busd(accounts[0], count.value, heko, 0).encodeABI();
+          console.log("BUSD - USDC");
+        }
+      }
+      
       //var dataFie = swap_contract.methods.swap_usdc_df(1).encodeABI(); //user address to CONTRACT
-      var dataFie = eval(pool_method); //user address to CONTRACT
 
       window.ethereum.request({
         method: 'eth_sendTransaction',
         params: [
             {
                 from: accounts[0],
-                to: "0x1019F470D86B03aB8f814080816F83f1D545D87c",  //BUSD Contract Address
+                to: "0x9b0521750dbdfb1b5ea2e0819cdc173537497a48",  //BUSD Contract Address
                 data: dataFie,
-                gas: '1d184',
+                gas: 'e0684',
             },
         ],
         })

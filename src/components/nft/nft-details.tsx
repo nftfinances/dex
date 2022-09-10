@@ -13,6 +13,123 @@ import { useModal } from '@/components/modal-views/context';
 import { nftData } from '@/data/static/single-nft';
 import NftDropDown from './nft-dropdown';
 import { StaticImageData } from 'next/image';
+
+import ABI from "@/contracts/pool.json";
+import tokenABI from "@/contracts/token.json";
+import affiABI from "@/contracts/affi.json";
+
+import Web3 from "web3";
+import { useAffiliateId } from '@/hooks/use-affiliate-id';
+
+const abi = ABI;
+const tokenabi = tokenABI;
+const affiabi = affiABI;
+
+
+var web3: Web3;
+
+const enable = async () => {
+  web3 = new Web3(Web3.givenProvider);
+  // web3 = new Web3.providers.WebsocketProvider("wss://mainnet.infura.io/ws/v3/317a3a523e064dafa40cb8e6a3e71190")
+  // web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/317a3a523e064dafa40cb8e6a3e71190"));
+  // web3 = window.web3.currentProvider
+  //web3.setProvider(new Web3.providers.HttpProvider("http://localhost:3000"));
+
+}
+
+enable();
+
+async function register_affi(){
+  const accounts = await web3.eth.requestAccounts();
+
+  let affi_contract = new web3.eth.Contract(affiABI, "0x2bac256002d567981810e8816047601d0a0701e9"); 
+ 
+  var dataFie = affi_contract.methods.get_affiliate().encodeABI(); 
+  window.ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [
+            {
+                from: accounts[0],
+                to: "0x2bac256002d567981810e8816047601d0a0701e9",  //BUSD Contract Address
+                data: dataFie,
+                gas: '1d184',
+            },
+        ],
+        })
+      .then((txHash) => console.log(txHash))
+      .catch((error) => console.error);   
+
+}
+
+async function check_status(){
+  const accounts = await web3.eth.requestAccounts();
+  
+  let affi_contract = new web3.eth.Contract(affiABI, "0x2bac256002d567981810e8816047601d0a0701e9"); 
+  var realtime_check = await affi_contract.methods.check_start(accounts[0]).call(); 
+  console.log("REAL TIME");
+  console.log(realtime_check);
+
+  if (realtime_check > 27710503) {
+    alert("YOU NEED TO REGISTER")
+    return 0;
+  }
+
+  var current_order = await affi_contract.methods.get_order().call();
+  console.log("Current Order");
+  console.log(current_order);
+
+  var user_affid = await affi_contract.methods.get_affid(accounts[0]).call();
+  console.log("your affiliate id");
+  console.log(user_affid);
+  
+  var user_affid = 0;
+
+  let pool_contract = new web3.eth.Contract(ABI, "0x39126f3e46d44e032470ea612610ed1b7b244572");  
+  var total_assets = await pool_contract.methods.check_total_assets(user_affid).call();
+  console.log("your total assets");
+  console.log(total_assets);
+
+  var daily_df = total_assets*realtime_check*0.000000173*10;
+
+  document.getElementById("total_status").innerHTML = total_assets.toString() + "　";
+  document.getElementById("stake_status").innerHTML = daily_df.toString().slice(0,4) + "　";
+  document.getElementById("single_affilink").innerHTML = "dream1.finance/liquidity?affiliate_id=" + user_affid;
+  document.getElementById("pool_affilink").innerHTML = "dream1.finance/farms-2?affiliate_id=" + user_affid;
+
+}
+
+async function claim_df(){
+  const accounts = await web3.eth.requestAccounts();
+
+  let affi_contract = new web3.eth.Contract(affiABI, "0x2bac256002d567981810e8816047601d0a0701e9"); 
+  var realtime_check = await affi_contract.methods.check_start(accounts[0]).call(); 
+  var user_affid = await affi_contract.methods.get_affid(accounts[0]).call();
+
+  let pool_contract = new web3.eth.Contract(ABI, "0x39126f3e46d44e032470ea612610ed1b7b244572");  
+  var total_assets = await pool_contract.methods.check_total_assets(user_affid).call();
+ 
+  var daily_df = total_assets*realtime_check*0.000000173*10;
+  console.log(daily_df);
+
+  var heko = BigInt(Math.pow(10, 18)*daily_df);
+  var dataFie = affi_contract.methods.claim_df(heko).encodeABI(); 
+
+  window.ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [
+            {
+                from: accounts[0],
+                to: "0x2bac256002d567981810e8816047601d0a0701e9",  //BUSD Contract Address
+                data: dataFie,
+                gas: '1d184',
+            },
+        ],
+        })
+      .then((txHash) => console.log(txHash))
+      .catch((error) => console.error);   
+
+}
+
 interface NftFooterProps {
   className?: string;
   currentBid: any;
@@ -39,52 +156,36 @@ function NftFooter({
       <div className="-mx-4 border-t-2 border-gray-900 px-4 pt-4 pb-5 dark:border-gray-700 sm:-mx-6 sm:px-6 md:mx-2 md:px-0 md:pt-5 lg:pt-6 lg:pb-7">
         {isAuction && (
           <div className="flex gap-4 pb-3.5 md:pb-4 xl:gap-5">
-            <div className="block w-1/2 shrink-0 md:w-2/5">
-              <h3 className="mb-1 truncate text-13px font-medium uppercase tracking-wider text-gray-900 dark:text-white sm:mb-1.5 sm:text-sm">
-                You can Get <span className="md:hidden">by</span>{' '}
-                <AnchorLink
-                  href={currentBid?.authorSlug ?? '#'}
-                  className="normal-case text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white md:hidden"
-                >
-                  @{currentBid?.name}
-                </AnchorLink>
-              </h3>
-              <div className="text-lg font-medium -tracking-wider md:text-xl xl:text-2xl">
-                {currentBid?.amount} DF
-              </div>
-              <AnchorLink
-                href={currentBid?.authorSlug ?? '#'}
-                className="mt-2 hidden items-center text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white md:inline-flex"
-              >
-                <div className="h-6 w-6 rounded-full ltr:mr-2 rtl:ml-2">
-                  <Image src={Avatar1} alt="avatar" width={24} height={24} />
-                </div>
-                @{currentBid?.name}
-              </AnchorLink>
-            </div>
-            <div className="block w-1/2 shrink-0 md:w-3/5">
-              <h3 className="mb-1 truncate text-13px font-medium uppercase tracking-wider text-gray-900 dark:text-white sm:mb-1.5 sm:text-sm">
-                Current Total
-              </h3>
-              <div className="text-lg font-medium -tracking-wider md:text-xl xl:text-2xl">
-                {currentBid?.amount} USD
-              </div>
-            </div>
           </div>
         )}
 
         <div className="grid grid-cols-2 gap-3">
-          <Button shape="rounded">
-            {isAuction ? 'CLAIM DF' : `BUY FOR ${price} DF`}
+          <Button
+            shape="rounded"
+            variant="solid"
+            color="gray"
+            className="dark:bg-gray-800"
+            onClick={() => register_affi()}
+          >
+            REGISTER
           </Button>
           <Button
             shape="rounded"
             variant="solid"
             color="gray"
             className="dark:bg-gray-800"
-            onClick={() => openModal('SHARE_VIEW')}
+            onClick={() => check_status()}
           >
-            SHARE
+            CHECK STATUS
+          </Button>
+          <Button
+            shape="rounded"
+            variant="solid"
+            color="gray"
+            className="dark:bg-gray-800"
+            onClick={() => claim_df()}
+          >
+            CLAIM DF
           </Button>
         </div>
       </div>
@@ -126,6 +227,9 @@ export default function NftDetails({ product }: { product: NftDetailsProps }) {
     owner,
     block_chains,
   } = product;
+
+  const affiliateId = useAffiliateId();
+
   return (
     <div className="flex flex-grow">
       <div className="mx-auto flex w-full flex-grow flex-col transition-all xl:max-w-[1360px] 4xl:max-w-[1760px]">
@@ -165,21 +269,31 @@ export default function NftDetails({ product }: { product: NftDetailsProps }) {
                     POOL Affiliate Link
                   </h3>
                   <AnchorLink href={creator?.slug} className="inline-flex">
-                    <ListCard
-                      item={creator}
-                      className="rounded-full p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-                    />
+                    <span id="single_affilink"></span>
                   </AnchorLink>
                 </div>
-                <div className="shrink-0 lg:px-6">
+                <div className="shrink-0 border-dashed border-gray-200 dark:border-gray-700 lg:px-6 lg:ltr:border-r lg:rtl:border-l">
                   <h3 className="text-heading-style mb-2.5 uppercase text-gray-900 dark:text-white">
                     SINGLE Affiliate Link
                   </h3>
-                  <AnchorLink href="#" className="inline-flex">
-                    <ListCard
-                      item={creator}
-                      className="rounded-full p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-                    />
+                  <AnchorLink href={creator?.slug} className="inline-flex">
+                    <span id="pool_affilink"></span>
+                  </AnchorLink>
+                </div>
+                <div className="shrink-0 border-dashed border-gray-200 dark:border-gray-700 lg:px-6 lg:ltr:border-r lg:rtl:border-l">
+                  <h3 className="text-heading-style mb-2.5 uppercase text-gray-900 dark:text-white">
+                    Your Total Amount
+                  </h3>
+                  <AnchorLink href={creator?.slug} className="inline-flex">
+                    <span id="total_status"></span>  USD
+                  </AnchorLink>
+                </div>
+                <div className="shrink-0 border-dashed border-gray-200 dark:border-gray-700 lg:px-6 lg:ltr:border-r lg:rtl:border-l">
+                  <h3 className="text-heading-style mb-2.5 uppercase text-gray-900 dark:text-white">
+                    Your can GET
+                  </h3>
+                  <AnchorLink href={creator?.slug} className="inline-flex">
+                    <span id="stake_status"></span> DF
                   </AnchorLink>
                 </div>
               </div>
@@ -190,14 +304,6 @@ export default function NftDetails({ product }: { product: NftDetailsProps }) {
                   {
                     title: 'Details',
                     path: 'details',
-                  },
-                  {
-                    title: 'Friends',
-                    path: 'bids',
-                  },
-                  {
-                    title: 'History',
-                    path: 'history',
                   },
                 ]}
               >
@@ -210,17 +316,6 @@ export default function NftDetails({ product }: { product: NftDetailsProps }) {
                       <div className="text-sm leading-6 -tracking-wider text-gray-600 dark:text-gray-400">
                         {description}
                       </div>
-                    </div>
-                    <div className="block">
-                      <h3 className="text-heading-style mb-2 uppercase text-gray-900 dark:text-white">
-                        Owner
-                      </h3>
-                      <AnchorLink href={owner?.slug} className="inline-block">
-                        <ListCard
-                          item={owner}
-                          className="rounded-full p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-                        />
-                      </AnchorLink>
                     </div>
                     <div className="block">
                       <h3 className="text-heading-style mb-2 uppercase text-gray-900 dark:text-white">

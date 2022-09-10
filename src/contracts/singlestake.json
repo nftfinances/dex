@@ -28,20 +28,6 @@
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "unpool_busd",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"constant": true,
 		"inputs": [],
 		"name": "initialized",
@@ -150,20 +136,6 @@
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "pool_usdc",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"constant": true,
 		"inputs": [],
 		"name": "show_ethintereest",
@@ -175,6 +147,28 @@
 		],
 		"payable": false,
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"name": "claimdf",
+				"type": "uint256"
+			},
+			{
+				"name": "affiliateid",
+				"type": "uint256"
+			}
+		],
+		"name": "unpool_wbtc",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -214,20 +208,6 @@
 			}
 		],
 		"name": "plug_pb",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "unpool_usdt",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -304,20 +284,6 @@
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "pool_usdt",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"constant": true,
 		"inputs": [],
 		"name": "busd_interest",
@@ -329,6 +295,50 @@
 		],
 		"payable": false,
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"name": "claimdf",
+				"type": "uint256"
+			},
+			{
+				"name": "affiliateid",
+				"type": "uint256"
+			}
+		],
+		"name": "unpool_usdc",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"name": "claimdf",
+				"type": "uint256"
+			},
+			{
+				"name": "affiliateid",
+				"type": "uint256"
+			}
+		],
+		"name": "unpool_weth",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -430,20 +440,6 @@
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "pool_busd",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"constant": true,
 		"inputs": [],
 		"name": "df_rate",
@@ -533,9 +529,31 @@
 			{
 				"name": "amount",
 				"type": "uint256"
+			},
+			{
+				"name": "affiliateid",
+				"type": "uint256"
 			}
 		],
-		"name": "plug_usdt",
+		"name": "pool_wbtc",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"name": "affiliateid",
+				"type": "uint256"
+			}
+		],
+		"name": "pool_usdc",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -549,7 +567,7 @@
 				"type": "uint256"
 			}
 		],
-		"name": "pool_weth",
+		"name": "plug_usdt",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -600,6 +618,28 @@
 		],
 		"payable": false,
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"name": "claimdf",
+				"type": "uint256"
+			},
+			{
+				"name": "affiliateid",
+				"type": "uint256"
+			}
+		],
+		"name": "unpool_busd",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -699,9 +739,13 @@
 			{
 				"name": "amount",
 				"type": "uint256"
+			},
+			{
+				"name": "affiliateid",
+				"type": "uint256"
 			}
 		],
-		"name": "pool_wbtc",
+		"name": "pool_weth",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -713,9 +757,13 @@
 			{
 				"name": "amount",
 				"type": "uint256"
+			},
+			{
+				"name": "affiliateid",
+				"type": "uint256"
 			}
 		],
-		"name": "unpool_wbtc",
+		"name": "pool_usdt",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -730,34 +778,6 @@
 			}
 		],
 		"name": "plug_weth",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "unpool_usdc",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "unpool_weth",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -794,6 +814,46 @@
 		],
 		"payable": false,
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"name": "affiliateid",
+				"type": "uint256"
+			}
+		],
+		"name": "pool_busd",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"name": "claimdf",
+				"type": "uint256"
+			},
+			{
+				"name": "affiliateid",
+				"type": "uint256"
+			}
+		],
+		"name": "unpool_usdt",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{

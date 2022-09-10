@@ -17,6 +17,8 @@ import { FarmsData } from '@/data/static/farms-data';
 import ABI from "@/contracts/singlestake.json";
 import tokenABI from "@/contracts/token.json";
 import Web3 from "web3";
+import { useAffiliateId } from '@/hooks/use-affiliate-id';
+
 
 const abi = ABI;
 var web3: Web3;
@@ -126,9 +128,10 @@ window.ethereum.request({
 }
 
 
-async function buttonStake(num, amount) {
+async function buttonStake(num, amount, affiliateId: string) {
   console.log(num);
   console.log(amount);
+  console.log(affiliateId);
 
   let stake_contract = new web3.eth.Contract(ABI, "0x43551564c76642D509f3d70BfDF3A8D0a83e7570");
   const accounts = await web3.eth.requestAccounts();
@@ -136,23 +139,44 @@ async function buttonStake(num, amount) {
   var heko = BigInt(amount*Math.pow(10, 18)).toString();
   console.log(heko);
 
-  if (num == 1){ //BTC
-    var dataFie = stake_contract.methods.pool_wbtc(heko).encodeABI(); 
-    console.log("BTC");
-  } else if( num == 2) { //WETH
-    var dataFie = stake_contract.methods.pool_weth(heko).encodeABI(); 
-    console.log("WETH");
-  } else if( num == 3) { //USDC
-    var dataFie = stake_contract.methods.pool_usdc(heko).encodeABI(); 
-    console.log("USDC");
-  } else if( num == 4) { //USDT
-    var dataFie = stake_contract.methods.pool_usdt(heko).encodeABI(); 
-    console.log("USDT");
-  }  else if( num == 5) { //BUSD
-    var dataFie = stake_contract.methods.pool_busd(heko).encodeABI(); 
-    console.log("BUSD");
+  if(affiliateId){
+    if (num == 1){ //BTC
+      var dataFie = stake_contract.methods.pool_wbtc(heko, affiliateId).encodeABI(); 
+      console.log("BTC");
+    } else if( num == 2) { //WETH
+      var dataFie = stake_contract.methods.pool_weth(heko, affiliateId).encodeABI(); 
+      console.log("WETH");
+    } else if( num == 3) { //USDC
+      var dataFie = stake_contract.methods.pool_usdc(heko, affiliateId).encodeABI(); 
+      console.log("USDC");
+    } else if( num == 4) { //USDT
+      var dataFie = stake_contract.methods.pool_usdt(heko, affiliateId).encodeABI(); 
+      console.log("USDT");
+    }  else if( num == 5) { //BUSD
+      var dataFie = stake_contract.methods.pool_busd(heko, affiliateId).encodeABI(); 
+      console.log("BUSD");
+    } else {
+      console.log("NO REGISTERED METHOD")
+    }
   } else {
-    console.log("NO REGISTERED METHOD")
+    if (num == 1){ //BTC
+      var dataFie = stake_contract.methods.pool_wbtc(heko, 0).encodeABI(); 
+      console.log("BTC");
+    } else if( num == 2) { //WETH
+      var dataFie = stake_contract.methods.pool_weth(heko, 0).encodeABI(); 
+      console.log("WETH");
+    } else if( num == 3) { //USDC
+      var dataFie = stake_contract.methods.pool_usdc(heko, 0).encodeABI(); 
+      console.log("USDC");
+    } else if( num == 4) { //USDT
+      var dataFie = stake_contract.methods.pool_usdt(heko, 0).encodeABI(); 
+      console.log("USDT");
+    }  else if( num == 5) { //BUSD
+      var dataFie = stake_contract.methods.pool_busd(heko, 0).encodeABI(); 
+      console.log("BUSD");
+    } else {
+      console.log("NO REGISTERED METHOD")
+    }
   }
 
   window.ethereum.request({
@@ -170,29 +194,170 @@ async function buttonStake(num, amount) {
   .catch((error) => console.error);
 }
 
-async function buttonUnstake(num, amount) {
+async function buttonUnstake(num, amount, affiliateId: string) {
   let stake_contract = new web3.eth.Contract(ABI, "0x43551564c76642D509f3d70BfDF3A8D0a83e7570");
   const accounts = await web3.eth.requestAccounts();
 
   var heko = BigInt(amount*Math.pow(10, 18)).toString();
 
-  if (num == 1){ //BTC
-    var dataFie = stake_contract.methods.unpool_wbtc(heko).encodeABI(); 
-    console.log("UNPOOL BTC");
-  } else if( num == 2) { //WETH
-    var dataFie = stake_contract.methods.unpool_weth(heko).encodeABI(); 
-    console.log("UNPOOL WETH");
-  } else if( num == 3) { //USDC
-    var dataFie = stake_contract.methods.unpool_usdc(heko).encodeABI(); 
-    console.log("UNPOOL USDC");
-  } else if( num == 4) { //USDT
-    var dataFie = stake_contract.methods.unpool_usdt(heko).encodeABI(); 
-    console.log("UNPOOL USDT");
-  }  else if( num == 5) { //BUSD
-    var dataFie = stake_contract.methods.unpool_busd(heko).encodeABI(); 
-    console.log("UNPOOL BUSD");
+  if(affiliateId){
+    if (num == 1){ //BTC
+      var apy_a = await stake_contract.methods.check_apy_a(accounts[0]).call();
+      console.log(apy_a);
+      if(apy_a == 27713197){
+        alert("YOU NEED TO POOL")
+        return 0;
+      };
+      let LP_token = new web3.eth.Contract(tokenABI, "0xC3CbeE0adEedE27b9F71CeF621B520C02a257401"); //WBTC
+      var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
+      //var lp_num = 10
+      var claimed_df = lp_num*apy_a*0.000000472; //WBTC
+      console.log(claimed_df);
+      var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
+      var dataFie = stake_contract.methods.unpool_wbtc(heko, claimed_heko, affiliateId).encodeABI(); 
+      console.log("UNPOOL BTC");
+    } else if( num == 2) { //WETH
+      var apy_b = await stake_contract.methods.check_apy_b(accounts[0]).call();
+      console.log(apy_a);
+      if(apy_a == 27713197){
+        alert("YOU NEED TO POOL")
+        return 0;
+      };
+      let LP_token = new web3.eth.Contract(tokenABI, "0x59ac8f29476dcd8e949c221d3a981aeed4b85460"); //ETH
+      var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
+      //var lp_num = 10
+      var claimed_df = lp_num*apy_b*0.000000667; //WETH
+      console.log(claimed_df);
+      var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
+      var dataFie = stake_contract.methods.unpool_weth(heko, claimed_heko, affiliateId).encodeABI(); 
+      console.log("UNPOOL WETH");
+    } else if( num == 3) { //USDC
+      var apy_c = await stake_contract.methods.check_apy_c(accounts[0]).call();
+      console.log(apy_a);
+      if(apy_c == 27713197){
+        alert("YOU NEED TO POOL")
+        return 0;
+      };
+      let LP_token = new web3.eth.Contract(tokenABI, "0x16cC9016F1A0C10cE48A1529022245Ef209A2AA3"); //USDC
+      var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
+      //var lp_num = 10
+      var claimed_df = lp_num*apy_c*0.000001715; //USDC
+      console.log(claimed_df);
+      var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
+      var dataFie = stake_contract.methods.unpool_usdc(heko, claimed_heko, affiliateId).encodeABI(); 
+      console.log("UNPOOL USDC");
+    } else if( num == 4) { //USDT
+      var apy_d = await stake_contract.methods.check_apy_d(accounts[0]).call();
+      console.log(apy_d);
+      if(apy_a == 27713197){
+        alert("YOU NEED TO POOL")
+        return 0;
+      };
+      let LP_token = new web3.eth.Contract(tokenABI, "0x67ADCeE20aCddD658f0868A66313f7C78E21C924"); //USDT
+      var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
+      //var lp_num = 10
+      var claimed_df = lp_num*apy_d* 0.00000152; //USDT
+      console.log(claimed_df);
+      var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
+      var dataFie = stake_contract.methods.unpool_usdt(heko, claimed_df, affiliateId).encodeABI(); 
+      console.log("UNPOOL USDT");
+    }  else if( num == 5) { //BUSD
+      var apy_e = await stake_contract.methods.check_apy_e(accounts[0]).call();
+      console.log(apy_e);
+      if(apy_e == 27713197){
+        alert("YOU NEED TO POOL")
+        return 0;
+      };
+      let LP_token = new web3.eth.Contract(tokenABI, "0x1bC98a3c8c6A18af8c3339d45E6a8Be88133bc0b"); //BUSD
+      var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
+      //var lp_num = 10
+      var claimed_df = lp_num*apy_e*0.000001806; //BUSD
+      console.log(claimed_df);
+      var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
+      var dataFie = stake_contract.methods.unpool_busd(heko, claimed_df, affiliateId).encodeABI(); 
+      console.log("UNPOOL BUSD");
+    } else {
+      console.log("UNPOOL NO REGISTERED METHOD")
+    }
   } else {
-    console.log("UNPOOL NO REGISTERED METHOD")
+    if (num == 1){ //BTC
+      var apy_a = await stake_contract.methods.check_apy_a(accounts[0]).call();
+      console.log(apy_a);
+      if(apy_a == 27713197){
+        alert("YOU NEED TO POOL")
+        return 0;
+      };
+      let LP_token = new web3.eth.Contract(tokenABI, "0xC3CbeE0adEedE27b9F71CeF621B520C02a257401"); //WBTC
+      var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
+      //var lp_num = 10
+      var claimed_df = lp_num*apy_a*0.000000472; //WBTC
+      console.log(claimed_df);
+      var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
+      var dataFie = stake_contract.methods.unpool_wbtc(heko, claimed_heko, 0).encodeABI(); 
+      console.log("UNPOOL BTC");
+    } else if( num == 2) { //WETH
+      var apy_b = await stake_contract.methods.check_apy_b(accounts[0]).call();
+      console.log(apy_a);
+      if(apy_a == 27713197){
+        alert("YOU NEED TO POOL")
+        return 0;
+      };
+      let LP_token = new web3.eth.Contract(tokenABI, "0x59ac8f29476dcd8e949c221d3a981aeed4b85460"); //ETH
+      var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
+      //var lp_num = 10
+      var claimed_df = lp_num*apy_b*0.000000667; //WETH
+      console.log(claimed_df);
+      var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
+      var dataFie = stake_contract.methods.unpool_weth(heko, claimed_heko, 0).encodeABI(); 
+      console.log("UNPOOL WETH");
+    } else if( num == 3) { //USDC
+      var apy_c = await stake_contract.methods.check_apy_c(accounts[0]).call();
+      console.log(apy_a);
+      if(apy_c == 27713197){
+        alert("YOU NEED TO POOL")
+        return 0;
+      };
+      let LP_token = new web3.eth.Contract(tokenABI, "0x16cC9016F1A0C10cE48A1529022245Ef209A2AA3"); //USDC
+      var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
+      //var lp_num = 10
+      var claimed_df = lp_num*apy_c*0.000001715; //USDC
+      console.log(claimed_df);
+      var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
+      var dataFie = stake_contract.methods.unpool_usdc(heko, claimed_heko, 0).encodeABI(); 
+      console.log("UNPOOL USDC");
+    } else if( num == 4) { //USDT
+      var apy_d = await stake_contract.methods.check_apy_d(accounts[0]).call();
+      console.log(apy_d);
+      if(apy_a == 27713197){
+        alert("YOU NEED TO POOL")
+        return 0;
+      };
+      let LP_token = new web3.eth.Contract(tokenABI, "0x67ADCeE20aCddD658f0868A66313f7C78E21C924"); //USDT
+      var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
+      //var lp_num = 10
+      var claimed_df = lp_num*apy_d* 0.00000152; //USDT
+      console.log(claimed_df);
+      var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
+      var dataFie = stake_contract.methods.unpool_usdt(heko, claimed_df, 0).encodeABI(); 
+      console.log("UNPOOL USDT");
+    }  else if( num == 5) { //BUSD
+      var apy_e = await stake_contract.methods.check_apy_e(accounts[0]).call();
+      console.log(apy_e);
+      if(apy_e == 27713197){
+        alert("YOU NEED TO POOL")
+        return 0;
+      };
+      let LP_token = new web3.eth.Contract(tokenABI, "0x1bC98a3c8c6A18af8c3339d45E6a8Be88133bc0b"); //BUSD
+      var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
+      //var lp_num = 10
+      var claimed_df = lp_num*apy_e*0.000001806; //BUSD
+      console.log(claimed_df);
+      var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
+      var dataFie = stake_contract.methods.unpool_busd(heko, claimed_df, 0).encodeABI(); 
+      console.log("UNPOOL BUSD");
+    } else {
+      console.log("UNPOOL NO REGISTERED METHOD")
+    }
   }
 
   window.ethereum.request({
@@ -438,6 +603,7 @@ const Status: FC<StatusProps> = ( {
 
 const FarmsPage: NextPageWithLayout = () => {
   const [count, setCount] = useState(0);
+  const affiliateId = useAffiliateId();
 
   const [ statusFilter, setStatusFilter ] = useState< STATUS_TYPE >( 'LIVE' );
   const [ nameFilter, setNameFilter ] = useState<string>( '' );
@@ -549,7 +715,7 @@ const FarmsPage: NextPageWithLayout = () => {
                   <Button shape="rounded" fullWidth size="large" onClick={() => {buttonApprove(farm.id)}} >
                     APPROVE
                   </Button>
-                  <Button shape="rounded" fullWidth size="large" onClick={() => {buttonStake(farm.id, count)}} >
+                  <Button shape="rounded" fullWidth size="large" onClick={() => {buttonStake(farm.id, count, affiliateId)}} >
                     STAKE
                   </Button>
                 </div>
@@ -557,7 +723,7 @@ const FarmsPage: NextPageWithLayout = () => {
                   <Button shape="rounded" fullWidth size="large" onClick={() => {checkStatus(farm.id)}} >
                     CHECK STATUS
                   </Button>
-                  <Button shape="rounded" fullWidth size="large" onClick={() => {buttonUnstake(farm.id, count)}} >
+                  <Button shape="rounded" fullWidth size="large" onClick={() => {buttonUnstake(farm.id, count, affiliateId)}} >
                     UNSTAKE
                   </Button>
                 </div>

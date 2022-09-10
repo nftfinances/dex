@@ -15,7 +15,7 @@ export const nftData = {
   name: 'DREAM AFFLIATE PROGRAM',
   image: SingleNft,
   minted_date: 'Aug 26, 2022',
-  minted_slug: 'https://https://bscscan.com/',
+  minted_slug: 'https://bscscan.com/',
   price: 0.2,
   description:
     'A generous affiliate bonus, incentive type and semi-permanent reward. Incentive rate up to 20%. It is attractive that it is easy to get high rewards.',
