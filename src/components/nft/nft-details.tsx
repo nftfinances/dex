@@ -14,14 +14,16 @@ import { nftData } from '@/data/static/single-nft';
 import NftDropDown from './nft-dropdown';
 import { StaticImageData } from 'next/image';
 
-import ABI from "@/contracts/pool.json";
+import poolABI from "@/contracts/pool.json";
+import stakeABI from "@/contracts/singlestake.json";
 import tokenABI from "@/contracts/token.json";
 import affiABI from "@/contracts/affi.json";
 
 import Web3 from "web3";
 import { useAffiliateId } from '@/hooks/use-affiliate-id';
 
-const abi = ABI;
+const poolabi = poolABI;
+const stakeabi = stakeABI;
 const tokenabi = tokenABI;
 const affiabi = affiABI;
 
@@ -82,10 +84,26 @@ async function check_status(){
   console.log("your affiliate id");
   console.log(user_affid);
   
-  var user_affid = 0;
+  var user_affid = 0;///////DELETE LATER??????????????
 
-  let pool_contract = new web3.eth.Contract(ABI, "0x39126f3e46d44e032470ea612610ed1b7b244572");  
-  var total_assets = await pool_contract.methods.check_total_assets(user_affid).call();
+  let pool_contract = new web3.eth.Contract(poolABI, "0xd6908e3c8caff0fa926c90ce48840bcae97ce0b8");  
+  var total_pool = await pool_contract.methods.check_total_assets(user_affid).call()/Math.pow(10, 18);
+  console.log("total pool")
+  console.log(total_pool);
+
+  let stake_contract = new web3.eth.Contract(stakeABI, "0xd6908e3c8caff0fa926c90ce48840bcae97ce0b8");  
+  var total_a = await stake_contract.methods.check_asset_a(user_affid).call()/Math.pow(10, 18); //WBTC
+  var total_b = await stake_contract.methods.check_asset_b(user_affid).call()/Math.pow(10, 18); //WETH
+  var total_c = await stake_contract.methods.check_asset_c(user_affid).call()/Math.pow(10, 18); //USDT
+  var total_d = await stake_contract.methods.check_asset_d(user_affid).call()/Math.pow(10, 18); //USDC
+  var total_e = await stake_contract.methods.check_asset_e(user_affid).call()/Math.pow(10, 18); //BUSD
+
+  var total_stake = total_a*21388 + total_b*1714 + total_c + total_d + total_e;
+  console.log("total stake");
+  console.log(total_stake);
+
+
+  var total_assets = total_pool + total_stake;
   console.log("your total assets");
   console.log(total_assets);
 
@@ -105,8 +123,22 @@ async function claim_df(){
   var realtime_check = await affi_contract.methods.check_start(accounts[0]).call(); 
   var user_affid = await affi_contract.methods.get_affid(accounts[0]).call();
 
-  let pool_contract = new web3.eth.Contract(ABI, "0x39126f3e46d44e032470ea612610ed1b7b244572");  
-  var total_assets = await pool_contract.methods.check_total_assets(user_affid).call();
+  let pool_contract = new web3.eth.Contract(poolABI, "0xd6908e3c8caff0fa926c90ce48840bcae97ce0b8");  
+  var total_pool = await pool_contract.methods.check_total_assets(user_affid).call()/Math.pow(10, 18);
+  console.log("total pool");
+  console.log(total_pool);
+
+  let stake_contract = new web3.eth.Contract(stakeABI, "0xd6908e3c8caff0fa926c90ce48840bcae97ce0b8");  
+  var total_a = await stake_contract.methods.check_asset_a(user_affid).call()/Math.pow(10, 18); //WBTC
+  var total_b = await stake_contract.methods.check_asset_b(user_affid).call()/Math.pow(10, 18); //WETH
+  var total_c = await stake_contract.methods.check_asset_c(user_affid).call()/Math.pow(10, 18); //USDT
+  var total_d = await stake_contract.methods.check_asset_d(user_affid).call()/Math.pow(10, 18); //USDC
+  var total_e = await stake_contract.methods.check_asset_e(user_affid).call()/Math.pow(10, 18); //BUSD
+  var total_stake = total_a*21388 + total_b*1714 + total_c + total_d + total_e;
+
+  var total_assets = total_pool + total_stake;
+  console.log("your total assets");
+  console.log(total_assets);
  
   var daily_df = total_assets*realtime_check*0.000000173*10;
   console.log(daily_df);

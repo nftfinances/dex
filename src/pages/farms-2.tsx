@@ -50,10 +50,10 @@ const SORT_OPTIONS: SORT_OPTION[] = [
 
 async function buttonApprove(num) {
   if (num == 1){ //BTC
-    var token_add = "0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c";
-    var lptoken_add = "0xC3CbeE0adEedE27b9F71CeF621B520C02a257401"; 
-    //var token_add = "0x26075d8cfffb4c2edf7c8f01958dfb7ab823ea9d"; //test net address
-    //var lptoken_add = "0x257ed3878dbbb6b51a8ffcc49532587c227abad2";  //test net address
+    //var token_add = "0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c";
+    //var lptoken_add = "0xC3CbeE0adEedE27b9F71CeF621B520C02a257401"; 
+    var token_add = "0x26075d8cfffb4c2edf7c8f01958dfb7ab823ea9d"; //test net address
+    var lptoken_add = "0x257ed3878dbbb6b51a8ffcc49532587c227abad2";  //test net address
     console.log("APPROVE BTC");
   } else if( num == 2) { //WETH
     var token_add = "0x2170Ed0880ac9A755fd29B2688956BD959F933F8";
@@ -80,14 +80,14 @@ async function buttonApprove(num) {
 
   const accounts = await web3.eth.requestAccounts();
 
-  var allowance = await token_contract.methods.allowance(accounts[0],"0x43551564c76642D509f3d70BfDF3A8D0a83e7570").call();
+  var allowance = await token_contract.methods.allowance(accounts[0],"0xd6908e3c8caff0fa926c90ce48840bcae97ce0b8").call();
       
   console.log("allowance");
   console.log(allowance);
 
   var heko = BigInt(100000*Math.pow(10, 18)).toString();
 
-  var dataFie = token_contract.methods.approve("0x43551564c76642D509f3d70BfDF3A8D0a83e7570", heko).encodeABI(); 
+  var dataFie = token_contract.methods.approve("0xd6908e3c8caff0fa926c90ce48840bcae97ce0b8", heko).encodeABI(); 
   window.ethereum.request({
     method: 'eth_sendTransaction',
     params: [
@@ -104,9 +104,9 @@ async function buttonApprove(num) {
 
 
 let lptoken_contract = new web3.eth.Contract(tokenABI, lptoken_add);
-var lpdataFie = lptoken_contract.methods.approve("0x43551564c76642D509f3d70BfDF3A8D0a83e7570", heko).encodeABI(); 
+var lpdataFie = lptoken_contract.methods.approve("0xd6908e3c8caff0fa926c90ce48840bcae97ce0b8", heko).encodeABI(); 
 
-var lpallowance = await lptoken_contract.methods.allowance(accounts[0],"0x43551564c76642D509f3d70BfDF3A8D0a83e7570").call();
+var lpallowance = await lptoken_contract.methods.allowance(accounts[0],"0xd6908e3c8caff0fa926c90ce48840bcae97ce0b8").call();
       
 console.log("LP allowance");
 console.log(lpallowance);
@@ -133,7 +133,7 @@ async function buttonStake(num, amount, affiliateId: string) {
   console.log(amount);
   console.log(affiliateId);
 
-  let stake_contract = new web3.eth.Contract(ABI, "0x43551564c76642D509f3d70BfDF3A8D0a83e7570");
+  let stake_contract = new web3.eth.Contract(ABI, "0xd6908e3c8caff0fa926c90ce48840bcae97ce0b8");
   const accounts = await web3.eth.requestAccounts();
 
   var heko = BigInt(amount*Math.pow(10, 18)).toString();
@@ -184,7 +184,7 @@ async function buttonStake(num, amount, affiliateId: string) {
     params: [
         {
             from: accounts[0],
-            to: "0x43551564c76642D509f3d70BfDF3A8D0a83e7570",  //SWAP Contract Address
+            to: "0xd6908e3c8caff0fa926c90ce48840bcae97ce0b8",  //SWAP Contract Address
             data: dataFie,
             gas: '1d184',
         },
@@ -195,7 +195,7 @@ async function buttonStake(num, amount, affiliateId: string) {
 }
 
 async function buttonUnstake(num, amount, affiliateId: string) {
-  let stake_contract = new web3.eth.Contract(ABI, "0x43551564c76642D509f3d70BfDF3A8D0a83e7570");
+  let stake_contract = new web3.eth.Contract(ABI, "0xd6908e3c8caff0fa926c90ce48840bcae97ce0b8");
   const accounts = await web3.eth.requestAccounts();
 
   var heko = BigInt(amount*Math.pow(10, 18)).toString();
@@ -203,14 +203,15 @@ async function buttonUnstake(num, amount, affiliateId: string) {
   if(affiliateId){
     if (num == 1){ //BTC
       var apy_a = await stake_contract.methods.check_apy_a(accounts[0]).call();
+      console.log("staking time")
       console.log(apy_a);
       if(apy_a == 27713197){
         alert("YOU NEED TO POOL")
         return 0;
       };
-      let LP_token = new web3.eth.Contract(tokenABI, "0xC3CbeE0adEedE27b9F71CeF621B520C02a257401"); //WBTC
-      var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
-      //var lp_num = 10
+      //let LP_token = new web3.eth.Contract(tokenABI, "0xC3CbeE0adEedE27b9F71CeF621B520C02a257401"); //WBTC
+      //var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
+      var lp_num = 1
       var claimed_df = lp_num*apy_a*0.000000472; //WBTC
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
@@ -365,7 +366,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
     params: [
         {
             from: accounts[0],
-            to: "0x43551564c76642D509f3d70BfDF3A8D0a83e7570", 
+            to: "0xd6908e3c8caff0fa926c90ce48840bcae97ce0b8", 
             data: dataFie,
             gas: '1d184',
         },
@@ -379,7 +380,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
 async function checkStatus(num) {
   const accounts = await web3.eth.requestAccounts();
 
-  let stake_contract = new web3.eth.Contract(ABI, "0x43551564c76642D509f3d70BfDF3A8D0a83e7570");
+  let stake_contract = new web3.eth.Contract(ABI, "0xd6908e3c8caff0fa926c90ce48840bcae97ce0b8");
   console.log(num);
 
   if (num == 1){ //BTC

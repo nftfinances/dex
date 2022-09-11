@@ -1,5 +1,24 @@
 [
 	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "num",
+				"type": "uint256"
+			}
+		],
+		"name": "check_asset_d",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"constant": false,
 		"inputs": [
 			{
@@ -285,6 +304,25 @@
 	},
 	{
 		"constant": true,
+		"inputs": [
+			{
+				"name": "num",
+				"type": "uint256"
+			}
+		],
+		"name": "check_total_assets",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
 		"inputs": [],
 		"name": "busd_interest",
 		"outputs": [
@@ -339,6 +377,25 @@
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "num",
+				"type": "uint256"
+			}
+		],
+		"name": "check_asset_c",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -471,6 +528,25 @@
 		"constant": true,
 		"inputs": [],
 		"name": "show_usdtintereest",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "num",
+				"type": "uint256"
+			}
+		],
+		"name": "check_asset_b",
 		"outputs": [
 			{
 				"name": "",
@@ -734,21 +810,22 @@
 		"type": "function"
 	},
 	{
-		"constant": false,
+		"constant": true,
 		"inputs": [
 			{
-				"name": "amount",
-				"type": "uint256"
-			},
-			{
-				"name": "affiliateid",
+				"name": "num",
 				"type": "uint256"
 			}
 		],
-		"name": "pool_weth",
-		"outputs": [],
+		"name": "check_asset_e",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
 		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -842,6 +919,24 @@
 				"type": "uint256"
 			},
 			{
+				"name": "affiliateid",
+				"type": "uint256"
+			}
+		],
+		"name": "pool_eth",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
 				"name": "claimdf",
 				"type": "uint256"
 			},
@@ -868,6 +963,25 @@
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "num",
+				"type": "uint256"
+			}
+		],
+		"name": "check_asset_a",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
