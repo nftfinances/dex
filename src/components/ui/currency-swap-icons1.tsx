@@ -3,10 +3,10 @@ import { Ethereum } from '@/components/icons/ethereum';
 import { Tether } from '@/components/icons/tether';
 import { Bnb } from '@/components/icons/bnb';
 import { Usdc } from '@/components/icons/usdc';
-import { Cardano } from '@/components/icons/cardano';
-import { Doge } from '@/components/icons/doge';
+import { Dai } from '@/components/icons/dai';
+import { Lot } from '@/components/icons/lot';
 
-export type CoinList = 'WBTC' | 'WETH' | 'USDT' | 'BUSD' | 'USDC' | 'ADA' | 'DOGE';
+export type CoinList = 'WBTC' | 'WETH' | 'USDT' | 'BUSD' | 'USDC' | 'LOT' | 'DAI';
 
 const coinIcons: Record<CoinList, JSX.Element> = {
   WBTC: <Bitcoin />,
@@ -14,8 +14,8 @@ const coinIcons: Record<CoinList, JSX.Element> = {
   USDT: <Tether />,
   BUSD: <Bnb />,
   USDC: <Usdc />,
-  ADA: <Cardano />,
-  DOGE: <Doge />,
+  DAI: <Dai />,
+  LOT: <Lot />,
 };
 
 interface CurrencySwapIconsProps {

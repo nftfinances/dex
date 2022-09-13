@@ -43,8 +43,16 @@ enable();
 
 async function register_affi(){
   const accounts = await web3.eth.requestAccounts();
+  var affi_ad = "0x43232326775c94066e94b93da586caf144d52a36";
 
-  let affi_contract = new web3.eth.Contract(affiABI, "0x2bac256002d567981810e8816047601d0a0701e9"); 
+  let affi_contract = new web3.eth.Contract(affiABI, affi_ad);
+  var realtime_check = await affi_contract.methods.check_start(accounts[0]).call(); 
+
+  console.log(realtime_check);
+  if (realtime_check < 27710503) {
+    alert("Already REGISTERED")
+    return 0;
+  }
  
   var dataFie = affi_contract.methods.get_affiliate().encodeABI(); 
   window.ethereum.request({
@@ -52,7 +60,7 @@ async function register_affi(){
         params: [
             {
                 from: accounts[0],
-                to: "0x2bac256002d567981810e8816047601d0a0701e9",  //BUSD Contract Address
+                to: affi_ad,
                 data: dataFie,
                 gas: '1d184',
             },
@@ -65,8 +73,13 @@ async function register_affi(){
 
 async function check_status(){
   const accounts = await web3.eth.requestAccounts();
-  
-  let affi_contract = new web3.eth.Contract(affiABI, "0x2bac256002d567981810e8816047601d0a0701e9"); 
+  var affi_ad = "0x43232326775c94066e94b93da586caf144d52a36";
+
+  var pool_ad = "0xc2a039a166aa87c8e0a142ceab9e86afacfada45";
+  var stake_ad = "0xbdd600f24ed7dcb440fd591875e1a7bcf908afcd";
+  var stake_ad1 = "0x4e990adbc702ca279a547f547548292afd914e19";
+
+  let affi_contract = new web3.eth.Contract(affiABI, affi_ad); 
   var realtime_check = await affi_contract.methods.check_start(accounts[0]).call(); 
   console.log("REAL TIME");
   console.log(realtime_check);
@@ -84,24 +97,30 @@ async function check_status(){
   console.log("your affiliate id");
   console.log(user_affid);
   
-  var user_affid = 0;///////DELETE LATER??????????????
-
-  let pool_contract = new web3.eth.Contract(poolABI, "0xd6908e3c8caff0fa926c90ce48840bcae97ce0b8");  
+  let pool_contract = new web3.eth.Contract(poolABI, pool_ad);  
   var total_pool = await pool_contract.methods.check_total_assets(user_affid).call()/Math.pow(10, 18);
   console.log("total pool")
   console.log(total_pool);
 
-  let stake_contract = new web3.eth.Contract(stakeABI, "0xd6908e3c8caff0fa926c90ce48840bcae97ce0b8");  
+  var stake_contract = new web3.eth.Contract(stakeABI, stake_ad);  
   var total_a = await stake_contract.methods.check_asset_a(user_affid).call()/Math.pow(10, 18); //WBTC
   var total_b = await stake_contract.methods.check_asset_b(user_affid).call()/Math.pow(10, 18); //WETH
+  var BTC_RATE = 21388;
+  var ETH_RATE = 1742;
+
   var total_c = await stake_contract.methods.check_asset_c(user_affid).call()/Math.pow(10, 18); //USDT
   var total_d = await stake_contract.methods.check_asset_d(user_affid).call()/Math.pow(10, 18); //USDC
   var total_e = await stake_contract.methods.check_asset_e(user_affid).call()/Math.pow(10, 18); //BUSD
 
-  var total_stake = total_a*21388 + total_b*1714 + total_c + total_d + total_e;
+  var stake_contract1 = new web3.eth.Contract(stakeABI, stake_ad1);
+  var total_f = await stake_contract1.methods.check_asset_a(user_affid).call()/Math.pow(10, 18); //LOT
+  var total_g = await stake_contract1.methods.check_asset_b(user_affid).call()/Math.pow(10, 18); //DAI
+  var LOT_RATE = 0.1;
+  var DAI_RATE = 1.42;
+
+  var total_stake = total_a*BTC_RATE + total_b*ETH_RATE + total_c + total_d + total_e + total_f*LOT_RATE + total_g*DAI_RATE;
   console.log("total stake");
   console.log(total_stake);
-
 
   var total_assets = total_pool + total_stake;
   console.log("your total assets");
@@ -118,23 +137,42 @@ async function check_status(){
 
 async function claim_df(){
   const accounts = await web3.eth.requestAccounts();
+  var affi_ad = "0x43232326775c94066e94b93da586caf144d52a36";
 
-  let affi_contract = new web3.eth.Contract(affiABI, "0x2bac256002d567981810e8816047601d0a0701e9"); 
+  var pool_ad = "0xc2a039a166aa87c8e0a142ceab9e86afacfada45";
+  var stake_ad = "0xbdd600f24ed7dcb440fd591875e1a7bcf908afcd";
+  var stake_ad1 = "0x4e990adbc702ca279a547f547548292afd914e19";
+
+  let affi_contract = new web3.eth.Contract(affiABI, affi_ad); 
   var realtime_check = await affi_contract.methods.check_start(accounts[0]).call(); 
   var user_affid = await affi_contract.methods.get_affid(accounts[0]).call();
 
-  let pool_contract = new web3.eth.Contract(poolABI, "0xd6908e3c8caff0fa926c90ce48840bcae97ce0b8");  
+  if (realtime_check > 27710503) {
+    realtime_check = 0;
+  }
+
+
+  let pool_contract = new web3.eth.Contract(poolABI, pool_ad);  
   var total_pool = await pool_contract.methods.check_total_assets(user_affid).call()/Math.pow(10, 18);
   console.log("total pool");
   console.log(total_pool);
 
-  let stake_contract = new web3.eth.Contract(stakeABI, "0xd6908e3c8caff0fa926c90ce48840bcae97ce0b8");  
+  var stake_contract = new web3.eth.Contract(stakeABI, stake_ad);  
   var total_a = await stake_contract.methods.check_asset_a(user_affid).call()/Math.pow(10, 18); //WBTC
   var total_b = await stake_contract.methods.check_asset_b(user_affid).call()/Math.pow(10, 18); //WETH
   var total_c = await stake_contract.methods.check_asset_c(user_affid).call()/Math.pow(10, 18); //USDT
   var total_d = await stake_contract.methods.check_asset_d(user_affid).call()/Math.pow(10, 18); //USDC
   var total_e = await stake_contract.methods.check_asset_e(user_affid).call()/Math.pow(10, 18); //BUSD
-  var total_stake = total_a*21388 + total_b*1714 + total_c + total_d + total_e;
+  var BTC_RATE = 21388;
+  var ETH_RATE = 1742;
+
+  var stake_contract1 = new web3.eth.Contract(stakeABI, stake_ad1);
+  var total_f = await stake_contract1.methods.check_asset_a(user_affid).call()/Math.pow(10, 18); //LOT
+  var total_g = await stake_contract1.methods.check_asset_b(user_affid).call()/Math.pow(10, 18); //DAI
+  var LOT_RATE = 0.1;
+  var DAI_RATE = 1.42;
+
+  var total_stake = total_a*BTC_RATE + total_b*ETH_RATE + total_c + total_d + total_e + total_f*LOT_RATE + total_g*DAI_RATE;
 
   var total_assets = total_pool + total_stake;
   console.log("your total assets");
@@ -151,7 +189,7 @@ async function claim_df(){
         params: [
             {
                 from: accounts[0],
-                to: "0x2bac256002d567981810e8816047601d0a0701e9",  //BUSD Contract Address
+                to: affi_ad,  //BUSD Contract Address
                 data: dataFie,
                 gas: '1d184',
             },

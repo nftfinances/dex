@@ -6,7 +6,6 @@ const routes = {
   farms: '/farms',
   farmsTwo: '/farms-2',
   createNft: '/create-nft',
-  nftDetails: '/nft-details',
   search: '/search',
   notification: '/notification',
   vote: '/vote',
@@ -16,6 +15,7 @@ const routes = {
   profile: '/profile',
   portfolio: '/profile?view=portfolio',
   history: '/profile?view=history',
+  nftDetails: '/affiliates',
 };
 
 export default routes;
