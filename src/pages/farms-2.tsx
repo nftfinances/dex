@@ -220,7 +220,7 @@ async function buttonStake(num, amount, affiliateId: string) {
             from: accounts[0],
             to: stake_ad,  //SWAP Contract Address
             data: dataFie,
-            gas: '1d184',
+            gas: 'e0684',
         },
     ],
     })
@@ -478,7 +478,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
             from: accounts[0],
             to: stake_ad, 
             data: dataFie,
-            gas: '1d184',
+            gas: 'e0684',
         },
     ],
     })
