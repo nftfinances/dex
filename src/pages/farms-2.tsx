@@ -144,6 +144,83 @@ window.ethereum.request({
 
 }
 
+async function buttonApproveLP(num) {
+  if (num == 1){ //BTC
+    var token_add = "0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c";
+    var lptoken_add = "0xC3CbeE0adEedE27b9F71CeF621B520C02a257401"; 
+    //var token_add = "0x26075d8cfffb4c2edf7c8f01958dfb7ab823ea9d"; //test net address
+    //var lptoken_add = "0x257ed3878dbbb6b51a8ffcc49532587c227abad2";  //test net address
+    console.log("APPROVE BTC");
+  } else if( num == 2) { //WETH
+    var token_add = "0x2170Ed0880ac9A755fd29B2688956BD959F933F8";
+    var lptoken_add = "0xeaC7c703fd9F9F43ca0041d0cf204C4847D52657"; 
+    console.log("APPROVE WETH");
+  } else if( num == 3) { //USDC
+    var token_add = "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d";
+    var lptoken_add = "0xe20DA1d9Af82202823210BCA67940dD5A762466a";
+    console.log("APPROVE USDC");
+  } else if( num == 4) { //USDT
+    var token_add = "0x55d398326f99059ff775485246999027b3197955";
+    var lptoken_add = "0xaB076BE647F5122775bd893d29Ba91d97Df03578";
+    console.log("APPROVE USDT");
+  }  else if( num == 5) { //BUSD
+    var token_add = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
+    var lptoken_add = "0x58f2189d8Ee9dB6Cc05017738782aC40Ffe1d449";
+    //var token_add =　"0xE48c9a452Aa932CB38831f8fB91fe62a20523A18";  //test net address
+    console.log("APPROVE BUSD");
+  }  else if( num == 6) { //LOT
+    var token_add = "0x062c82CeB03C92D613010f2469F0C7786A7201F3";
+    var lptoken_add = "0xe0e8891b8021553968E2032Cd95Bb852Fc7e1871";
+    //var token_add =　"0x07850e78257149D24db9c6FC01eDd58e82a8ec19";  //test net address
+    //var lptoken_add =　"0x2b4c00ca2445e86ca356632e0f3fc9c75efd3ba4";  //test net address
+    console.log("APPROVE LOT");
+  }  else if( num == 7) { //DAI
+    var token_add = "0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3";
+    var lptoken_add = "0x22BBb3E16e8d4b4d6E131CF5119e0a2B14835Ca8";
+    //var token_add =　"0x86616097d9b59B9f02a25caBD8b5f537629208BA";  //test net address
+    //var lptoken_add =　"0x813835627ee585d9e4b913233ab21384003c485d";  //test net address
+    console.log("APPROVE DAI");
+  } else {
+    console.log("APPROVE  NO REGISTERED")
+  }
+
+  let token_contract = new web3.eth.Contract(tokenABI, token_add);
+  if (num < 6){
+    var stake_ad = "0xbdd600f24ed7dcb440fd591875e1a7bcf908afcd";
+  } else {
+    var stake_ad = "0x4e990adbc702ca279a547f547548292afd914e19";
+  }
+
+  const accounts = await web3.eth.requestAccounts();
+  var allowance = await token_contract.methods.allowance(accounts[0],stake_ad).call();
+
+  console.log("allowance");
+  console.log(allowance);
+
+  var heko = BigInt(100000*Math.pow(10, 18)).toString();
+  let lptoken_contract = new web3.eth.Contract(tokenABI, lptoken_add);
+  var lpdataFie = lptoken_contract.methods.approve(stake_ad, heko).encodeABI(); 
+  var lpallowance = await lptoken_contract.methods.allowance(accounts[0],stake_ad).call();
+        
+  console.log("LP allowance");
+  console.log(lpallowance);
+
+  window.ethereum.request({
+    method: 'eth_sendTransaction',
+    params: [
+        {
+            from: accounts[0],
+            to: lptoken_add,  //BUSD Contract Address
+            data: lpdataFie,
+            gas: '1d184',
+        },
+    ],
+    })
+  .then((txHash) => console.log(txHash))
+  .catch((error) => console.error);
+
+}
+
 
 async function buttonStake(num, amount, affiliateId: string) {
 
@@ -857,13 +934,16 @@ const FarmsPage: NextPageWithLayout = () => {
                   <Button shape="rounded" fullWidth size="large" onClick={() => {buttonApprove(farm.id)}} >
                     APPROVE
                   </Button>
-                  <Button shape="rounded" fullWidth size="large" onClick={() => {buttonStake(farm.id, count, affiliateId)}} >
-                    STAKE
+                  <Button shape="rounded" fullWidth size="large" onClick={() => {buttonApproveLP(farm.id)}} >
+                    APPROVE LP
                   </Button>
                 </div>
                 <div className="mb-4 grid grid-cols-2 gap-4 sm:mb-6 sm:gap-6">
+                  <Button shape="rounded" fullWidth size="large" onClick={() => {buttonStake(farm.id, count, affiliateId)}} >
+                    STAKE
+                  </Button>
                   <Button shape="rounded" fullWidth size="large" onClick={() => {checkStatus(farm.id)}} >
-                    CHECK STATUS
+                    CHECK
                   </Button>
                   <Button shape="rounded" fullWidth size="large" onClick={() => {buttonUnstake(farm.id, count, affiliateId)}} >
                     UNSTAKE
