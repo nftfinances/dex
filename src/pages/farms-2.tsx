@@ -119,7 +119,7 @@ async function buttonApprove(num) {
   .then((txHash) => console.log(txHash))
   .catch((error) => console.error);
 
-
+/*
 let lptoken_contract = new web3.eth.Contract(tokenABI, lptoken_add);
 var lpdataFie = lptoken_contract.methods.approve(stake_ad, heko).encodeABI(); 
 var lpallowance = await lptoken_contract.methods.allowance(accounts[0],stake_ad).call();
@@ -140,6 +140,7 @@ window.ethereum.request({
   })
 .then((txHash) => console.log(txHash))
 .catch((error) => console.error);
+*/
 
 }
 
