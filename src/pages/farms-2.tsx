@@ -634,7 +634,7 @@ async function checkStatus(num) {
     timer = 0;
   }
   timer = timer*claimed_df;
-  document.getElementById(num).innerHTML = balance + "LP - You get " + timer + " DF";
+  document.getElementById(num).innerHTML = balance/Math.pow(10, 18) + "LP - You get " + timer + " DF";
 }
 
 type SortListProps = {
