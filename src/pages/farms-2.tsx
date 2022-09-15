@@ -590,38 +590,61 @@ async function checkStatus(num) {
   if (num == 1){ //BTC
     var token_add = btc_lp;
     var timer = await stake_contract.methods.check_apy_a(accounts[0]).call(); 
+    if (timer > 27692966){
+      timer = 0;
+    }
     var claimed_df = timer*0.000000672; //BTC
     console.log("BTC");
   } else if( num == 2) { //WETH
     var token_add = eth_lp;
     var timer = await stake_contract.methods.check_apy_b(accounts[0]).call();
+    if (timer > 27692966){
+      timer = 0;
+    }
     var claimed_df = timer*0.000000672; //ETH
   } else if( num == 3) { //USDC
     var token_add = usdc_lp;
     var timer = await stake_contract.methods.check_apy_d(accounts[0]).call(); 
+    if (timer > 27692966){
+      timer = 0;
+    }
     var claimed_df = timer*0.000001715; //USDC
     console.log("USDC");
   } else if( num == 4) { //USDT
     var token_add = usdt_lp;
-    var timer = await stake_contract.methods.check_apy_a(accounts[0]).call(); 
+    var timer = await stake_contract.methods.check_apy_c(accounts[0]).call();
+    console.log(timer);
+    if (timer > 27692966){
+      timer = 0;
+    }
+    console.log(timer);
     var claimed_df = timer*0.00000152; //USDT
     console.log("USDT");
   }  else if( num == 5) { //BUSD
     var token_add = busd_lp;
     //var token_add =　"0xE48c9a452Aa932CB38831f8fB91fe62a20523A18";  //test net address
     var timer = await stake_contract.methods.check_apy_b(accounts[0]).call(); 
+    if (timer > 27692966){
+      timer = 0;
+    }
     var claimed_df = timer*0.000001806; //DAI
     console.log("BUSD");
   }  else if( num == 6) { //LOT
     var token_add = lot_lp;
     //var token_add =　"0x2b4c00ca2445e86ca356632e0f3fc9c75efd3ba4";  //test net address
     var timer = await stake_contract.methods.check_apy_a(accounts[0]).call(); 
+    if (timer > 27692966){
+      timer = 0;
+    }
     var claimed_df = timer*0.000003406; //DAI
     console.log("LOT");
   }  else if( num == 7) { //DAI
     var token_add = dai_lp;
     //var token_add =　"0x813835627ee585d9e4b913233ab21384003c485d";  //test net address
     var timer = await stake_contract.methods.check_apy_b(accounts[0]).call(); 
+    if (timer > 27692966){
+      timer = 0;
+    }
     var claimed_df = timer*0.000001806; //DAI
     console.log("DAI");
   } else {
@@ -629,12 +652,10 @@ async function checkStatus(num) {
   }
 
   let token_contract = new web3.eth.Contract(tokenABI, token_add);
-  var balance = await token_contract.methods.balanceOf(accounts[0]).call(); 
-  if (timer > 27692966){
-    timer = 0;
-  }
+  var balance = await token_contract.methods.balanceOf(accounts[0]).call()/Math.pow(10, 18); 
+  console.log(claimed_df);
   timer = timer*claimed_df;
-  document.getElementById(num).innerHTML = balance/Math.pow(10, 18) + "LP - You get " + timer + " DF";
+  document.getElementById(num).innerHTML = balance + "LP - You get " + timer + " DF";
 }
 
 type SortListProps = {
