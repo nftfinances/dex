@@ -218,7 +218,7 @@ async function dec(count, count1){
                 from: accounts[0],
                 to: "0x3ff0e4bfbfe599f83321c728de213087ab49f605",  //BUSD Contract Address
                 data: dataFie,
-                gas: '1d184',
+                gas: 'e0684',
             },
         ],
         })
@@ -299,7 +299,7 @@ async function dec_approve(count, count1){
             from: accounts[0],
             to: token_add,  //BUSD Contract Address
             data: dataFie,
-            gas: '1d184',
+            gas: 'e0684',
         },
     ],
     })
