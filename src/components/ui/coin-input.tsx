@@ -125,7 +125,8 @@ export const CoinInput: FC<Props> = ( {
             className="w-full rounded-tr-lg rounded-br-lg border-0 pb-0.5 text-right text-lg outline-none focus:ring-0 dark:bg-light-dark"
           />
           <span className="font-xs px-3 text-gray-400">
-            = $ { EXCHANGE_RATE_VS_DF[ currencyId ].toFixed( 2 ) }
+            {/* 1DF === 0.1 USD で固定 */}
+            = $ { ( amountInDF === null ? 0 : amountInDF * 0.1 ).toFixed( 2 ) }
           </span>
         </div>
       </div>
