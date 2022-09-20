@@ -568,7 +568,7 @@ async function unpool(count, count1, affiliateId: string ){
           };
           let LP_token = new web3.eth.Contract(tokenABI, busd_usdt_lp); //BUSD-USDT
           var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
-          //var lp_num = 10
+          var lp_num = count.value;
           var claimed_df = lp_num*apy_c*0.00000173*10;
           console.log(claimed_df);
           var heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
@@ -583,7 +583,8 @@ async function unpool(count, count1, affiliateId: string ){
             alert("YOU NEED TO POOL")
             return 0;
           };
-          var claimed_df = lp_num*apy_b*0.00000173*10;
+          var lp_num2 = count.value;
+          var claimed_df = lp_num2*apy_b*0.00000173*10;
           var heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
           var dataFie = pool_contract.methods.unpool_usdc_usdt(accounts[0], count.value, heko, affiliateId).encodeABI();
         }
@@ -595,7 +596,8 @@ async function unpool(count, count1, affiliateId: string ){
             alert("YOU NEED TO POOL")
             return 0;
           };
-          var claimed_df = lp_num*apy_a*0.00000173*10;
+          var lp_num1 = count.value;
+          var claimed_df = lp_num1*apy_a*0.00000173*10;
           var heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
           var dataFie = pool_contract.methods.unpool_usdc_busd(accounts[0], count.value, heko, affiliateId).encodeABI();
         }
@@ -605,6 +607,7 @@ async function unpool(count, count1, affiliateId: string ){
           var apy_c = await pool_contract.methods.check_apy_c(accounts[0]).call(); //BUSD-USDT
           let LP_token = new web3.eth.Contract(tokenABI, busd_usdt_lp); //BUSD-USDT
           var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
+          var lp_num = count.value;
           var claimed_df = lp_num*apy_c*0.00000173*10;
           var heko = BigInt(Math.pow(10, 18)*claimed_df).toString();;
           var dataFie = pool_contract.methods.unpool_busd_usdt(accounts[0], count.value, heko, 0).encodeABI();
@@ -614,6 +617,7 @@ async function unpool(count, count1, affiliateId: string ){
           let LP_token2 = new web3.eth.Contract(tokenABI, usdc_usdt_lp); //USDC-USDT
           var lp_num2 = await LP_token2.methods.balanceOf(accounts[0]).call();
           var apy_b = await pool_contract.methods.check_apy_b(accounts[0]).call(); //USDC-USDT
+          var lp_num2 = count.value;
           var claimed_df = lp_num2*apy_b*0.00000173*10;
           var heko = BigInt(Math.pow(10, 18)*claimed_df).toString();;
           var dataFie = pool_contract.methods.unpool_usdc_usdt(accounts[0], count.value, heko, 0).encodeABI();
@@ -622,6 +626,7 @@ async function unpool(count, count1, affiliateId: string ){
         if (count.coin == "BUSD" && count1.coin == "USDC") {
           let LP_token1 = new web3.eth.Contract(tokenABI, busd_usdc_lp); //BUSD-USDC
           var lp_num1 = await LP_token1.methods.balanceOf(accounts[0]).call();
+          var lp_num1 = count.value;
           var apy_a = await pool_contract.methods.check_apy_a(accounts[0]).call(); //BUSD-USDC
           var claimed_df = lp_num1*apy_a*0.00000173*10;
           var heko = BigInt(Math.pow(10, 18)*claimed_df).toString();;

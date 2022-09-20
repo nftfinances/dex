@@ -338,7 +338,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       };
       let LP_token = new web3.eth.Contract(tokenABI, btc_lp); //WBTC
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
-      //var lp_num = 1 //for testnet
+      var lp_num = amount;
       var claimed_df = lp_num*apy_a*0.000000472; //WBTC
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
@@ -353,7 +353,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       };
       let LP_token = new web3.eth.Contract(tokenABI, eth_lp); //ETH
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
-      //var lp_num = 10
+      var lp_num = amount;
       var claimed_df = lp_num*apy_b*0.000000667; //WETH
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
@@ -368,7 +368,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       };
       let LP_token = new web3.eth.Contract(tokenABI, usdc_lp); //USDC
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
-      //var lp_num = 10
+      var lp_num = amount;
       var claimed_df = lp_num*apy_c*0.000001715; //USDC
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
@@ -383,7 +383,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       };
       let LP_token = new web3.eth.Contract(tokenABI, usdt_lp); //USDT
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
-      //var lp_num = 10
+      var lp_num = amount;
       var claimed_df = lp_num*apy_d* 0.00000152; //USDT
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
@@ -398,7 +398,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       };
       let LP_token = new web3.eth.Contract(tokenABI, busd_lp); //BUSD
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
-      //var lp_num = 10
+      var lp_num = amount;
       var claimed_df = lp_num*apy_e*0.000001806; //BUSD
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
@@ -413,7 +413,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       };
       let LP_token = new web3.eth.Contract(tokenABI, lot_lp); //LOT
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
-      //var lp_num = 10
+      var lp_num = amount;
       var claimed_df = lp_num*apy_e*0.000003406; //LOT
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
@@ -429,7 +429,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       };
       let LP_token = new web3.eth.Contract(tokenABI, dai_lp); //BUSD
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
-      //var lp_num = 1
+      var lp_num = amount;
       var claimed_df = lp_num*apy_e*0.000001906; //DAI
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
@@ -448,7 +448,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       };
       let LP_token = new web3.eth.Contract(tokenABI, btc_lp); //WBTC
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
-      //var lp_num = 10
+      var lp_num = amount;
       var claimed_df = lp_num*apy_a*0.000000472; //WBTC
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
@@ -463,7 +463,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       };
       let LP_token = new web3.eth.Contract(tokenABI, eth_lp); //ETH
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
-      //var lp_num = 10
+      var lp_num = amount;
       var claimed_df = lp_num*apy_b*0.000000667; //WETH
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
@@ -478,7 +478,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       };
       let LP_token = new web3.eth.Contract(tokenABI, usdc_lp); //USDC
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
-      //var lp_num = 10
+      var lp_num = amount;
       var claimed_df = lp_num*apy_c*0.000001715; //USDC
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
@@ -493,7 +493,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       };
       let LP_token = new web3.eth.Contract(tokenABI, usdt_lp); //USDT
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
-      //var lp_num = 10
+      var lp_num = amount;
       var claimed_df = lp_num*apy_d* 0.00000152; //USDT
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
@@ -508,7 +508,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       };
       let LP_token = new web3.eth.Contract(tokenABI, busd_lp); //BUSD
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
-      //var lp_num = 10
+      var lp_num = amount;
       var claimed_df = lp_num*apy_e*0.000001806; //BUSD
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
@@ -523,7 +523,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       };
       let LP_token = new web3.eth.Contract(tokenABI, lot_lp); //LOT
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
-      //var lp_num = 10
+      var lp_num = amount;
       var claimed_df = lp_num*apy_e*0.000003406; //LOT
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
@@ -538,7 +538,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       };
       let LP_token = new web3.eth.Contract(tokenABI, dai_lp); //DAI
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call(); //DAI
-      //var lp_num = 10
+      var lp_num = amount;
       var claimed_df = lp_num*apy_e*0.000001806; //DAI
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
