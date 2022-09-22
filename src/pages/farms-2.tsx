@@ -369,7 +369,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       let LP_token = new web3.eth.Contract(tokenABI, usdc_lp); //USDC
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
       var lp_num = amount;
-      var claimed_df = lp_num*apy_c*0.000001715; //USDC
+      var claimed_df = lp_num*apy_c*0.0000001715; //USDC
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
       var dataFie = stake_contract.methods.unpool_usdc(heko, claimed_heko, affiliateId).encodeABI(); 
@@ -384,7 +384,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       let LP_token = new web3.eth.Contract(tokenABI, usdt_lp); //USDT
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
       var lp_num = amount;
-      var claimed_df = lp_num*apy_d* 0.00000152; //USDT
+      var claimed_df = lp_num*apy_d* 0.000000152; //USDT
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
       var dataFie = stake_contract.methods.unpool_usdt(heko, claimed_heko, affiliateId).encodeABI(); 
@@ -399,7 +399,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       let LP_token = new web3.eth.Contract(tokenABI, busd_lp); //BUSD
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
       var lp_num = amount;
-      var claimed_df = lp_num*apy_e*0.000001806; //BUSD
+      var claimed_df = lp_num*apy_e*0.0000001806; //BUSD
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
       var dataFie = stake_contract.methods.unpool_busd(heko, claimed_heko, affiliateId).encodeABI(); 
@@ -414,7 +414,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       let LP_token = new web3.eth.Contract(tokenABI, lot_lp); //LOT
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
       var lp_num = amount;
-      var claimed_df = lp_num*apy_e*0.000003406; //LOT
+      var claimed_df = lp_num*apy_e*0.0000003406; //LOT
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
       console.log(claimed_heko);
@@ -430,7 +430,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       let LP_token = new web3.eth.Contract(tokenABI, dai_lp); //BUSD
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
       var lp_num = amount;
-      var claimed_df = lp_num*apy_e*0.000001906; //DAI
+      var claimed_df = lp_num*apy_e*0.0000001906; //DAI
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
       var dataFie = stake_contract.methods.unpool_dai(heko, claimed_heko, 0).encodeABI(); 
@@ -479,7 +479,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       let LP_token = new web3.eth.Contract(tokenABI, usdc_lp); //USDC
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
       var lp_num = amount;
-      var claimed_df = lp_num*apy_c*0.000001715; //USDC
+      var claimed_df = lp_num*apy_c*0.0000001715; //USDC
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
       var dataFie = stake_contract.methods.unpool_usdc(heko, claimed_heko, 0).encodeABI(); 
@@ -494,7 +494,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       let LP_token = new web3.eth.Contract(tokenABI, usdt_lp); //USDT
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
       var lp_num = amount;
-      var claimed_df = lp_num*apy_d* 0.00000152; //USDT
+      var claimed_df = lp_num*apy_d* 0.000000152; //USDT
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
       var dataFie = stake_contract.methods.unpool_usdt(heko, claimed_heko, 0).encodeABI(); 
@@ -509,7 +509,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       let LP_token = new web3.eth.Contract(tokenABI, busd_lp); //BUSD
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
       var lp_num = amount;
-      var claimed_df = lp_num*apy_e*0.000001806; //BUSD
+      var claimed_df = lp_num*apy_e*0.0000001806; //BUSD
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
       var dataFie = stake_contract.methods.unpool_busd(heko, claimed_heko, 0).encodeABI(); 
@@ -524,7 +524,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       let LP_token = new web3.eth.Contract(tokenABI, lot_lp); //LOT
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
       var lp_num = amount;
-      var claimed_df = lp_num*apy_e*0.000003406; //LOT
+      var claimed_df = lp_num*apy_e*0.0000003406; //LOT
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
       var dataFie = stake_contract.methods.unpool_lot(heko, claimed_heko, 0).encodeABI(); 
@@ -539,7 +539,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       let LP_token = new web3.eth.Contract(tokenABI, dai_lp); //DAI
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call(); //DAI
       var lp_num = amount;
-      var claimed_df = lp_num*apy_e*0.000001806; //DAI
+      var claimed_df = lp_num*apy_e*0.0000001806; //DAI
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.pow(10, 18)*claimed_df).toString();
       var dataFie = stake_contract.methods.unpool_dai(heko, claimed_heko, 0).encodeABI(); 
@@ -608,7 +608,7 @@ async function checkStatus(num) {
     if (timer > 27692966){
       timer = 0;
     }
-    var claimed_df = timer*0.000001715; //USDC
+    var claimed_df = timer*0.0000001715; //USDC
     console.log("USDC");
   } else if( num == 4) { //USDT
     var token_add = usdt_lp;
@@ -618,7 +618,7 @@ async function checkStatus(num) {
       timer = 0;
     }
     console.log(timer);
-    var claimed_df = timer*0.00000152; //USDT
+    var claimed_df = timer*0.000000152; //USDT
     console.log("USDT");
   }  else if( num == 5) { //BUSD
     var token_add = busd_lp;
@@ -627,7 +627,7 @@ async function checkStatus(num) {
     if (timer > 27692966){
       timer = 0;
     }
-    var claimed_df = timer*0.000001806; //DAI
+    var claimed_df = timer*0.0000001806; //DAI
     console.log("BUSD");
   }  else if( num == 6) { //LOT
     var token_add = lot_lp;
@@ -636,7 +636,7 @@ async function checkStatus(num) {
     if (timer > 27692966){
       timer = 0;
     }
-    var claimed_df = timer*0.000003406; //DAI
+    var claimed_df = timer*0.0000003406; //DAI
     console.log("LOT");
   }  else if( num == 7) { //DAI
     var token_add = dai_lp;
@@ -645,7 +645,7 @@ async function checkStatus(num) {
     if (timer > 27692966){
       timer = 0;
     }
-    var claimed_df = timer*0.000001806; //DAI
+    var claimed_df = timer*0.0000001806; //DAI
     console.log("DAI");
   } else {
     console.log("NOT REGISTERED ADD")
