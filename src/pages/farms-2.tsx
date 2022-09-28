@@ -315,6 +315,11 @@ async function buttonUnstake(num, amount, affiliateId: string) {
   var lot_lp = "0xe0e8891b8021553968E2032Cd95Bb852Fc7e1871";
   var dai_lp = "0x22BBb3E16e8d4b4d6E131CF5119e0a2B14835Ca8";
 
+  if(amount == 0){
+    alert("YOU NEED TO SPECIFY AMOUNT")
+    return 0;
+  };
+
   if (num < 6){
     var stake_ad = "0xbdd600f24ed7dcb440fd591875e1a7bcf908afcd";
     var stake_contract = new web3.eth.Contract(ABI, stake_ad);
