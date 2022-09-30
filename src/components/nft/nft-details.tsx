@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import cn from 'classnames';
 import ParamTab, { TabPanel } from '@/components/ui/param-tab';
 import Image from '@/components/ui/image';
@@ -200,13 +201,6 @@ async function claim_df(){
 
 }
 
-function copyToClipboard() {
-  var copyTarget = document.getElementById("single_affilink");
-  copyTarget.select();
-  document.execCommand("Copy");
-  alert("コピーできました！ : " + copyTarget.value);
-}
-
 interface NftFooterProps {
   className?: string;
   currentBid: any;
@@ -307,6 +301,17 @@ export default function NftDetails({ product }: { product: NftDetailsProps }) {
 
   const affiliateId = useAffiliateId();
 
+  const copyTargetElement = useRef<HTMLElement | null>( null );
+  const copyUrl = () => {
+
+    if ( ! copyTargetElement.current ) return;
+    if ( ! copyTargetElement.current.textContent?.trim() ) return;
+
+    document?.getSelection()?.selectAllChildren( copyTargetElement.current );
+    if ( document.execCommand( 'copy' ) ) alert( `コピーできました！ : ${ copyTargetElement.current.textContent }` );
+
+  };
+
   return (
     <div className="flex flex-grow">
       <div className="mx-auto flex w-full flex-grow flex-col transition-all xl:max-w-[1360px] 4xl:max-w-[1760px]">
@@ -346,14 +351,17 @@ export default function NftDetails({ product }: { product: NftDetailsProps }) {
                     POOL Affiliate Link
                   </h3>
                   <AnchorLink href={creator?.slug} className="inline-flex">
-                    <span id="single_affilink"></span>
+                    <span
+                      id="single_affilink"
+                      ref={ copyTargetElement }
+                    ></span>
                   </AnchorLink>
                   <Button
                     shape="rounded"
                     variant="solid"
                     color="gray"
                     className="dark:bg-gray-800"
-                    onClick={() => copyToClipboard()}
+                    onClick={ copyUrl }
                   >
                     COPY
                   </Button>
