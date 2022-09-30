@@ -200,6 +200,13 @@ async function claim_df(){
 
 }
 
+function copyToClipboard() {
+  var copyTarget = document.getElementById("single_affilink");
+  copyTarget.select();
+  document.execCommand("Copy");
+  alert("コピーできました！ : " + copyTarget.value);
+}
+
 interface NftFooterProps {
   className?: string;
   currentBid: any;
@@ -341,6 +348,15 @@ export default function NftDetails({ product }: { product: NftDetailsProps }) {
                   <AnchorLink href={creator?.slug} className="inline-flex">
                     <span id="single_affilink"></span>
                   </AnchorLink>
+                  <Button
+                    shape="rounded"
+                    variant="solid"
+                    color="gray"
+                    className="dark:bg-gray-800"
+                    onClick={() => copyToClipboard()}
+                  >
+                    COPY
+                  </Button>
                 </div>
                 <div className="shrink-0 border-dashed border-gray-200 dark:border-gray-700 lg:px-6 lg:ltr:border-r lg:rtl:border-l">
                   <h3 className="text-heading-style mb-2.5 uppercase text-gray-900 dark:text-white">
