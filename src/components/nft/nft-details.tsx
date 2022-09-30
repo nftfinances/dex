@@ -302,13 +302,25 @@ export default function NftDetails({ product }: { product: NftDetailsProps }) {
   const affiliateId = useAffiliateId();
 
   const copyTargetElement = useRef<HTMLElement | null>( null );
+  const copyTargetElement1 = useRef<HTMLElement | null>( null );
+
   const copyUrl = () => {
 
     if ( ! copyTargetElement.current ) return;
     if ( ! copyTargetElement.current.textContent?.trim() ) return;
 
     document?.getSelection()?.selectAllChildren( copyTargetElement.current );
-    if ( document.execCommand( 'copy' ) ) alert( `コピーできました！ : ${ copyTargetElement.current.textContent }` );
+    if ( document.execCommand( 'copy' ) ) alert( `COPY COMPLETED : ${ copyTargetElement.current.textContent }` );
+
+  };
+
+  const copyUrl1 = () => {
+
+    if ( ! copyTargetElement1.current ) return;
+    if ( ! copyTargetElement1.current.textContent?.trim() ) return;
+
+    document?.getSelection()?.selectAllChildren( copyTargetElement1.current );
+    if ( document.execCommand( 'copy' ) ) alert( `COPY COMPLETED : ${ copyTargetElement1.current.textContent }` );
 
   };
 
@@ -360,7 +372,7 @@ export default function NftDetails({ product }: { product: NftDetailsProps }) {
                     shape="rounded"
                     variant="solid"
                     color="gray"
-                    className="dark:bg-gray-800"
+                    className="dark:bg-gray-800 rounded-full bg-brand shadow-light sm:h-5 sm:w-5" 
                     onClick={ copyUrl }
                   >
                     COPY
@@ -371,8 +383,20 @@ export default function NftDetails({ product }: { product: NftDetailsProps }) {
                     SINGLE Affiliate Link
                   </h3>
                   <AnchorLink href={creator?.slug} className="inline-flex">
-                    <span id="pool_affilink"></span>
+                    <span
+                      id="pool_affilink"
+                      ref={ copyTargetElement1 }
+                    ></span>
                   </AnchorLink>
+                  <Button
+                    shape="rounded"
+                    variant="solid"
+                    color="gray"
+                    className="dark:bg-gray-800 rounded-full bg-brand shadow-light sm:h-5 sm:w-5" 
+                    onClick={ copyUrl1 }
+                  >
+                    COPY
+                  </Button>
                 </div>
                 <div className="shrink-0 border-dashed border-gray-200 dark:border-gray-700 lg:px-6 lg:ltr:border-r lg:rtl:border-l">
                   <h3 className="text-heading-style mb-2.5 uppercase text-gray-900 dark:text-white">
