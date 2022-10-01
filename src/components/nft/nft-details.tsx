@@ -362,12 +362,6 @@ export default function NftDetails({ product }: { product: NftDetailsProps }) {
                   <h3 className="text-heading-style mb-2 uppercase text-gray-900 dark:text-white">
                     POOL Affiliate Link
                   </h3>
-                  <AnchorLink href={creator?.slug} className="inline-flex">
-                    <span
-                      id="single_affilink"
-                      ref={ copyTargetElement }
-                    ></span>
-                  </AnchorLink>
                   <Button
                     shape="rounded"
                     variant="solid"
@@ -377,17 +371,18 @@ export default function NftDetails({ product }: { product: NftDetailsProps }) {
                   >
                     COPY
                   </Button>
+                  <h2></h2>
+                  <AnchorLink href={creator?.slug} className="inline-flex">
+                    <span
+                      id="single_affilink"
+                      ref={ copyTargetElement }
+                    ></span>
+                  </AnchorLink>
                 </div>
                 <div className="shrink-0 border-dashed border-gray-200 dark:border-gray-700 lg:px-6 lg:ltr:border-r lg:rtl:border-l">
                   <h3 className="text-heading-style mb-2.5 uppercase text-gray-900 dark:text-white">
                     SINGLE Affiliate Link
                   </h3>
-                  <AnchorLink href={creator?.slug} className="inline-flex">
-                    <span
-                      id="pool_affilink"
-                      ref={ copyTargetElement1 }
-                    ></span>
-                  </AnchorLink>
                   <Button
                     shape="rounded"
                     variant="solid"
@@ -397,6 +392,13 @@ export default function NftDetails({ product }: { product: NftDetailsProps }) {
                   >
                     COPY
                   </Button>
+                  <h2></h2>
+                  <AnchorLink href={creator?.slug} className="inline-flex">
+                    <span
+                      id="pool_affilink"
+                      ref={ copyTargetElement1 }
+                    ></span>
+                  </AnchorLink>
                 </div>
                 <div className="shrink-0 border-dashed border-gray-200 dark:border-gray-700 lg:px-6 lg:ltr:border-r lg:rtl:border-l">
                   <h3 className="text-heading-style mb-2.5 uppercase text-gray-900 dark:text-white">
