@@ -11,6 +11,7 @@ import { FarmIcon } from '@/components/icons/farm';
 import { ExchangeIcon } from '@/components/icons/exchange';
 import { Close } from '@/components/icons/close';
 import { CompassIcon } from '@/components/icons/compass';
+import { DiskIcon } from '@/components/icons/disk';
 
 const menuItems = [
   {
@@ -37,6 +38,11 @@ const menuItems = [
     name: 'FARM',
     icon: <CompassIcon />,
     href: routes.farmsTwo,
+  },
+  {
+    name: 'AFFILIATES',
+    icon: <DiskIcon />,
+    href: routes.nftDetails,
   },
 ];
 
