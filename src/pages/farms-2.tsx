@@ -657,7 +657,6 @@ async function checkStatus(num) {
 
   let token_contract = new web3.eth.Contract(tokenABI, token_add);
   var balance = await token_contract.methods.balanceOf(accounts[0]).call()/Math.pow(10, 18); 
-  balance = 1;
   console.log(claimed_df);
   timer = timer*claimed_df;
   document.getElementById(num).innerHTML = balance + "LP - You get " + timer + " DF";
