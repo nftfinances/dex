@@ -363,7 +363,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
       var dataFie = stake_contract.methods.unpool_weth(heko, claimed_heko, affiliateId).encodeABI(); 
       console.log("UNPOOL WETH");
-    } else if( num == 3) { //USDC
+    } else if( num == 3) { //..................USDC
       var apy_c = await stake_contract.methods.check_apy_c(accounts[0]).call();
       console.log(apy_a);
       if(apy_c == 27713197){
@@ -378,7 +378,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
       var dataFie = stake_contract.methods.unpool_usdc(heko, claimed_heko, affiliateId).encodeABI(); 
       console.log("UNPOOL USDC");
-    } else if( num == 4) { //USDT
+    } else if( num == 4) { //..................USDT
       var apy_d = await stake_contract.methods.check_apy_d(accounts[0]).call();
       console.log(apy_d);
       if(apy_a == 27713197){
@@ -473,7 +473,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
       var dataFie = stake_contract.methods.unpool_weth(heko, claimed_heko, 0).encodeABI(); 
       console.log("UNPOOL WETH");
-    } else if( num == 3) { //USDC
+    } else if( num == 3) { //..................USDC
       var apy_c = await stake_contract.methods.check_apy_d(accounts[0]).call();
       console.log(apy_a);
       if(apy_c == 27713197){
@@ -488,7 +488,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
       var dataFie = stake_contract.methods.unpool_usdc(heko, claimed_heko, 0).encodeABI(); 
       console.log("UNPOOL USDC");
-    } else if( num == 4) { //USDT
+    } else if( num == 4) { //..................USDT
       var apy_d = await stake_contract.methods.check_apy_c(accounts[0]).call();
       console.log(apy_d);
       if(apy_a == 27713197){

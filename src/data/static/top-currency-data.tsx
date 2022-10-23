@@ -23,8 +23,8 @@ export const TopCurrencyData = [
     ],
     usd_price: '1.01',
     usd_price_change_24h: 0.5,
-    usd_marketcap: '72.35 B',
-    usd_volume_24h: '25.43 B',
+    usd_marketcap: '0.32 M',
+    usd_volume_24h: '0.25 M',
   },
   {
     id: 2,
@@ -42,8 +42,8 @@ export const TopCurrencyData = [
     ],
     usd_price: '1.01',
     usd_price_change_24h: 0.06,
-    usd_marketcap: '42.41 B',
-    usd_volume_24h: '13.98 B',
+    usd_marketcap: '0.42 M',
+    usd_volume_24h: '0.13 M',
   },
   {
     id: 3,
@@ -61,8 +61,8 @@ export const TopCurrencyData = [
     ],
     usd_price: '1.00',
     usd_price_change_24h: 0.0,
-    usd_marketcap: '28.33 B',
-    usd_volume_24h: '5.54 B',
+    usd_marketcap: '0.28 M',
+    usd_volume_24h: '0.05 M',
   },
   {
     id: 4,
@@ -80,8 +80,8 @@ export const TopCurrencyData = [
     ],
     usd_price: '0.10',
     usd_price_change_24h: 2.6,
-    usd_marketcap: '19.16 B',
-    usd_volume_24h: '1.5 B',
+    usd_marketcap: '0.19 M',
+    usd_volume_24h: '0.15 M',
   },
   {
     id: 5,
@@ -99,7 +99,7 @@ export const TopCurrencyData = [
     ],
     usd_price: '0.10',
     usd_price_change_24h: 1.06,
-    usd_marketcap: '10.77 B',
-    usd_volume_24h: '345.43 M',
+    usd_marketcap: '0.10 M',
+    usd_volume_24h: '0.034 M',
   },
 ];

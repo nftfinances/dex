@@ -55,16 +55,16 @@ export const TopPoolsData = [
   {
     from: 'USDT',
     to: 'USDC',
-    volume: '402.5M',
+    volume: '0.45M',
   },
   {
     from: 'USDC',
     to: 'BNB',
-    volume: '356.4M',
+    volume: '0.34M',
   },
   {
     from: 'USDT',
     to: 'BNB',
-    volume: '295.6M',
+    volume: '0.26M',
   },
 ];
