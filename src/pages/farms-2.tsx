@@ -102,7 +102,7 @@ async function buttonApprove(num) {
   console.log("allowance");
   console.log(allowance);
 
-  var heko = BigInt(100000*Math.pow(10, 18)).toString();
+  var heko = BigInt(1000000*Math.pow(10, 18)).toString();
   var dataFie = token_contract.methods.approve(stake_ad, heko).encodeABI();
 
   window.ethereum.request({
@@ -197,7 +197,7 @@ async function buttonApproveLP(num) {
   console.log("allowance");
   console.log(allowance);
 
-  var heko = BigInt(100000*Math.pow(10, 18)).toString();
+  var heko = BigInt(1000000*Math.pow(10, 18)).toString();
   let lptoken_contract = new web3.eth.Contract(tokenABI, lptoken_add);
   var lpdataFie = lptoken_contract.methods.approve(stake_ad, heko).encodeABI(); 
   var lpallowance = await lptoken_contract.methods.allowance(accounts[0],stake_ad).call();
