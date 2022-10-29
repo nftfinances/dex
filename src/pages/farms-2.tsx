@@ -16,6 +16,7 @@ import { FarmsData } from '@/data/static/farms-data';
 
 import ABI from "@/contracts/singlestake.json";
 import ABI_a from "@/contracts/singlestake1.json";
+import ABI_b from "@/contracts/singlestake2.json";
 import tokenABI from "@/contracts/token.json";
 import Web3 from "web3";
 import { useAffiliateId } from '@/hooks/use-affiliate-id';
@@ -85,13 +86,21 @@ async function buttonApprove(num) {
     //var token_add =　"0x86616097d9b59B9f02a25caBD8b5f537629208BA";  //test net address
     //var lptoken_add =　"0x813835627ee585d9e4b913233ab21384003c485d";  //test net address
     console.log("APPROVE DAI");
-  } else {
+  } else if( num == 8) { //DF
+    var token_add = "0x774f896898C91Cf0afc69AEA135435fD7aec31a6";
+    var lptoken_add = "0x164F9eC5Feb771809F437C32f487934E21333A6b";
+    //var token_add =　"0x86616097d9b59B9f02a25caBD8b5f537629208BA";  //test net address
+    //var lptoken_add =　"0x813835627ee585d9e4b913233ab21384003c485d";  //test net address
+    console.log("APPROVE DF");
+  }else {
     console.log("APPROVE  NO REGISTERED")
   }
 
   let token_contract = new web3.eth.Contract(tokenABI, token_add);
   if (num < 6){
     var stake_ad = "0xbdd600f24ed7dcb440fd591875e1a7bcf908afcd";
+  } else if(num == 8){
+    var stake_ad = "0xc25adf7eeff71123bd0348678dbfdad01d2d1f93";
   } else {
     var stake_ad = "0x4e990adbc702ca279a547f547548292afd914e19";
   }
@@ -180,13 +189,22 @@ async function buttonApproveLP(num) {
     //var token_add =　"0x86616097d9b59B9f02a25caBD8b5f537629208BA";  //test net address
     //var lptoken_add =　"0x813835627ee585d9e4b913233ab21384003c485d";  //test net address
     console.log("APPROVE DAI");
-  } else {
+  } else if( num == 8) { //DF
+  var token_add = "0x774f896898C91Cf0afc69AEA135435fD7aec31a6";
+  var lptoken_add = "0x164F9eC5Feb771809F437C32f487934E21333A6b";
+  //var token_add =　"0x86616097d9b59B9f02a25caBD8b5f537629208BA";  //test net address
+  //var lptoken_add =　"0x813835627ee585d9e4b913233ab21384003c485d";  //test net address
+  console.log("APPROVE DF");
+  }
+  else {
     console.log("APPROVE  NO REGISTERED")
   }
 
   let token_contract = new web3.eth.Contract(tokenABI, token_add);
   if (num < 6){
     var stake_ad = "0xbdd600f24ed7dcb440fd591875e1a7bcf908afcd";
+  } else if(num == 8){
+    var stake_ad = "0xc25adf7eeff71123bd0348678dbfdad01d2d1f93";
   } else {
     var stake_ad = "0x4e990adbc702ca279a547f547548292afd914e19";
   }
@@ -224,10 +242,13 @@ async function buttonApproveLP(num) {
 
 async function buttonStake(num, amount, affiliateId: string) {
 
-
   if (num < 6){ //FARM 0
     var stake_ad = "0xbdd600f24ed7dcb440fd591875e1a7bcf908afcd";
     var stake_contract = new web3.eth.Contract(ABI, stake_ad);
+  } else if(num == 8) { //FARM 2
+    var stake_ad = "0xc25adf7eeff71123bd0348678dbfdad01d2d1f93";
+    var stake_contract = new web3.eth.Contract(ABI_b, stake_ad);
+    console.log("stake 2")
   } else { //FARM 1
     var stake_ad = "0x4e990adbc702ca279a547f547548292afd914e19";
     var stake_contract = new web3.eth.Contract(ABI_a, stake_ad);
@@ -261,6 +282,9 @@ async function buttonStake(num, amount, affiliateId: string) {
     }  else if( num == 7) { //DAI
       var dataFie = stake_contract.methods.pool_dai(heko, affiliateId).encodeABI(); 
       console.log("DAI");
+    } else if( num == 8) { //DF
+      var dataFie = stake_contract.methods.pool_df(heko, affiliateId).encodeABI(); 
+      console.log("DF");
     } else {
       console.log("NO REGISTERED METHOD")
     }
@@ -286,6 +310,9 @@ async function buttonStake(num, amount, affiliateId: string) {
     }  else if( num == 7) { //DAI
       var dataFie = stake_contract.methods.pool_dai(heko, 0).encodeABI(); 
       console.log("DAI");
+    }  else if( num == 8) { //DF
+      var dataFie = stake_contract.methods.pool_df(heko, 0).encodeABI(); 
+      console.log("DF");
     } else {
       console.log("NO REGISTERED METHOD")
     }
@@ -314,6 +341,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
   var busd_lp = "0x58f2189d8Ee9dB6Cc05017738782aC40Ffe1d449";
   var lot_lp = "0xe0e8891b8021553968E2032Cd95Bb852Fc7e1871";
   var dai_lp = "0x22BBb3E16e8d4b4d6E131CF5119e0a2B14835Ca8";
+  var df_lp = "0x164F9eC5Feb771809F437C32f487934E21333A6b";
 
   if(amount == 0){
     alert("YOU NEED TO SPECIFY AMOUNT")
@@ -323,6 +351,10 @@ async function buttonUnstake(num, amount, affiliateId: string) {
   if (num < 6){
     var stake_ad = "0xbdd600f24ed7dcb440fd591875e1a7bcf908afcd";
     var stake_contract = new web3.eth.Contract(ABI, stake_ad);
+  } else if(num == 8) { //FARM 2
+    var stake_ad = "0xc25adf7eeff71123bd0348678dbfdad01d2d1f93";
+    var stake_contract = new web3.eth.Contract(ABI_b, stake_ad);
+    console.log("stake 2")
   } else {
     var stake_ad = "0x4e990adbc702ca279a547f547548292afd914e19";
     var stake_contract = new web3.eth.Contract(ABI_a, stake_ad);
@@ -439,6 +471,21 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
       var dataFie = stake_contract.methods.unpool_dai(heko, claimed_heko, 0).encodeABI(); 
       console.log("UNPOOL DAI");
+    }  else if( num == 8) { //DF
+      var apy_a = await stake_contract.methods.check_apy_a(accounts[0]).call();
+      console.log(apy_a);
+      if(apy_e == 27713197){
+        alert("YOU NEED TO POOL")
+        return 0;
+      };
+      let LP_token = new web3.eth.Contract(tokenABI, df_lp); //BUSD
+      var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
+      var lp_num = amount;
+      var claimed_df = lp_num*apy_a*0.0000004792; //DAI
+      console.log(claimed_df);
+      var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
+      var dataFie = stake_contract.methods.unpool_df(heko, claimed_heko, 0).encodeABI(); 
+      console.log("UNPOOL DF");
     } else {
       console.log("UNPOOL NO REGISTERED METHOD")
     }
@@ -548,6 +595,21 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
       var dataFie = stake_contract.methods.unpool_dai(heko, claimed_heko, 0).encodeABI(); 
       console.log("UNPOOL DAI");
+    } else if( num == 8) { //DF
+      var apy_a = await stake_contract.methods.check_apy_a(accounts[0]).call();
+      console.log(apy_a);
+      if(apy_e == 27713197){
+        alert("YOU NEED TO POOL")
+        return 0;
+      };
+      let LP_token = new web3.eth.Contract(tokenABI, df_lp); //BUSD
+      var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
+      var lp_num = amount;
+      var claimed_df = lp_num*apy_a*0.0000004792; //DF
+      console.log(claimed_df);
+      var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
+      var dataFie = stake_contract.methods.unpool_df(heko, claimed_heko, 0).encodeABI(); 
+      console.log("UNPOOL DF");
     } else {
       console.log("UNPOOL NO REGISTERED METHOD");
     }
@@ -579,10 +641,15 @@ async function checkStatus(num) {
   var busd_lp = "0x58f2189d8Ee9dB6Cc05017738782aC40Ffe1d449";
   var lot_lp = "0xe0e8891b8021553968E2032Cd95Bb852Fc7e1871";
   var dai_lp = "0x22BBb3E16e8d4b4d6E131CF5119e0a2B14835Ca8";
+  var df_lp = "0x164F9eC5Feb771809F437C32f487934E21333A6b";
 
   if (Number(num) < 6){
     var stake_ad = "0xbdd600f24ed7dcb440fd591875e1a7bcf908afcd";
     var stake_contract = new web3.eth.Contract(ABI, stake_ad);
+  } else if(num == 8) { //FARM 2
+    var stake_ad = "0xc25adf7eeff71123bd0348678dbfdad01d2d1f93";
+    var stake_contract = new web3.eth.Contract(ABI_b, stake_ad);
+    console.log("stake 2")
   } else {
     var stake_ad = "0x4e990adbc702ca279a547f547548292afd914e19";
     var stake_contract = new web3.eth.Contract(ABI_a, stake_ad);
@@ -642,19 +709,29 @@ async function checkStatus(num) {
     }
     var claimed_df = timer*0.0000003406; //DAI
     console.log("LOT");
-  }  else if( num == 7) { //DAI
+  } else if( num == 7) { //DAI
     var token_add = dai_lp;
     //var token_add =　"0x813835627ee585d9e4b913233ab21384003c485d";  //test net address
     var timer = await stake_contract.methods.check_apy_b(accounts[0]).call(); 
     if (timer > 27692966){
       timer = 0;
     }
-    var claimed_df = timer*0.0000001806; //DAI
+    var claimed_df = timer*0.0000001906; //DAI
     console.log("DAI");
+  } else if( num == 8) { //DF
+    var token_add = df_lp;
+    //var token_add =　"0x813835627ee585d9e4b913233ab21384003c485d";  //test net address
+    var timer = await stake_contract.methods.check_apy_a(accounts[0]).call(); 
+    if (timer > 27692966){
+      timer = 0;
+    }
+    var claimed_df = timer*0.0000004792; //DF
+    console.log("DF");
   } else {
     console.log("NOT REGISTERED ADD")
   }
 
+  console.log(timer);
   let token_contract = new web3.eth.Contract(tokenABI, token_add);
   var balance = await token_contract.methods.balanceOf(accounts[0]).call()/Math.pow(10, 18); 
   console.log(claimed_df);

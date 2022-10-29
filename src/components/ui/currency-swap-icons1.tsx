@@ -5,6 +5,7 @@ import { Bnb } from '@/components/icons/bnb';
 import { Usdc } from '@/components/icons/usdc';
 import { Dai } from '@/components/icons/dai';
 import { Lot } from '@/components/icons/lot';
+import { Doge } from '@/components/icons/doge';
 
 export type CoinList = 'WBTC' | 'WETH' | 'USDT' | 'BUSD' | 'USDC' | 'LOT' | 'DAI';
 
@@ -16,6 +17,7 @@ const coinIcons: Record<CoinList, JSX.Element> = {
   USDC: <Usdc />,
   DAI: <Dai />,
   LOT: <Lot />,
+  DF: <Doge />,
 };
 
 interface CurrencySwapIconsProps {

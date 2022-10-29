@@ -425,8 +425,8 @@ function TransactionHistoryCard({ item  }) {
     });
 };
 
-// EXTERNAL MODULE: ./src/data/static/author-profile.tsx + 10 modules
-var author_profile = __webpack_require__(2670);
+// EXTERNAL MODULE: ./src/data/static/author-profile.tsx + 11 modules
+var author_profile = __webpack_require__(2018);
 ;// CONCATENATED MODULE: ./src/components/author/transaction-history.tsx
 
 
@@ -629,7 +629,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var _components_author_transaction_history__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9166);
 /* harmony import */ var _components_ui_collection_card__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(5595);
 /* harmony import */ var _data_static_collections__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(589);
-/* harmony import */ var _data_static_author_profile__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(2670);
+/* harmony import */ var _data_static_author_profile__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(2018);
 var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_components_ui_param_tab__WEBPACK_IMPORTED_MODULE_1__]);
 _components_ui_param_tab__WEBPACK_IMPORTED_MODULE_1__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__)[0];
 
@@ -840,7 +840,7 @@ function CollectionCard({ item , className =""  }) {
 
 /***/ }),
 
-/***/ 2670:
+/***/ 2018:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -868,8 +868,8 @@ __webpack_require__.d(__webpack_exports__, {
 /* harmony default export */ const pancake = ({"src":"/_next/static/media/pancake.3978dfae.svg","height":40,"width":40});
 ;// CONCATENATED MODULE: ./src/assets/images/portfolio/curve.svg
 /* harmony default export */ const curve = ({"src":"/_next/static/media/curve.846ed970.svg","height":40,"width":40});
-// EXTERNAL MODULE: ./src/assets/images/currency/bitcoin.svg
-var bitcoin = __webpack_require__(3438);
+;// CONCATENATED MODULE: ./src/assets/images/currency/bitcoin.svg
+/* harmony default export */ const bitcoin = ({"src":"/_next/static/media/bitcoin.478c0c84.svg","height":32,"width":32});
 // EXTERNAL MODULE: ./src/assets/images/currency/ethereum.svg
 var ethereum = __webpack_require__(1623);
 ;// CONCATENATED MODULE: ./src/assets/images/user-1.png
@@ -950,7 +950,7 @@ const authorNetworks = [
     {
         id: 1,
         name: "BTC",
-        logo: bitcoin/* default */.Z,
+        logo: bitcoin,
         balance: "$2,518.78"
     },
     {
@@ -1888,7 +1888,7 @@ module.exports = import("jotai");;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [952,61,292,36,177,731,22], () => (__webpack_exec__(3316)));
+var __webpack_exports__ = __webpack_require__.X(0, [2952,3061,9292,36,1193,8177,2731], () => (__webpack_exec__(3316)));
 module.exports = __webpack_exports__;
 
 })();

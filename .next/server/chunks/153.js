@@ -87,7 +87,7 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([fram
 
 
 // dynamic import
-const Listbox = next_dynamic__WEBPACK_IMPORTED_MODULE_2___default()(()=>__webpack_require__.e(/* import() */ 138).then(__webpack_require__.bind(__webpack_require__, 1138)), {
+const Listbox = next_dynamic__WEBPACK_IMPORTED_MODULE_2___default()(()=>__webpack_require__.e(/* import() */ 1138).then(__webpack_require__.bind(__webpack_require__, 1138)), {
     loadableGenerated: {
         modules: [
             "../layouts/_trade-layout.tsx -> " + "@/components/ui/list-box"
@@ -104,8 +104,8 @@ const tradeMenu = [
         value: _config_routes__WEBPACK_IMPORTED_MODULE_6__/* ["default"].liquidity */ .Z.liquidity
     },
     {
-        name: "Vote",
-        value: _config_routes__WEBPACK_IMPORTED_MODULE_6__/* ["default"].vote */ .Z.vote
+        name: "PEGA",
+        value: "https://dream-finances.herokuapp.com/home/pega"
     }, 
 ];
 function ActiveNavLink({ href , title , isActive , className  }) {
