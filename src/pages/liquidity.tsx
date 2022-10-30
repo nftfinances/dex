@@ -31,13 +31,18 @@ const enable = async () => {
 
 enable();
 
-async function dec(count, count1, affiliateId: string ){
+async function dec(count, count1, affiliateId: string ){ //pool
       console.log("YOUR AFFILIATE ID")
       console.log(affiliateId);
       const accounts = await web3.eth.requestAccounts();
 
       var pool_ad = "0xc2a039a166aa87c8e0a142ceab9e86afacfada45";
       let pool_contract = new web3.eth.Contract(ABI, pool_ad);
+
+      if(count.value == 0){
+        alert("YOU NEED TO SPECIFY AMOUNT")
+        return 0;
+      };
 
 
       if(affiliateId){//do affiliate
@@ -550,6 +555,12 @@ async function approveLP(count, count1, affiliateId: string ){
 }
 
 async function unpool(count, count1, affiliateId: string ){
+
+      if(count.value == 0){
+        alert("YOU NEED TO SPECIFY AMOUNT")
+        return 0;
+      };
+
       const accounts = await web3.eth.requestAccounts();
       var pool_ad = "0xc2a039a166aa87c8e0a142ceab9e86afacfada45";
       let pool_contract = new web3.eth.Contract(ABI, pool_ad);

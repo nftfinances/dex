@@ -241,6 +241,10 @@ async function buttonApproveLP(num) {
 
 
 async function buttonStake(num, amount, affiliateId: string) {
+  if(amount == 0){
+    alert("YOU NEED TO SPECIFY AMOUNT")
+    return 0;
+  };
 
   if (num < 6){ //FARM 0
     var stake_ad = "0xbdd600f24ed7dcb440fd591875e1a7bcf908afcd";
