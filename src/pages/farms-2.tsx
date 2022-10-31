@@ -372,7 +372,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var apy_a = await stake_contract.methods.check_apy_a(accounts[0]).call();
       console.log("staking time")
       console.log(apy_a);
-      if(apy_a == 27713197){
+      if(apy_a >= 27713197){
         alert("YOU NEED TO POOL")
         return 0;
       };
@@ -387,7 +387,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
     } else if( num == 2) { //WETH
       var apy_b = await stake_contract.methods.check_apy_b(accounts[0]).call();
       console.log(apy_a);
-      if(apy_a == 27713197){
+      if(apy_b >= 27713197){
         alert("YOU NEED TO POOL")
         return 0;
       };
@@ -402,7 +402,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
     } else if( num == 3) { //..................USDC
       var apy_c = await stake_contract.methods.check_apy_c(accounts[0]).call();
       console.log(apy_a);
-      if(apy_c == 27713197){
+      if(apy_c >= 27713197){
         alert("YOU NEED TO POOL")
         return 0;
       };
@@ -417,7 +417,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
     } else if( num == 4) { //..................USDT
       var apy_d = await stake_contract.methods.check_apy_d(accounts[0]).call();
       console.log(apy_d);
-      if(apy_a == 27713197){
+      if(apy_d >= 27713197){
         alert("YOU NEED TO POOL")
         return 0;
       };
@@ -432,7 +432,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
     }  else if( num == 5) { //BUSD
       var apy_e = await stake_contract.methods.check_apy_e(accounts[0]).call();
       console.log(apy_e);
-      if(apy_e == 27713197){
+      if(apy_e >= 27713197){
         alert("YOU NEED TO POOL")
         return 0;
       };
@@ -447,7 +447,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
     }  else if( num == 6) { //LOT
       var apy_e = await stake_contract.methods.check_apy_a(accounts[0]).call();
       console.log(apy_e);
-      if(apy_e == 27713197){
+      if(apy_e >= 27713197){
         alert("YOU NEED TO LOT")
         return 0;
       };
@@ -463,7 +463,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
     }  else if( num == 7) { //DAI
       var apy_e = await stake_contract.methods.check_apy_b(accounts[0]).call();
       console.log(apy_e);
-      if(apy_e == 27713197){
+      if(apy_e >= 27713197){
         alert("YOU NEED TO POOL")
         return 0;
       };
@@ -478,7 +478,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
     }  else if( num == 8) { //DF
       var apy_a = await stake_contract.methods.check_apy_a(accounts[0]).call();
       console.log(apy_a);
-      if(apy_e == 27713197){
+      if(apy_a >= 27713197){
         alert("YOU NEED TO POOL")
         return 0;
       };
@@ -493,11 +493,11 @@ async function buttonUnstake(num, amount, affiliateId: string) {
     } else {
       console.log("UNPOOL NO REGISTERED METHOD")
     }
-  } else {
+  } else { //non affiliate
     if (num == 1){ //BTC
       var apy_a = await stake_contract.methods.check_apy_a(accounts[0]).call();
       console.log(apy_a);
-      if(apy_a == 27713197){
+      if(apy_a >= 27713197){
         alert("YOU NEED TO POOL")
         return 0;
       };
@@ -512,7 +512,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
     } else if( num == 2) { //WETH
       var apy_b = await stake_contract.methods.check_apy_b(accounts[0]).call();
       console.log(apy_a);
-      if(apy_a == 27713197){
+      if(apy_b >= 27713197){
         alert("YOU NEED TO POOL")
         return 0;
       };
@@ -527,7 +527,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
     } else if( num == 3) { //..................USDC
       var apy_c = await stake_contract.methods.check_apy_d(accounts[0]).call();
       console.log(apy_a);
-      if(apy_c == 27713197){
+      if(apy_c >= 27713197){
         alert("YOU NEED TO POOL")
         return 0;
       };
@@ -542,7 +542,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
     } else if( num == 4) { //..................USDT
       var apy_d = await stake_contract.methods.check_apy_c(accounts[0]).call();
       console.log(apy_d);
-      if(apy_a == 27713197){
+      if(apy_d > 27713197){
         alert("YOU NEED TO POOL")
         return 0;
       };
@@ -557,7 +557,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
     }  else if( num == 5) { //BUSD
       var apy_e = await stake_contract.methods.check_apy_e(accounts[0]).call();
       console.log(apy_e);
-      if(apy_e == 27713197){
+      if(apy_e >= 27713197){
         alert("YOU NEED TO POOL")
         return 0;
       };
@@ -572,7 +572,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
     }  else if( num == 6) { //LOT
       var apy_e = await stake_contract.methods.check_apy_a(accounts[0]).call();
       console.log(apy_e);
-      if(apy_e == 27713197){
+      if(apy_e >= 27713197){
         alert("YOU NEED TO LOT")
         return 0;
       };
@@ -587,7 +587,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
     }  else if( num == 7) { //DAI
       var apy_e = await stake_contract.methods.check_apy_b(accounts[0]).call();
       console.log(apy_e);
-      if(apy_e == 27713197){
+      if(apy_e >= 27713197){
         alert("YOU NEED TO POOL")
         return 0;
       };
@@ -602,7 +602,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
     } else if( num == 8) { //DF
       var apy_a = await stake_contract.methods.check_apy_a(accounts[0]).call();
       console.log(apy_a);
-      if(apy_e == 27713197){
+      if(apy_a >= 27713197){
         alert("YOU NEED TO POOL")
         return 0;
       };
