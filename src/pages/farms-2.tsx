@@ -102,7 +102,7 @@ async function buttonApprove(num) {
   } else if(num == 8){
     var stake_ad = "0xc25adf7eeff71123bd0348678dbfdad01d2d1f93";
   } else {
-    var stake_ad = "0x4e990adbc702ca279a547f547548292afd914e19";
+    var stake_ad = "0x64E0624f06DD6e5a17c375E7decB8fAaE0AF5578";
   }
 
   const accounts = await web3.eth.requestAccounts();
@@ -206,7 +206,8 @@ async function buttonApproveLP(num) {
   } else if(num == 8){
     var stake_ad = "0xc25adf7eeff71123bd0348678dbfdad01d2d1f93";
   } else {
-    var stake_ad = "0x4e990adbc702ca279a547f547548292afd914e19";
+    console.log("LOT or DAI")
+    var stake_ad = "0x64E0624f06DD6e5a17c375E7decB8fAaE0AF5578";
   }
 
   const accounts = await web3.eth.requestAccounts();
@@ -254,7 +255,7 @@ async function buttonStake(num, amount, affiliateId: string) {
     var stake_contract = new web3.eth.Contract(ABI_b, stake_ad);
     console.log("stake 2")
   } else { //FARM 1
-    var stake_ad = "0x4e990adbc702ca279a547f547548292afd914e19";
+    var stake_ad = "0x64E0624f06DD6e5a17c375E7decB8fAaE0AF5578";
     var stake_contract = new web3.eth.Contract(ABI_a, stake_ad);
     console.log("stake 1")
   }
@@ -360,7 +361,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
     var stake_contract = new web3.eth.Contract(ABI_b, stake_ad);
     console.log("stake 2")
   } else {
-    var stake_ad = "0x4e990adbc702ca279a547f547548292afd914e19";
+    var stake_ad = "0x64E0624f06DD6e5a17c375E7decB8fAaE0AF5578";
     var stake_contract = new web3.eth.Contract(ABI_a, stake_ad);
   }
 
@@ -448,7 +449,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var apy_e = await stake_contract.methods.check_apy_a(accounts[0]).call();
       console.log(apy_e);
       if(apy_e >= 27713197){
-        alert("YOU NEED TO LOT")
+        alert("YOU NEED TO POOL")
         return 0;
       };
       let LP_token = new web3.eth.Contract(tokenABI, lot_lp); //LOT
@@ -650,14 +651,15 @@ async function checkStatus(num) {
   if (Number(num) < 6){
     var stake_ad = "0xbdd600f24ed7dcb440fd591875e1a7bcf908afcd";
     var stake_contract = new web3.eth.Contract(ABI, stake_ad);
+    console.log("stake 0");
   } else if(num == 8) { //FARM 2
     var stake_ad = "0xc25adf7eeff71123bd0348678dbfdad01d2d1f93";
     var stake_contract = new web3.eth.Contract(ABI_b, stake_ad);
-    console.log("stake 2")
+    console.log("stake 2");
   } else {
-    var stake_ad = "0x4e990adbc702ca279a547f547548292afd914e19";
+    var stake_ad = "0x64E0624f06DD6e5a17c375E7decB8fAaE0AF5578";
     var stake_contract = new web3.eth.Contract(ABI_a, stake_ad);
-    console.log("new contra")
+    console.log("stake 1");
   }
 
   console.log(num);
