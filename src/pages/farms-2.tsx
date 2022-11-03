@@ -369,7 +369,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
 
   var heko = BigInt(amount*Math.pow(10, 18)).toString();
   if(affiliateId){
-    if (num == 1){ //BTC
+    if (num == 1){ //AFFI------------------------------------------------------apy_a_BTC
       var apy_a = await stake_contract.methods.check_apy_a(accounts[0]).call();
       console.log("staking time")
       console.log(apy_a);
@@ -377,7 +377,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
         alert("YOU NEED TO POOL")
         return 0;
       };
-      let LP_token = new web3.eth.Contract(tokenABI, btc_lp); //WBTC
+      let LP_token = new web3.eth.Contract(tokenABI, btc_lp); //apy_a_WBTC
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
       var lp_num = amount;
       var claimed_df = lp_num*apy_a*0.000000472; //WBTC
@@ -385,7 +385,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
       var dataFie = stake_contract.methods.unpool_wbtc(heko, claimed_heko, affiliateId).encodeABI(); 
       console.log("UNPOOL BTC");
-    } else if( num == 2) { //WETH
+    } else if( num == 2) { //AFFI------------------------------------------------------apy_b_WETH
       var apy_b = await stake_contract.methods.check_apy_b(accounts[0]).call();
       console.log(apy_a);
       if(apy_b >= 27713197){
@@ -400,9 +400,9 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
       var dataFie = stake_contract.methods.unpool_weth(heko, claimed_heko, affiliateId).encodeABI(); 
       console.log("UNPOOL WETH");
-    } else if( num == 3) { //..................USDC
-      var apy_c = await stake_contract.methods.check_apy_c(accounts[0]).call();
-      console.log(apy_a);
+    } else if( num == 3) { //AFFI------------------------------------------------------apy_d_USDC
+      var apy_c = await stake_contract.methods.check_apy_d(accounts[0]).call();
+      console.log(apy_c);
       if(apy_c >= 27713197){
         alert("YOU NEED TO POOL")
         return 0;
@@ -415,8 +415,8 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
       var dataFie = stake_contract.methods.unpool_usdc(heko, claimed_heko, affiliateId).encodeABI(); 
       console.log("UNPOOL USDC");
-    } else if( num == 4) { //..................USDT
-      var apy_d = await stake_contract.methods.check_apy_d(accounts[0]).call();
+    } else if( num == 4) { //AFFI------------------------------------------------------apy_c_USDT
+      var apy_d = await stake_contract.methods.check_apy_c(accounts[0]).call();
       console.log(apy_d);
       if(apy_d >= 27713197){
         alert("YOU NEED TO POOL")
@@ -430,7 +430,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
       var dataFie = stake_contract.methods.unpool_usdt(heko, claimed_heko, affiliateId).encodeABI(); 
       console.log("UNPOOL USDT");
-    }  else if( num == 5) { //BUSD
+    }  else if( num == 5) { //AFFI------------------------------------------------------apy_e_BUSD
       var apy_e = await stake_contract.methods.check_apy_e(accounts[0]).call();
       console.log(apy_e);
       if(apy_e >= 27713197){
@@ -445,7 +445,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
       var dataFie = stake_contract.methods.unpool_busd(heko, claimed_heko, affiliateId).encodeABI(); 
       console.log("UNPOOL BUSD");
-    }  else if( num == 6) { //LOT
+    }  else if( num == 6) { //AFFI------------------------------------------------------apy_a_LOT
       var apy_e = await stake_contract.methods.check_apy_a(accounts[0]).call();
       console.log(apy_e);
       if(apy_e >= 27713197){
@@ -461,7 +461,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       console.log(claimed_heko);
       var dataFie = stake_contract.methods.unpool_lot(heko, claimed_heko, 0).encodeABI(); 
       console.log("UNPOOL LOT");
-    }  else if( num == 7) { //DAI
+    }  else if( num == 7) { //AFFI------------------------------------------------------apy_b_DAI
       var apy_e = await stake_contract.methods.check_apy_b(accounts[0]).call();
       console.log(apy_e);
       if(apy_e >= 27713197){
@@ -476,7 +476,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
       var dataFie = stake_contract.methods.unpool_dai(heko, claimed_heko, 0).encodeABI(); 
       console.log("UNPOOL DAI");
-    }  else if( num == 8) { //DF
+    }  else if( num == 8) { //AFFI------------------------------------------------------apy_a_DF
       var apy_a = await stake_contract.methods.check_apy_a(accounts[0]).call();
       console.log(apy_a);
       if(apy_a >= 27713197){
@@ -495,7 +495,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       console.log("UNPOOL NO REGISTERED METHOD")
     }
   } else { //non affiliate
-    if (num == 1){ //BTC
+    if (num == 1){ //NON--AFFI------------------------------------------------------apy_a_BTC
       var apy_a = await stake_contract.methods.check_apy_a(accounts[0]).call();
       console.log(apy_a);
       if(apy_a >= 27713197){
@@ -510,7 +510,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
       var dataFie = stake_contract.methods.unpool_wbtc(heko, claimed_heko, 0).encodeABI(); 
       console.log("UNPOOL BTC");
-    } else if( num == 2) { //WETH
+    } else if( num == 2) { //NON--AFFI-----------------------------------------------------apy_b_WETH
       var apy_b = await stake_contract.methods.check_apy_b(accounts[0]).call();
       console.log(apy_a);
       if(apy_b >= 27713197){
@@ -525,7 +525,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
       var dataFie = stake_contract.methods.unpool_weth(heko, claimed_heko, 0).encodeABI(); 
       console.log("UNPOOL WETH");
-    } else if( num == 3) { //..................USDC
+    } else if( num == 3) { //NON--AFFI------------------------------------------------------apy_d_USDC
       var apy_c = await stake_contract.methods.check_apy_d(accounts[0]).call();
       console.log(apy_a);
       if(apy_c >= 27713197){
@@ -540,7 +540,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
       var dataFie = stake_contract.methods.unpool_usdc(heko, claimed_heko, 0).encodeABI(); 
       console.log("UNPOOL USDC");
-    } else if( num == 4) { //..................USDT
+    } else if( num == 4) { //NON--AFFI------------------------------------------------------apy_c_USDT
       var apy_d = await stake_contract.methods.check_apy_c(accounts[0]).call();
       console.log(apy_d);
       if(apy_d > 27713197){
@@ -555,7 +555,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
       var dataFie = stake_contract.methods.unpool_usdt(heko, claimed_heko, 0).encodeABI(); 
       console.log("UNPOOL USDT");
-    }  else if( num == 5) { //BUSD
+    }  else if( num == 5) { //NON--AFFI------------------------------------------------------apy_e_BUSD
       var apy_e = await stake_contract.methods.check_apy_e(accounts[0]).call();
       console.log(apy_e);
       if(apy_e >= 27713197){
@@ -570,7 +570,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
       var dataFie = stake_contract.methods.unpool_busd(heko, claimed_heko, 0).encodeABI(); 
       console.log("UNPOOL BUSD");
-    }  else if( num == 6) { //LOT
+    }  else if( num == 6) { //NON--AFFI------------------------------------------------------apy_a_LOT
       var apy_e = await stake_contract.methods.check_apy_a(accounts[0]).call();
       console.log(apy_e);
       if(apy_e >= 27713197){
@@ -585,7 +585,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
       var dataFie = stake_contract.methods.unpool_lot(heko, claimed_heko, 0).encodeABI(); 
       console.log("UNPOOL BUSD");
-    }  else if( num == 7) { //DAI
+    }  else if( num == 7) { //NON--AFFI------------------------------------------------------apy_b_DAI
       var apy_e = await stake_contract.methods.check_apy_b(accounts[0]).call();
       console.log(apy_e);
       if(apy_e >= 27713197){
@@ -600,7 +600,7 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
       var dataFie = stake_contract.methods.unpool_dai(heko, claimed_heko, 0).encodeABI(); 
       console.log("UNPOOL DAI");
-    } else if( num == 8) { //DF
+    } else if( num == 8) { //NON--AFFI------------------------------------------------------apy_a____DF
       var apy_a = await stake_contract.methods.check_apy_a(accounts[0]).call();
       console.log(apy_a);
       if(apy_a >= 27713197){
