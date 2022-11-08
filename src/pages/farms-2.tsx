@@ -267,56 +267,152 @@ async function buttonStake(num, amount, affiliateId: string) {
 
   if(affiliateId){
     if (num == 1){ //BTC
-      var dataFie = stake_contract.methods.pool_wbtc(heko, affiliateId).encodeABI(); 
+      var dataFie = stake_contract.methods.pool_wbtc(heko, affiliateId).encodeABI();
+      var apy_d = await stake_contract.methods.check_apy_a(accounts[0]).call();
+      console.log(apy_d);
+      if(apy_d < 27713197 && apy_d >0){
+        alert("YOU NEED TO UNSTAKE to GET DF")
+        return 0;
+      };
       console.log("BTC");
     } else if( num == 2) { //WETH
-      var dataFie = stake_contract.methods.pool_weth(heko, affiliateId).encodeABI(); 
+      var dataFie = stake_contract.methods.pool_weth(heko, affiliateId).encodeABI();
+      var apy_d = await stake_contract.methods.check_apy_b(accounts[0]).call();
+      console.log(apy_d);
+      if(apy_d < 27713197 && apy_d >0){
+        alert("YOU NEED TO UNSTAKE to GET DF")
+        return 0;
+      };
       console.log("WETH");
     } else if( num == 3) { //USDC
-      var dataFie = stake_contract.methods.pool_usdc(heko, affiliateId).encodeABI(); 
+      var dataFie = stake_contract.methods.pool_usdc(heko, affiliateId).encodeABI();
+      var apy_d = await stake_contract.methods.check_apy_d(accounts[0]).call();
+      console.log(apy_d);
+      if(apy_d < 27713197 && apy_d >0){
+        alert("YOU NEED TO UNSTAKE to GET DF")
+        return 0;
+      };
       console.log("USDC");
     } else if( num == 4) { //USDT
-      var dataFie = stake_contract.methods.pool_usdt(heko, affiliateId).encodeABI(); 
+      var dataFie = stake_contract.methods.pool_usdt(heko, affiliateId).encodeABI();
+      var apy_d = await stake_contract.methods.check_apy_c(accounts[0]).call();
+      console.log(apy_d);
+      if(apy_d < 27713197 && apy_d >0){
+        alert("YOU NEED TO UNSTAKE to GET DF")
+        return 0;
+      };
       console.log("USDT");
     }  else if( num == 5) { //BUSD
-      var dataFie = stake_contract.methods.pool_busd(heko, affiliateId).encodeABI(); 
+      var dataFie = stake_contract.methods.pool_busd(heko, affiliateId).encodeABI();
+      var apy_d = await stake_contract.methods.check_apy_e(accounts[0]).call();
+      console.log(apy_d);
+      if(apy_d < 27713197 && apy_d >0){
+        alert("YOU NEED TO UNSTAKE to GET DF")
+        return 0;
+      };
       console.log("BUSD");
     }  else if( num == 6) { //LOT
-      var dataFie = stake_contract.methods.pool_lot(heko, affiliateId).encodeABI(); 
+      var dataFie = stake_contract.methods.pool_lot(heko, affiliateId).encodeABI();
+      var apy_d = await stake_contract.methods.check_apy_a(accounts[0]).call();
+      console.log(apy_d);
+      if(apy_d < 27713197 && apy_d >0){
+        alert("YOU NEED TO UNSTAKE to GET DF")
+        return 0;
+      };
       console.log("LOT");
     }  else if( num == 7) { //DAI
-      var dataFie = stake_contract.methods.pool_dai(heko, affiliateId).encodeABI(); 
+      var dataFie = stake_contract.methods.pool_dai(heko, affiliateId).encodeABI();
+      var apy_d = await stake_contract.methods.check_apy_b(accounts[0]).call();
+      console.log(apy_d);
+      if(apy_d < 27713197 && apy_d >0){
+        alert("YOU NEED TO UNSTAKE to GET DF")
+        return 0;
+      };
       console.log("DAI");
     } else if( num == 8) { //DF
-      var dataFie = stake_contract.methods.pool_df(heko, affiliateId).encodeABI(); 
+      var dataFie = stake_contract.methods.pool_df(heko, affiliateId).encodeABI();
+      var apy_d = await stake_contract.methods.check_apy_a(accounts[0]).call();
+      console.log(apy_d);
+      if(apy_d < 27713197 && apy_d >0){
+        alert("YOU NEED TO UNSTAKE to GET DF")
+        return 0;
+      };
       console.log("DF");
     } else {
       console.log("NO REGISTERED METHOD")
     }
   } else {
-    if (num == 1){ //BTC
+    if (num == 1){ //nonAFFI-----------------------------------------STAKE----BTC
       var dataFie = stake_contract.methods.pool_wbtc(heko, 0).encodeABI(); 
+      var apy_d = await stake_contract.methods.check_apy_a(accounts[0]).call();
+      console.log(apy_d);
+      if(apy_d < 27713197 && apy_d >0){
+        alert("YOU NEED TO UNSTAKE to GET DF")
+        return 0;
+      };
       console.log("BTC");
-    } else if( num == 2) { //WETH
+    } else if( num == 2) { //nonAFFI-----------------------------------------STAKE----WETH
       var dataFie = stake_contract.methods.pool_weth(heko, 0).encodeABI(); 
+      var apy_d = await stake_contract.methods.check_apy_b(accounts[0]).call();
+      console.log(apy_d);
+      if(apy_d < 27713197 && apy_d >0){
+        alert("YOU NEED TO UNSTAKE to GET DF")
+        return 0;
+      };
       console.log("WETH");
-    } else if( num == 3) { //USDC
+    } else if( num == 3) { //nonAFFI-----------------------------------------STAKE----USDC
       var dataFie = stake_contract.methods.pool_usdc(heko, 0).encodeABI(); 
+      var apy_d = await stake_contract.methods.check_apy_d(accounts[0]).call();
+      console.log(apy_d);
+      if(apy_d < 27713197 && apy_d >0){
+        alert("YOU NEED TO UNSTAKE to GET DF")
+        return 0;
+      };
       console.log("USDC");
-    } else if( num == 4) { //USDT
-      var dataFie = stake_contract.methods.pool_usdt(heko, 0).encodeABI(); 
+    } else if( num == 4) { //nonAFFI-----------------------------------------STAKE----USDT
+      var dataFie = stake_contract.methods.pool_usdt(heko, 0).encodeABI();
+      var apy_d = await stake_contract.methods.check_apy_c(accounts[0]).call();
+      console.log(apy_d);
+      if(apy_d < 27713197 && apy_d >0){
+        alert("YOU NEED TO UNSTAKE to GET DF")
+        return 0;
+      };
       console.log("USDT");
-    }  else if( num == 5) { //BUSD
+    }  else if( num == 5) { //nonAFFI-----------------------------------------STAKE----BUSD
       var dataFie = stake_contract.methods.pool_busd(heko, 0).encodeABI(); 
+      var apy_d = await stake_contract.methods.check_apy_e(accounts[0]).call();
+      console.log(apy_d);
+      if(apy_d < 27713197 && apy_d >0){
+        alert("YOU NEED TO UNSTAKE to GET DF")
+        return 0;
+      };
       console.log("BUSD");
-    }  else if( num == 6) { //LOT
-      var dataFie = stake_contract.methods.pool_lot(heko, 0).encodeABI(); 
+    }  else if( num == 6) { //nonAFFI-----------------------------------------STAKE----LOT
+      var dataFie = stake_contract.methods.pool_lot(heko, 0).encodeABI();
+      var apy_d = await stake_contract.methods.check_apy_a(accounts[0]).call();
+      console.log(apy_d);
+      if(apy_d < 27713197 && apy_d >0){
+        alert("YOU NEED TO UNSTAKE to GET DF")
+        return 0;
+      };
       console.log("LOT");
-    }  else if( num == 7) { //DAI
-      var dataFie = stake_contract.methods.pool_dai(heko, 0).encodeABI(); 
+    }  else if( num == 7) { //nonAFFI-----------------------------------------STAKE----DAI
+      var dataFie = stake_contract.methods.pool_dai(heko, 0).encodeABI();
+      var apy_d = await stake_contract.methods.check_apy_b(accounts[0]).call();
+      console.log(apy_d);
+      if(apy_d < 27713197 && apy_d >0){
+        alert("YOU NEED TO UNSTAKE to GET DF")
+        return 0;
+      };
       console.log("DAI");
-    }  else if( num == 8) { //DF
-      var dataFie = stake_contract.methods.pool_df(heko, 0).encodeABI(); 
+    }  else if( num == 8) { //nonAFFI-----------------------------------------STAKE----DF
+      var dataFie = stake_contract.methods.pool_df(heko, 0).encodeABI();
+      var apy_d = await stake_contract.methods.check_apy_a(accounts[0]).call();
+      console.log(apy_d);
+      if(apy_d < 27713197 && apy_d >0){
+        alert("YOU NEED TO UNSTAKE to GET DF")
+        return 0;
+      };
       console.log("DF");
     } else {
       console.log("NO REGISTERED METHOD")
@@ -483,10 +579,10 @@ async function buttonUnstake(num, amount, affiliateId: string) {
         alert("YOU NEED TO POOL")
         return 0;
       };
-      let LP_token = new web3.eth.Contract(tokenABI, df_lp); //BUSD
+      let LP_token = new web3.eth.Contract(tokenABI, df_lp); //DF
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
       var lp_num = amount;
-      var claimed_df = lp_num*apy_a*0.0000004792; //DAI
+      var claimed_df = lp_num*apy_a*0.0000004792; //DF
       console.log(claimed_df);
       var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
       var dataFie = stake_contract.methods.unpool_df(heko, claimed_heko, 0).encodeABI(); 
@@ -679,7 +775,7 @@ async function checkStatus(num) {
       timer = 0;
     }
     var claimed_df = timer*0.000000672; //ETH
-  } else if( num == 3) { //USDC
+  } else if( num == 3) { //USDC__apy_d
     var token_add = usdc_lp;
     var timer = await stake_contract.methods.check_apy_d(accounts[0]).call(); 
     if (timer > 27692966){
@@ -687,7 +783,7 @@ async function checkStatus(num) {
     }
     var claimed_df = timer*0.0000001715; //USDC
     console.log("USDC");
-  } else if( num == 4) { //USDT
+  } else if( num == 4) { //USDT___apy_c
     var token_add = usdt_lp;
     var timer = await stake_contract.methods.check_apy_c(accounts[0]).call();
     console.log(timer);
@@ -739,9 +835,10 @@ async function checkStatus(num) {
 
   console.log(timer);
   let token_contract = new web3.eth.Contract(tokenABI, token_add);
-  var balance = await token_contract.methods.balanceOf(accounts[0]).call()/Math.pow(10, 18); 
+  var balance = await token_contract.methods.balanceOf(accounts[0]).call()/Math.pow(10, 18);
+  console.log(balance);
   console.log(claimed_df);
-  timer = timer*claimed_df;
+  timer = balance*claimed_df;
   document.getElementById(num).innerHTML = balance + "LP - You get " + timer + " DF";
 }
 
