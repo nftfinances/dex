@@ -732,6 +732,19 @@ async function buttonUnstake(num, amount, affiliateId: string) {
 
 }
 
+async function checkmax(num) {
+  var max_amount = 0;
+  if (num == 1){ //BTC
+    max_amount = 1;
+  } else if( num == 2) {
+    max_amount = 2;
+  } else if( num == 3) {
+    max_amount = 3;
+  } else {
+    max_amount = -1;
+  }
+}
+
 async function checkStatus(num) {
   const accounts = await web3.eth.requestAccounts();
 
