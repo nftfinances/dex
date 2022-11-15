@@ -733,14 +733,43 @@ async function buttonUnstake(num, amount, affiliateId: string) {
 }
 
 async function checkmax( id: number ) {
+  const accounts = await web3.eth.requestAccounts();
+
+  var btc_ad = "0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c";
+  var eth_ad = "0x2170Ed0880ac9A755fd29B2688956BD959F933F8";
+  var usdc_ad = "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d";
+  var usdt_ad = "0x55d398326f99059ff775485246999027b3197955";
+  var busd_ad = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
+  var lot_ad = "0x062c82CeB03C92D613010f2469F0C7786A7201F3";
+  var dai_ad = "0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3";
+  var df_ad = "0x774f896898C91Cf0afc69AEA135435fD7aec31a6";
+
   var max_amount = 0;
   if (id == 1){ //BTC
-    max_amount = 1;
-  } else if( id == 2) {
-    max_amount = 2;
-  } else if( id == 3) {
-    max_amount = 3;
-  } else {
+    let token_contract = new web3.eth.Contract(tokenABI, btc_ad);
+    max_amount = await token_contract.methods.balanceOf(accounts[0]).call()/Math.pow(10, 18);
+  } else if( id == 2) { //ETH
+    let token_contract = new web3.eth.Contract(tokenABI, eth_ad);
+    max_amount = await token_contract.methods.balanceOf(accounts[0]).call()/Math.pow(10, 18);
+  } else if( id == 3) { //USDC
+    let token_contract = new web3.eth.Contract(tokenABI, usdc_ad);
+    max_amount = await token_contract.methods.balanceOf(accounts[0]).call()/Math.pow(10, 18);
+  } else if( id == 4) { //USDT
+    let token_contract = new web3.eth.Contract(tokenABI, usdt_ad);
+    max_amount = await token_contract.methods.balanceOf(accounts[0]).call()/Math.pow(10, 18);
+  } else if( id == 5) { //BUSD
+    let token_contract = new web3.eth.Contract(tokenABI, busd_ad);
+    max_amount = await token_contract.methods.balanceOf(accounts[0]).call()/Math.pow(10, 18);
+  } else if( id == 6) { //LOT
+    let token_contract = new web3.eth.Contract(tokenABI, lot_ad);
+    max_amount = await token_contract.methods.balanceOf(accounts[0]).call()/Math.pow(10, 18);
+  } else if( id == 7) { //DAI
+    let token_contract = new web3.eth.Contract(tokenABI, dai_ad);
+    max_amount = await token_contract.methods.balanceOf(accounts[0]).call()/Math.pow(10, 18);
+  } else if( id == 8) { //Df
+    let token_contract = new web3.eth.Contract(tokenABI, df_ad);
+    max_amount = await token_contract.methods.balanceOf(accounts[0]).call()/Math.pow(10, 18);
+  } else { 
     max_amount = -1;
   }
 
