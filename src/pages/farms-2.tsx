@@ -1185,7 +1185,6 @@ const FarmsPage: NextPageWithLayout = () => {
                     <span>(0.03% of pool)</span>
                   </div>
                   <div className="relative">
-                    {inputValues.find( ( item ) => item.id === farm.id )?.value}
                     <input
                       value={ inputValues.find( ( item ) => item.id === farm.id )?.value }
                       onChange={ ( event ) => setValue( farm.id, + event.target.value ) }
