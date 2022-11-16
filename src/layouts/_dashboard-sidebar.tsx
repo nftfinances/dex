@@ -39,11 +39,6 @@ const menuItems = [
     icon: <CompassIcon />,
     href: routes.farmsTwo,
   },
-  {
-    name: 'AFFILIATES',
-    icon: <DiskIcon />,
-    href: routes.nftDetails,
-  },
 ];
 
 type SidebarProps = {
