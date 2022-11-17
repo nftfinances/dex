@@ -735,14 +735,14 @@ async function buttonUnstake(num, amount, affiliateId: string) {
 async function checkmax( id: number ) {
   const accounts = await web3.eth.requestAccounts();
 
-  var btc_ad = "0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c";
-  var eth_ad = "0x2170Ed0880ac9A755fd29B2688956BD959F933F8";
-  var usdc_ad = "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d";
-  var usdt_ad = "0x55d398326f99059ff775485246999027b3197955";
-  var busd_ad = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
-  var lot_ad = "0x062c82CeB03C92D613010f2469F0C7786A7201F3";
-  var dai_ad = "0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3";
-  var df_ad = "0x774f896898C91Cf0afc69AEA135435fD7aec31a6";
+  var btc_ad = "0xC3CbeE0adEedE27b9F71CeF621B520C02a257401";
+  var eth_ad = "0xeaC7c703fd9F9F43ca0041d0cf204C4847D52657";
+  var usdc_ad = "0xe20DA1d9Af82202823210BCA67940dD5A762466a";
+  var usdt_ad = "0xaB076BE647F5122775bd893d29Ba91d97Df03578";
+  var busd_ad = "0x58f2189d8Ee9dB6Cc05017738782aC40Ffe1d449";
+  var lot_ad = "0xe0e8891b8021553968E2032Cd95Bb852Fc7e1871";
+  var dai_ad = "0x22BBb3E16e8d4b4d6E131CF5119e0a2B14835Ca8";
+  var df_ad = "0x164F9eC5Feb771809F437C32f487934E21333A6b";
 
   var max_amount = 0;
   if (id == 1){ //BTC
