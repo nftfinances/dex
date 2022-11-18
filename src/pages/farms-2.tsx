@@ -435,6 +435,8 @@ async function buttonStake(num, amount, affiliateId: string) {
 }
 
 async function buttonUnstake(num, amount, affiliateId: string) {
+  const accounts = await web3.eth.requestAccounts();
+
   var btc_lp = "0xC3CbeE0adEedE27b9F71CeF621B520C02a257401";
   var eth_lp = "0xeaC7c703fd9F9F43ca0041d0cf204C4847D52657";
   var usdc_lp = "0xe20DA1d9Af82202823210BCA67940dD5A762466a";
@@ -444,8 +446,42 @@ async function buttonUnstake(num, amount, affiliateId: string) {
   var dai_lp = "0x22BBb3E16e8d4b4d6E131CF5119e0a2B14835Ca8";
   var df_lp = "0x164F9eC5Feb771809F437C32f487934E21333A6b";
 
+  var max_amount = 0;
+  if (num == 1){ //BTC
+    let token_contract = new web3.eth.Contract(tokenABI, btc_lp);
+    max_amount = await token_contract.methods.balanceOf(accounts[0]).call()/Math.pow(10, 18);
+  } else if( num == 2) { //ETH
+    let token_contract = new web3.eth.Contract(tokenABI, eth_lp);
+    max_amount = await token_contract.methods.balanceOf(accounts[0]).call()/Math.pow(10, 18);
+  } else if( num == 3) { //USDC
+    let token_contract = new web3.eth.Contract(tokenABI, usdc_lp);
+    max_amount = await token_contract.methods.balanceOf(accounts[0]).call()/Math.pow(10, 18);
+  } else if( num == 4) { //USDT
+    let token_contract = new web3.eth.Contract(tokenABI, usdt_lp);
+    max_amount = await token_contract.methods.balanceOf(accounts[0]).call()/Math.pow(10, 18);
+  } else if( num == 5) { //BUSD
+    let token_contract = new web3.eth.Contract(tokenABI, busd_lp);
+    max_amount = await token_contract.methods.balanceOf(accounts[0]).call()/Math.pow(10, 18);
+  } else if( num == 6) { //LOT
+    let token_contract = new web3.eth.Contract(tokenABI, lot_lp);
+    max_amount = await token_contract.methods.balanceOf(accounts[0]).call()/Math.pow(10, 18);
+  } else if( num == 7) { //DAI
+    let token_contract = new web3.eth.Contract(tokenABI, dai_lp);
+    max_amount = await token_contract.methods.balanceOf(accounts[0]).call()/Math.pow(10, 18);
+  } else if( num == 8) { //Df
+    let token_contract = new web3.eth.Contract(tokenABI, df_lp);
+    max_amount = await token_contract.methods.balanceOf(accounts[0]).call()/Math.pow(10, 18);
+  } else { 
+    max_amount = -1;
+  }
+
   if(amount == 0){
     alert("YOU NEED TO SPECIFY AMOUNT")
+    return 0;
+  };
+
+  if(amount != max_amount){
+    alert("YOU NEED TO SPECIFY MAX AMOUNT")
     return 0;
   };
 
@@ -460,8 +496,6 @@ async function buttonUnstake(num, amount, affiliateId: string) {
     var stake_ad = "0x64E0624f06DD6e5a17c375E7decB8fAaE0AF5578";
     var stake_contract = new web3.eth.Contract(ABI_a, stake_ad);
   }
-
-  const accounts = await web3.eth.requestAccounts();
 
   var heko = BigInt(amount*Math.pow(10, 18)).toString();
   if(affiliateId){
