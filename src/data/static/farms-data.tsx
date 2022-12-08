@@ -92,4 +92,14 @@ export const FarmsData: FarmData[] = [
     multiplier: 34,
     live_status: 'LIVE',
   },
+  {
+    id: 9,
+    from: 'ATOM',
+    to: '' as CoinList,
+    earned: 0,
+    apr: 22.0,
+    liquidity: 8324,
+    multiplier: 34,
+    live_status: 'LIVE',
+  },
 ];
