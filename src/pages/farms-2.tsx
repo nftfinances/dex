@@ -22,6 +22,7 @@ import ABI_c from "@/contracts/singlestake3.json";
 import tokenABI from "@/contracts/token.json";
 import Web3 from "web3";
 import { useAffiliateId } from '@/hooks/use-affiliate-id';
+import { number } from 'yup';
 
 
 const abi = ABI;
@@ -1223,15 +1224,16 @@ const FarmsPage: NextPageWithLayout = () => {
   }, [ statusFilter, nameFilter, sortId ] );
 
   const [ inputValues, setInputValues ] = useState( FarmsData.map( ( item ) => ( {
-    id: item.id,
-    value: 0,
-  } ) ) );
-  const setValue = useCallback( ( farmId: number, value: number ) => {
+      id: item.id,
+      value: '',
+    } ) ) );
+  const setValue = useCallback( ( farmId: number, value: string ) => {
 
     const newValues = [ ...inputValues ];
     const index = newValues.findIndex( ( item ) => item.id === farmId );
     if ( index === - 1 ) return;
     newValues[ index ].value = value;
+    console.log(newValues[ index ].value);
     setInputValues( newValues );
 
   }, [ inputValues ] );
@@ -1313,7 +1315,7 @@ const FarmsPage: NextPageWithLayout = () => {
                   <div className="relative">
                     <input
                       value={ inputValues.find( ( item ) => item.id === farm.id )?.value }
-                      onChange={ ( event ) => setValue( farm.id, + event.target.value ) }
+                      onChange={ ( event ) => setValue( farm.id, event.target.value ) }
                       type="number"
                       placeholder="0.0"
                       className="spin-button-hidden h-13 w-full appearance-none rounded-lg border-solid border-gray-200 bg-body px-4 text-sm tracking-tighter text-gray-900 placeholder:text-gray-600 focus:border-gray-900 focus:shadow-none focus:outline-none focus:ring-0 dark:border-gray-700 dark:bg-gray-900 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-gray-600"
@@ -1321,7 +1323,7 @@ const FarmsPage: NextPageWithLayout = () => {
                     <button
                       className="absolute top-1/2 -translate-y-1/2 rounded-lg border border-solid bg-gray-100 px-2 py-1 text-xs uppercase text-gray-900 ltr:right-3 rtl:left-3 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
                       type="button"
-                      onClick={ () => checkmax( farm.id ).then( ( value ) => setValue( farm.id, value ) ) }
+                      onClick={ () => checkmax( farm.id ).then( ( value ) => setValue( farm.id, `${ value }` ) ) }
                     >
                       Max
                     </button>
