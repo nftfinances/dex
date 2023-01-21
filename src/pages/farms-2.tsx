@@ -556,7 +556,8 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var lp_num = amount;
       var claimed_df = lp_num*apy_a*0.000000472; //WBTC
       console.log(claimed_df);
-      var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
+      var BTC_PRICE = 30000;
+      var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df*BTC_PRICE)).toString();
       var dataFie = stake_contract.methods.unpool_wbtc(heko, claimed_heko, affiliateId).encodeABI(); 
       console.log("UNPOOL BTC");
     } else if( num == 2) { //AFFI------------------------------------------------------apy_b_WETH
@@ -571,7 +572,8 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var lp_num = amount;
       var claimed_df = lp_num*apy_b*0.000000667; //WETH
       console.log(claimed_df);
-      var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
+      var ETH_PRICE = 1800;
+      var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df*ETH_PRICE)).toString();
       var dataFie = stake_contract.methods.unpool_weth(heko, claimed_heko, affiliateId).encodeABI(); 
       console.log("UNPOOL WETH");
     } else if( num == 3) { //AFFI------------------------------------------------------apy_d_USDC
@@ -672,12 +674,13 @@ async function buttonUnstake(num, amount, affiliateId: string) {
         alert("YOU NEED TO POOL")
         return 0;
       };
-      let LP_token = new web3.eth.Contract(tokenABI, atom_lp); //DF
+      let LP_token = new web3.eth.Contract(tokenABI, atom_lp); //ATOM
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
       var lp_num = amount;
-      var claimed_df = lp_num*apy_e*0.0000004186; //DF
+      var claimed_df = lp_num*apy_e*0.0000004186; //ATOM
       console.log(claimed_df);
-      var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
+      var ATOM_PRICE = 15;
+      var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df*ATOM_PRICE)).toString();
       var dataFie = stake_contract.methods.unpool_atom(heko, claimed_heko, affiliateId).encodeABI(); 
       console.log("UNPOOL ATOM");
     } else {
@@ -696,7 +699,8 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var lp_num = amount;
       var claimed_df = lp_num*apy_a*0.000000472; //WBTC
       console.log(claimed_df);
-      var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
+      var BTC_PRICE = 30000;
+      var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df*BTC_PRICE)).toString();
       var dataFie = stake_contract.methods.unpool_wbtc(heko, claimed_heko, 0).encodeABI(); 
       console.log("UNPOOL BTC");
     } else if( num == 2) { //NON--AFFI-----------------------------------------------------apy_b_WETH
@@ -711,7 +715,8 @@ async function buttonUnstake(num, amount, affiliateId: string) {
       var lp_num = amount;
       var claimed_df = lp_num*apy_b*0.000000667; //WETH
       console.log(claimed_df);
-      var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
+      var ETH_PRICE = 1800;
+      var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df*ETH_PRICE)).toString();
       var dataFie = stake_contract.methods.unpool_weth(heko, claimed_heko, 0).encodeABI(); 
       console.log("UNPOOL WETH");
     } else if( num == 3) { //NON--AFFI------------------------------------------------------apy_d_USDC
@@ -811,12 +816,13 @@ async function buttonUnstake(num, amount, affiliateId: string) {
         alert("YOU NEED TO POOL")
         return 0;
       };
-      let LP_token = new web3.eth.Contract(tokenABI, atom_lp); //DF
+      let LP_token = new web3.eth.Contract(tokenABI, atom_lp); //ATOM
       var lp_num = await LP_token.methods.balanceOf(accounts[0]).call();
       var lp_num = amount;
-      var claimed_df = lp_num*apy_e*0.0000004186; //DF
+      var claimed_df = lp_num*apy_e*0.0000004186; //ATOM
       console.log(claimed_df);
-      var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df)).toString();
+      var ATOM_PRICE = 15;
+      var claimed_heko = BigInt(Math.round(Math.pow(10, 18)*claimed_df*ATOM_PRICE)).toString();
       var dataFie = stake_contract.methods.unpool_atom(heko, claimed_heko, 0).encodeABI(); 
       console.log("UNPOOL ATOM");
     
@@ -929,7 +935,8 @@ async function checkStatus(num) {
     if (timer > 27692966){
       timer = 0;
     }
-    var claimed_df = timer*0.000000672; //BTC
+    var BTC_PRICE = 1800;
+    var claimed_df = timer*0.000000672*BTC_PRICE; //BTC
     console.log("BTC");
   } else if( num == 2) { //WETH
     var token_add = eth_lp;
@@ -937,7 +944,8 @@ async function checkStatus(num) {
     if (timer > 27692966){
       timer = 0;
     }
-    var claimed_df = timer*0.000000672; //ETH
+    var ETH_PRICE = 1800;
+    var claimed_df = timer*0.000000672*ETH_PRICE; //ETH
   } else if( num == 3) { //USDC__apy_d
     var token_add = usdc_lp;
     var timer = await stake_contract.methods.check_apy_d(accounts[0]).call(); 
@@ -998,7 +1006,8 @@ async function checkStatus(num) {
     if (timer > 27692966){
       timer = 0;
     }
-    var claimed_df = timer*0.0000004186; //DF
+    var ATOM_PRICE = 15;
+    var claimed_df = timer*0.0000004186*ATOM_PRICE; //ATOM
     console.log("ATOM");
   } else {
     console.log("NOT REGISTERED ADD")
