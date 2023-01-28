@@ -42,8 +42,8 @@ const HomePage: NextPageWithLayout<
   return (
     <>
       <NextSeo
-        title="DREAM FINANCE"
-        description="DREAM FINANCE INNOVATIVE WEB3 DEX"
+        title="NFT FINANCE"
+        description="NFT FINANCE INNOVATIVE WEB3 DEX"
       />
       <DashboardLayout>
         <div className="flex flex-wrap">
