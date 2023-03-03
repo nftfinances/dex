@@ -79,17 +79,6 @@ export default function TradeLayout({ children }: React.PropsWithChildren<{}>) {
                 onSelect={(path) => handleRouteOnSelect(path)}
                 className="w-full"
               >
-                <AnchorLink
-                  href={routes.charts}
-                  className="inline-flex items-center justify-between gap-1.5 rounded-md px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700/70"
-                >
-                  Charts
-                  <ExportIcon className="h-auto w-2.5" />
-                </AnchorLink>
-                <button className="inline-flex items-center justify-between gap-1.5 rounded-md px-3 py-2 uppercase text-gray-900 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-700/70">
-                  Settings
-                  <RangeIcon className="h-auto w-3" />
-                </button>
               </Listbox>
             )}
             <div className="hidden items-center justify-between text-gray-600 dark:text-gray-400 sm:flex">
