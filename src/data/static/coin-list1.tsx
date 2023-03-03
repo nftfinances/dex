@@ -21,7 +21,7 @@ export const coinList = [
   },
   {
     icon: <Doge />,
-    code: 'DF',
-    name: 'DF TOKEN',
+    code: 'NF',
+    name: 'NF TOKEN',
   },
 ];

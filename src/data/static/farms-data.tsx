@@ -84,7 +84,7 @@ export const FarmsData: FarmData[] = [
   },
   {
     id: 8,
-    from: 'DF',
+    from: 'NF',
     to: '' as CoinList,
     earned: 0,
     apr: 25.0,

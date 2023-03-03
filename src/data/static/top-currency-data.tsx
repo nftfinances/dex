@@ -66,7 +66,7 @@ export const TopCurrencyData = [
   },
   {
     id: 4,
-    coin: { icon: <Cardano />, symbol: 'PB', name: 'PB TOKEN' },
+    coin: { icon: <Cardano />, symbol: 'LB', name: 'LB TOKEN' },
     prices: [
       { name: 1, value: 25187.44 },
       { name: 2, value: 21356.99 },
@@ -85,7 +85,7 @@ export const TopCurrencyData = [
   },
   {
     id: 5,
-    coin: { icon: <Doge />, symbol: 'DF', name: 'DF TOKEN' },
+    coin: { icon: <Doge />, symbol: 'NF', name: 'NF TOKEN' },
     prices: [
       { name: 1, value: 9187.44 },
       { name: 2, value: 21356.99 },
