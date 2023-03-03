@@ -26,8 +26,8 @@ const tradeMenu = [
     value: routes.liquidity,
   },
   {
-    name: 'PEGA',
-    value: "https://dream-finances.herokuapp.com/home/pega",
+    name: 'LION',
+    value: "https://nft-finance.herokuapp.com/home/lion",
   },
 ];
 

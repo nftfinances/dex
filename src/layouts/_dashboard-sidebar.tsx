@@ -30,9 +30,9 @@ const menuItems = [
     href: routes.liquidity,
   },
   {
-    name: 'PEGA',
+    name: 'LION',
     icon: <FarmIcon />,
-    href: "https://dream-finances.herokuapp.com/home/pega",
+    href: "https://nft-finance.herokuapp.com/home/lion",
   },
   {
     name: 'FARM',
