@@ -12,8 +12,8 @@ export const CURRENCY_CODE = {
 	[ CURRENCY_ID.USDT ]: 'USDT',
 	[ CURRENCY_ID.USDC ]: 'USDC',
 	[ CURRENCY_ID.BUSD ]: 'BUSD',
-	[ CURRENCY_ID.PB ]: 'PB',
-	[ CURRENCY_ID.DF ]: 'DF',
+	[ CURRENCY_ID.PB ]: 'LB',
+	[ CURRENCY_ID.DF ]: 'NF',
 } as const;
 
 export type CURRENCY_CODE = typeof CURRENCY_CODE[ keyof typeof CURRENCY_CODE ];
