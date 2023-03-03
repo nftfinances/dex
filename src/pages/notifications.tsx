@@ -8,7 +8,7 @@ import NotificationCard, {
 } from '@/components/ui/notification-card';
 
 //images
-import User1 from '@/assets/images/avatar/df_logo.png';
+import User1 from '@/assets/images/avatar/nft_logo.png';
 import Image from '@/components/ui/image';
 import { url } from 'inspector';
 
@@ -17,7 +17,7 @@ const notifications = [
     id: 1,
     type: 'Started',
     actor: {
-      name: 'DREAM FINANCE ADMIN',
+      name: 'NFT FINANCE ADMIN',
       avatar: User1,
     },
     time: 'Just Now',
@@ -31,7 +31,7 @@ const NotificationPage: NextPageWithLayout = () => {
     <>
       <NextSeo
         title="Notifications"
-        description="Criptic - React Next Web3 NFT Crypto Dashboard Template"
+        description="NFT FINANCE"
       />
       <DashboardLayout>
         <div className="mx-auto w-[660px] max-w-full">
