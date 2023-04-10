@@ -20,12 +20,12 @@ const menuItems = [
     href: routes.home,
   },
   {
-    name: 'Swap',
+    name: 'SWAP',
     icon: <ExchangeIcon />,
     href: routes.swap,
   },
   {
-    name: 'Liquidity',
+    name: 'STAKING',
     icon: <PoolIcon />,
     href: routes.liquidity,
   },
