@@ -63,16 +63,6 @@ export const FarmsData: FarmData[] = [
     live_status: 'FINISHED',
   },
   {
-    id: 6,
-    from: 'LOT',
-    to: '' as CoinList,
-    earned: 0,
-    apr: 18.0,
-    liquidity: 13293,
-    multiplier: 34,
-    live_status: 'LIVE',
-  },
-  {
     id: 7,
     from: 'DAI',
     to: '' as CoinList,

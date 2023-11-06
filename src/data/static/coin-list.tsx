@@ -32,9 +32,4 @@ export const coinList: CoinType[] = [
     icon: <Doge />,
     name: 'NF TOKEN',
   },
-  {
-    id: CURRENCY_ID.PB,
-    icon: <PB />,
-    name: 'LB TOKEN',
-  },
 ];

@@ -3,7 +3,7 @@ export const TransactionData = [
     id: 0,
     transactionType: 'Buy',
     createdAt: '12 july 2022',
-    symbol: 'DF',
+    symbol: 'NF',
     status: 'Pending',
     address: '0898hshiw36...',
     amount: {
@@ -15,7 +15,7 @@ export const TransactionData = [
     id: 1,
     transactionType: 'Sell',
     createdAt: '13 july 2022',
-    symbol: 'DF',
+    symbol: 'NF',
     status: 'Pending',
     address: '0898hshiw36...',
     amount: {
@@ -27,7 +27,7 @@ export const TransactionData = [
     id: 2,
     transactionType: 'Buy',
     createdAt: '14 july 2022',
-    symbol: 'DF',
+    symbol: 'NF',
     status: 'Pending',
     address: '0898hshiw36...',
     amount: {
@@ -39,7 +39,7 @@ export const TransactionData = [
     id: 3,
     transactionType: 'Sell',
     createdAt: '15 july 2022',
-    symbol: 'DF',
+    symbol: 'NF',
     status: 'Pending',
     address: '0898hshiw36...',
     amount: {
@@ -51,7 +51,7 @@ export const TransactionData = [
     id: 4,
     transactionType: 'Buy',
     createdAt: '16 july 2022',
-    symbol: 'DF',
+    symbol: 'NF',
     status: 'Pending',
     address: '0898hshiw36...',
     amount: {
@@ -63,7 +63,7 @@ export const TransactionData = [
     id: 5,
     transactionType: 'Buy',
     createdAt: '17 july 2022',
-    symbol: 'DF',
+    symbol: 'NF',
     status: 'Pending',
     address: '0898hshiw36...',
     amount: {
@@ -75,7 +75,7 @@ export const TransactionData = [
     id: 6,
     transactionType: 'Buy',
     createdAt: '18 july 2022',
-    symbol: 'DF',
+    symbol: 'NF',
     status: 'Pending',
     address: '0898hshiw36...',
     amount: {
@@ -87,7 +87,7 @@ export const TransactionData = [
     id: 7,
     transactionType: 'Buy',
     createdAt: '19 july 2022',
-    symbol: 'DF',
+    symbol: 'NF',
     status: 'Pending',
     address: '0898hshiw36...',
     amount: {
@@ -99,7 +99,7 @@ export const TransactionData = [
     id: 8,
     transactionType: 'Buy',
     createdAt: '20 july 2022',
-    symbol: 'DF',
+    symbol: 'NF',
     status: 'Pending',
     address: '0898hshiw36...',
     amount: {
@@ -111,7 +111,7 @@ export const TransactionData = [
     id: 9,
     transactionType: 'Buy',
     createdAt: '21 july 2022',
-    symbol: 'DF',
+    symbol: 'NF',
     status: 'Pending',
     address: '0898hshiw36...',
     amount: {
@@ -123,7 +123,7 @@ export const TransactionData = [
     id: 10,
     transactionType: 'Buy',
     createdAt: '22 july 2022',
-    symbol: 'DF',
+    symbol: 'NF',
     status: 'Pending',
     address: '0898hshiw36...',
     amount: {
@@ -135,7 +135,7 @@ export const TransactionData = [
     id: 11,
     transactionType: 'Buy',
     createdAt: '23 july 2022',
-    symbol: 'DF',
+    symbol: 'NF',
     status: 'Pending',
     address: '0898hshiw36...',
     amount: {
