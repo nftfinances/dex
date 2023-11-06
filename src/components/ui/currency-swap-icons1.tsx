@@ -4,11 +4,10 @@ import { Tether } from '@/components/icons/tether';
 import { Bnb } from '@/components/icons/bnb';
 import { Usdc } from '@/components/icons/usdc';
 import { Dai } from '@/components/icons/dai';
-import { Lot } from '@/components/icons/lot';
 import { Doge } from '@/components/icons/doge';
 import { Atom } from '@/components/icons/atom';
 
-export type CoinList = 'WBTC' | 'WETH' | 'USDT' | 'BUSD' | 'USDC' | 'LOT' | 'DAI' | 'ATOM';
+export type CoinList = 'WBTC' | 'WETH' | 'USDT' | 'BUSD' | 'USDC' | 'NF' |'DAI' | 'ATOM';
 
 const coinIcons: Record<CoinList, JSX.Element> = {
   WBTC: <Bitcoin />,
@@ -17,8 +16,7 @@ const coinIcons: Record<CoinList, JSX.Element> = {
   BUSD: <Bnb />,
   USDC: <Usdc />,
   DAI: <Dai />,
-  LOT: <Lot />,
-  DF: <Doge />,
+  NF: <Doge />,
   ATOM: <Atom />,
 };
 
