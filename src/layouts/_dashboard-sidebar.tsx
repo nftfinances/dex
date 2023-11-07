@@ -30,7 +30,7 @@ const menuItems = [
     href: routes.liquidity,
   },
   {
-    name: 'LION',
+    name: 'Monster',
     icon: <FarmIcon />,
     href: "https://nft-finance.herokuapp.com/home/lion",
   },

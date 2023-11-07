@@ -26,7 +26,7 @@ const tradeMenu = [
     value: routes.liquidity,
   },
   {
-    name: 'LION',
+    name: 'Monster',
     value: "https://nft-finance.herokuapp.com/home/lion",
   },
 ];
