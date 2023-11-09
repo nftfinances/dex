@@ -719,9 +719,9 @@ const LiquidityPage: NextPageWithLayout = () => {
                       <td><span id="stake_num2"></span>LP</td>
                   </tr>
                   <tr>
-                      <td><span id="stake_status"></span> DF </td>
-                      <td><span id="stake_status1"></span> DF</td>
-                      <td><span id="stake_status2"></span>DF</td>
+                      <td><span id="stake_status"></span> NF </td>
+                      <td><span id="stake_status1"></span> NF</td>
+                      <td><span id="stake_status2"></span>NF</td>
                   </tr>
               </tbody>
           </table>
